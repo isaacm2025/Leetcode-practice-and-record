@@ -1,2 +1,2 @@
-# Leetcode-personal-study-and-pratice
+# Leetcode-personal-study-and-practice
 personal record of learning for leetcode
