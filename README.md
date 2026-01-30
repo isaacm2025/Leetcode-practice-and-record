@@ -1,2 +1,2 @@
-# Leetcode-personal-study-and-practice
-personal record of learning for leetcode
+# Leetcode-study-and-practice
+Personal record of learning for leetcode since Jan 30. 2026
