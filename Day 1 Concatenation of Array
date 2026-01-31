@@ -31,7 +31,44 @@ class Solution:
         return ans
     
 #if three concatenation 121, 121, 121
-#O(2n) time complexity
+#O(n) time complexity
+#The runtime grows linearly with the size of the input.
+'''
+n = length of nums
+
+You loop through the array once
+
+If nums has:
+
+5 elements → ~5 operations
+
+1,000 elements → ~1,000 operations
+'''
+
+#O(n) space complexity
+
+'''
+What it means:
+The amount of extra memory used grows linearly with the input size.
+
+In this problem
+
+You create a new array ans of size 2n
+
+Memory used depends on n
+
+Even though it’s 2n, we drop constants in Big-O:
+
+O(2n) → O(n)
+'''
+
+'''Imagine nums is a line of people:
+
+Time O(n) → you look at each person once
+
+Space O(n) → you build another line of the same size'''
+
+
 
 class Solution:
     def getConcatenation(self, nums: List[int], x) -> List[int]:
@@ -41,3 +78,6 @@ class Solution:
             for n in nums:
                 ans.append(n)
         return ans  
+
+'''“The algorithm iterates through the array once, so the time complexity is O(n).
+We also create a new array proportional to the input size, so the space complexity is O(n).”'''
