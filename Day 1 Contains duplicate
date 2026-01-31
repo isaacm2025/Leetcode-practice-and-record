@@ -62,7 +62,17 @@ class Solution:
                 return True # True if duplicate found, False if not
             seen.add(num)   #add the element to the set
         return False # no duplicates found
+
+class Solution:
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        return len(nums) != len(set(nums))
     
+'''set(nums) removes duplicates from nums
+compare lengths: len(nums) and len(set(nums))
+if lengths are different, duplicates were present in nums
+if lengths are the same, no duplicates existed, return False'''
+
+
 
 '''To detect duplicates efficiently, we need a data structure that:
 
