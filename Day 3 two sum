@@ -65,7 +65,7 @@ class Solution:
 # Time Complexity: O(n log n) due to sorting
 # Space Complexity: O(n) for the additional array
 
-#hash map approach
+#hash map approach (two pass)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         hashmap = {}
@@ -80,3 +80,17 @@ class Solution:
 # Time Complexity: O(n)
 # Space Complexity: O(n) for the hashmap
         
+#hash map approach (one pass)
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        hashmap = {}
+        for i, n in enumerate(nums):
+            diff = target - n
+            if diff in hashmap:
+                return [hashmap[diff], i]
+            hashmap[n] = i  # Store the number and its index in the hashmap
+            hashmap[n] = i
+
+        return []
+# Time Complexity: O(n)
+# Space Complexity: O(n) for the hashmap
