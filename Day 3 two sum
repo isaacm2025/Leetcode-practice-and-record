@@ -47,20 +47,19 @@ class Solution:
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         A=[]
-        for i in enumerate(nums):
+        for i, num in enumerate(nums): # Create an array of pairs (number, original index)
             A.append([num, i])
 
         A.sort()
-        i, j = 0, len(nums) - 1
+        i, j = 0, len(nums) - 1 # two pointers
         while i < j:
-            cur = A[i][0] + A[j][0]
-            if cur == target:
-                return [min(A[i][1],A[j][1]),
-                        max(A[i][1],A[j][1])]
-            elif cur < target:
-                i+= 1
-            else:
-                j -= 1
+            cur = A[i][0] + A[j][0] # sum of the two numbers at indices i and j
+            if cur == target: #if sum matches target
+                return [A[i][1], A[j][1]]  #return original indices
+            elif cur < target: #move left pointer to right
+                i+= 1 #move right pointer to left
+            else: # move right pointer to left
+                j -= 1 # move left pointer to right
         return []
 # Time Complexity: O(n log n) due to sorting
 # Space Complexity: O(n) for the additional array
@@ -69,28 +68,27 @@ class Solution:
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         hashmap = {}
-        for i, n in enumerate(nums):
+        for i, n in enumerate(nums): # First pass: build the hashmap
             hashmap[n] = i  # Store the number and its index in the hashmap
 
-        for i, n in enumerate(nums):
+        for i, n in enumerate(nums): # Second pass: check for the complement
             diff = target - n
             if diff in hashmap and hashmap[diff] != i:
-                return [hashmap[diff], i]
-        return []
+                return [hashmap[diff], i] # Return indices of the two numbers
+        return [] # No valid pair found
 # Time Complexity: O(n)
 # Space Complexity: O(n) for the hashmap
         
 #hash map approach (one pass)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        hashmap = {}
-        for i, n in enumerate(nums):
-            diff = target - n
-            if diff in hashmap:
-                return [hashmap[diff], i]
+        hashmap = {} # Initialize an empty hashmap
+        for i, n in enumerate(nums): # Single pass through the array
+            diff = target - n # Calculate the complement
+            if diff in hashmap: # If complement exists in hashmap, return indices
+                return [hashmap[diff], i] 
             hashmap[n] = i  # Store the number and its index in the hashmap
-            hashmap[n] = i
 
-        return []
+        return [] # No valid pair found
 # Time Complexity: O(n)
 # Space Complexity: O(n) for the hashmap
