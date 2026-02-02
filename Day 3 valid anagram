@@ -71,5 +71,6 @@ class Solution:
                 return False
         return True
 
-# Time Complexity: O(n) where n is the length of the strings
-# Space Complexity: O(1) since the size of the count array is fixed (26
+# Time Complexity: O(n+m) where n is the length of the strings
+# Space Complexity: O(1) since the size of the count array is fixed (26)
+
