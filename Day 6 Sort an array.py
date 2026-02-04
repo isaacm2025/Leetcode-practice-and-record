@@ -18,6 +18,9 @@ Constraints:
 -50,000 <= nums[i] <= 50,000'''
 
 #quick sort
+from typing import List
+
+
 class Solution:
     def partition(self, nums: List[int], left: int, right: int) -> int:
         mid = (left + right) >> 1
@@ -107,4 +110,83 @@ class Solution:
     
     #time complexity: O(nlog(n))
     #space complexity: O(n) due to temporary arrays used in merging
+
+
+    #Heap sort approach can also be used to solve this problem with O(1) space complexity.
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.heapSort(nums)
+        return nums
+    def heapify(self, arr, n, i):
+        l = (i << 1) + 1
+        r = (i << 1) + 2
+        largestNode = i
+
+        if l < n and arr[l] > arr[largestNode]:
+            largestNode = l
+        if r < n and arr[r] > arr[largestNode]:
+            largestNode = r
+        if largestNode != i:
+            arr[i], arr[largestNode] = arr[largestNode], arr[i]
+            self.heapify(arr, n, largestNode)
+
+    def heapSort(self, arr):
+        n = len(arr)
+
+        for i in range(n//2 - 1, -1, -1):
+            self.heapify(arr, n, i)
+        for i in range(n - 1, 0, -1):
+            arr[0], arr[i] = arr[i], arr[0]
+            self.heapify(arr, i, 0)
+
+    #time complexity: O(nlog(n))
+    #space complexity: O(log n) due to recursion stack in heapify function
+
+    #continue sorting
+    class Solution:
+        def sortArray(self, nums: List[int]) -> List[int]:
+            def counting_sort():
+                count = defaultdict(int)
+                minVal, maxVal = min(nums), max(nums)
+                for val in nums:
+                    count[val] += 1
+
+                index = 0
+                for val in range(minVal, maxVal + 1):
+                    while count[val] > 0:
+                        nums[index] = val
+                        index += 1
+                        count[val] -= 1
+
+            counting_sort()
+            return nums
         
+    #time complexity: O(n + k) where k is the range of the input values
+    #space complexity: O(n)
+
+    #shell sort approach
+    class Solution:
+        def sortArray(self, nums: List[int]) -> List[int]:
+            def shell_sort(nums, n):
+                gap = n // 2
+                while gap >= 1:
+                    for i in range(gap,n):
+                        temp = nums[i]
+                        j = i - gap
+                        while j >= 0 and nums[j] > temp:
+                            nums[j + gap] = nums[j]
+                            j -= gap
+                        nums[j + gap] = temp
+                    gap // = 2
+            n = len(nums)
+            if n == 1:
+                return nums
+            shell_sort(nums, n)
+            return nums
+    #time complexity: O(n log n) in average case
+    #space complexity: O(1)
+
+    
+        
+
+            
