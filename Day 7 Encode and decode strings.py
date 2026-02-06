@@ -51,6 +51,8 @@ strs[i] contains any possible characters out of 256 valid ASCII characters.
 
 Follow up: Could you write a generalized algorithm to work on any possible set of characters?'''
 
+from typing import List
+
 class Solution:
 
     def encode(self, strs: List[str]) -> str:
