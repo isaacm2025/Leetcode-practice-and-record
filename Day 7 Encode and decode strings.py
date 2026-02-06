@@ -54,37 +54,63 @@ Follow up: Could you write a generalized algorithm to work on any possible set o
 class Solution:
 
     def encode(self, strs: List[str]) -> str:
-        if not strs:
-            return ""
-        sizes, res = [], ""
-        for s in strs:
-            sizes.append(len(s))
-        for sz in sizes:
-            res += str(sz)
-            res += ','
-        res += '#'
-        for s in strs:
-            res += s
-        return res
+        if not strs: # edge case
+            return "" # edge case
+        sizes, res = [], "" # sizes to store lengths of strings
+        for s in strs: # iterate through strings
+            sizes.append(len(s)) # append lengths to sizes
+        for sz in sizes: # iterate through sizes
+            res += str(sz) # append size to result
+            res += ',' # delimiter
+        res += '#' # delimiter between sizes and strings
+        for s in strs: # iterate through strings
+            res += s # append strings to result
+        return res # return result
 
     def decode(self, s: str) -> List[str]:
-        if not s:
-            return []
-        sizes, res, i = [], [], 0
-        while s[i] != '#':
-            cur = ""
-            while s[i] != ',':
-                cur += s[i]
-                i += 1
-            sizes.append(int(cur))
-            i += 1
-        i += 1
-        for sz in sizes:
-            res.append(s[i:i+sz])
-            i += sz
-        return res
+        if not s:# edge case
+            return [] # edge case
+        sizes, res, i = [], [], 0 # sizes to store lengths of strings, res to store result strings, i as index
+        while s[i] != '#': # iterate until delimiter
+            cur = "" # current size string
+            while s[i] != ',': # iterate until delimiter
+                cur += s[i] # append character to current size
+                i += 1 # increment index
+            sizes.append(int(cur)) # append size to sizes
+            i += 1 # skip delimiter
+        i += 1 # skip '#'
+        for sz in sizes: # iterate through sizes
+            res.append(s[i:i+sz]) # append substring of size sz to result
+            i += sz # increment index by size
+        return res # return result
 #time complexity: O(N) for each encode and decode
 #space complexity: O(M+N) for each encode and decode where M is number of strings and N is total length of all strings
+
+#optimal soltion
+class Solution:
+
+    def encode(self, strs: List[str]) -> str:
+        res = ""
+        for s in strs:
+            res += str(len(s)) + "#" + s
+        return res
+    
+    def decode(self, s: str) -> List[str]:
+        res = []
+        i = 0
+
+        while i < len(s):
+            j = i
+            while s[j] != '#':
+                j += 1
+            length = int(s[i:j])
+            i = j + 1
+            j = i + length
+            res.append(s[i:j])
+            i = j
+        return res
+#time complexity: O(N) for each encode and decode
+#space complexity: O(M+N) for each encode and decode where M is number of
 
 
 
