@@ -28,16 +28,16 @@ Constraints:
 from typing import List
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        res = [0] * n
-        for i in range(n):
-            prod = 1
-            for j in range(n):
-                if i ==j:
-                    continue
-                prod *= nums[j]
-            res[i] = prod
-        return res
+        n = len(nums) # length of input array
+        res = [0] * n # result array
+        for i in range(n): # iterate through input array
+            prod = 1 # product variable
+            for j in range(n): # iterate through input array
+                if i ==j: # skip the current index
+                    continue # skip
+                prod *= nums[j] # multiply
+            res[i] = prod # assign product to result
+        return res # return result
 #time complexity: O(N^2)
 #space complexity: O(1) extra space, O(n) space foor output array
 
@@ -45,15 +45,15 @@ class Solution:
 from typing import List
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        res = [1] * (len(nums))
-        prefix = 1
-        for i in range(len(nums)):
-            res[i] = prefix
-            prefix *= nums[i]
-        postfix = 1
-        for i in range(len(nums) -1, -1, -1):
-            res[i] *= postfix
-            postfix *= nums[i]
-        return res
+        res = [1] * (len(nums)) # result array initialized to 1
+        prefix = 1 # prefix product
+        for i in range(len(nums)): # iterate through input array
+            res[i] = prefix # assign prefix product to result
+            prefix *= nums[i] # update prefix product
+        postfix = 1 # postfix product
+        for i in range(len(nums) -1, -1, -1): # iterate through input array in reverse
+            res[i] *= postfix # multiply postfix product to result
+            postfix *= nums[i] # update postfix product
+        return res # return result
 #time complexity: O(n)
 #space complexity: O(1) extra space, O(n) space for output array
