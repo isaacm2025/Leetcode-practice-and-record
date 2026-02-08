@@ -42,4 +42,6 @@ class NumMatrix:
                 res += self.matrix[r][c]
         return res
     
+#time complexity: O(m*n)
+#space complexity:O(1)
     
