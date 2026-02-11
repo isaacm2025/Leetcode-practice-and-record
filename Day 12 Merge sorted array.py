@@ -25,6 +25,7 @@ nums1.length == (m + n)
 nums2.length == n
 -1,000,000,000 <= nums1[i], nums2[i] <= 1,000,000,000'''
 
+from typing import List
 #sorting:
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
@@ -36,6 +37,51 @@ class Solution:
 
 #time complexity: O((m+n)log(m+n))
 #space complexity: O(1) or O(m+n)
+
+#three pointers with extra space
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        nums1_copy = nums1[:m]
+        idx = 0
+        i = j = 0
+        while idx < m + n:
+            if j >= n or (i < m and nums1_copy[i] <= nums2[j]):
+                nums1[idx] = nums1_copy[i]
+                i += 1
+            else:
+                nums1[idx] = nums2[j]
+                j += 1
+            idx += 1
+
+#time complexity: O(m+n)
+#space complexity: O(m)
+
+#three pointers
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        last = m + n - 1
+        i, j = m - 1, n - 1
+
+        while j >= 0:
+            if i >= 0 and nums1[i] > nums2[j]:
+                nums1[last] = nums1[i]
+                i -= 1
+            else:
+                nums1[last] = nums2[j]
+                j -= 1
+
+            last -= 1
+#time complexity: O(m+n)
+#space complexity: O(1)
+
+
+
 
 
        
