@@ -29,6 +29,7 @@ Constraints:
 -100 <= nums[i] <= 100
 nums is sorted in non-decreasing order.'''
 
+from typing import List
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
         unique = sorted(set(nums))
