@@ -44,6 +44,73 @@ class Solution:
 #n is the size of array nums, and m is the number oof quadruplets
 class Solution:
     def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        count = defaultdict(int)
+        for num in nums:
+            count[num] += 1
         
+        res =[]
+        for i in range(len(nums)):
+            count[nums[i]] -= 1
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+
+            for j in range(i + 1, len(nums)):
+                count[nums[j]] -= 1
+                if j > i + 1 and nums[j] == nums[j - 1]:
+                    continue
+
+                for k in range(j + 1, len(nums)):
+                    count[nums[k]] -= 1
+                    if k > j + 1 and nums[k] == nums[k - 1]:
+                        continue
+                    fourth = target - (nums[i] + nums[j] + nums[k])
+                    if count[fourth] > 0:
+                        res.append([nums[i], nums[j], nums[k], fourth])
+
+                for k in range(j + 1, len(nums)):
+                    count[nums[k]] += 1
+
+            for j in range(i + 1, len(nums)):
+                count[nums[j]] += 1
+
+        return res
+#time complexity: O(n^3)
+#space O(n) for hash map, O(m) for output array
+
+
+#two pointers
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        n = len(nums)
+        res = []
+
+        for i in range(n):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            for j in range(i + 1, n):
+                if j > i + 1 and nums[j] == nums[j - 1]:
+                    continue
+                left, right = j + 1, n - 1
+                while left < right:
+                    total = nums[i] + nums[j] + nums[left] + nums[right]
+                    if total == target:
+                        res.append([nums[i], nums[j], nums[left], nums[right]])
+                        left += 1
+                        right -= 1
+                        while left < right and nums[left] == nums[left - 1]:
+                            left += 1
+                        while left < right and nums[right] == nums[right + 1]:
+                            right -= 1
+                    elif total < target:
+                        left += 1
+                    else:
+                        right -= 1
+
+        return res
+    
+#time complexity: O(n^3)
+#space com: O(1) or O(n)
 
 
