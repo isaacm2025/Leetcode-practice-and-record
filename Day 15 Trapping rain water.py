@@ -49,7 +49,7 @@ class Solution:
         
         rightMax[n - 1] = height[n - 1]
         for i in range in(n - 2, -1, -1):
-            rightMax[i]] = max(rightMax[i + 1], height[i])
+            rightMax[i] = max(rightMax[i + 1], height[i])
 
         res = 0
         for i in range(n):
