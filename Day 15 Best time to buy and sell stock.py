@@ -57,7 +57,7 @@ class Solution:
 
 #Dynamic programming:
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    def maxProfit(self, prices: list[int]) -> int:
         maxP = 0
         minBuy = prices[0]
 
