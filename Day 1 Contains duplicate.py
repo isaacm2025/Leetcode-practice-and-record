@@ -23,6 +23,7 @@ Brute force: O(n^2) time complexity, n = length of nums
 
 space complexity O(1), dont need any extra space/memory
 '''
+from typing import List
 class Solution:
     def hasDuplicate(self, nums: List[int]) -> bool:
         for i in range(len(nums)): #loop through each element
@@ -65,7 +66,7 @@ class Solution:
 
 class Solution:
     def hasDuplicate(self, nums: List[int]) -> bool:
-        return len(nums) != len(set(nums))
+        return len(nums) != len(set(nums)) #set(nums) removes duplicates from nums
     
 '''set(nums) removes duplicates from nums
 compare lengths: len(nums) and len(set(nums))

@@ -18,6 +18,7 @@ Constraints:
 -50,000 <= nums[i] <= 50,000'''
 
 #quick sort
+from collections import defaultdict
 from typing import List
 
 
@@ -30,7 +31,7 @@ class Solution:
             nums[left], nums[right] = nums[right], nums[left]
         if nums[left + 1] > nums[right]:
             nums[left + 1], nums[right] = nums[right], nums[left + 1]
-        if nums[left] > nums[left + 1];
+        if nums[left] > nums[left + 1]:
             nums[left], nums[left + 1] = nums[left + 1], nums[left]
         
         pivot = nums[left + 1]
@@ -177,7 +178,7 @@ class Solution:
                             nums[j + gap] = nums[j]
                             j -= gap
                         nums[j + gap] = temp
-                    gap // = 2
+                    gap //= 2
             n = len(nums)
             if n == 1:
                 return nums

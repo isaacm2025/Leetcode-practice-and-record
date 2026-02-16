@@ -25,6 +25,7 @@ Constraints:
 -1000 <= numbers[i] <= 1000
 -1000 <= target <= 1000'''
 
+from collections import defaultdict
 from typing import List
 
 #brute Force:

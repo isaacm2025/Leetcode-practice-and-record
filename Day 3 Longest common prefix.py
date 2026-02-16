@@ -23,6 +23,7 @@ Constraints:
 0 <= strs[i].length <= 200
 strs[i] is made up of lowercase English letters if it is non-empty.
 '''
+from typing import List
 
 #Horizontal scanning
 class Solution:

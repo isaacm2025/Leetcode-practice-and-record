@@ -23,6 +23,7 @@ Constraints:
 -1,000,000,000 <= nums[i] <= 1,000,000,000
 -1,000,000,000 <= target <= 1,000,000,000'''
 
+from collections import defaultdict
 from typing import List
 #brute force:
 class Solution:

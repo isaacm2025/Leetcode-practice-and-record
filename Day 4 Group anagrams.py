@@ -23,6 +23,7 @@ Constraints:
 0 <= strs[i].length <= 100
 strs[i] is made up of lowercase English letters.'''
 
+from typing import List
 #sorting approach
 from collections import defaultdict #import defaultdict for easier grouping
 

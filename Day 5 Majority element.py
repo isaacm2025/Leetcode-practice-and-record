@@ -18,6 +18,7 @@ Constraints:
 -1,000,000,000 <= nums[i] <= 1,000,000,000
 Follow-up: Could you solve the problem in linear time and in O(1) space?
 '''
+from typing import List
 #brute force approach
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
@@ -38,7 +39,7 @@ class Solution:
 
         for num in nums: #traverse through nums
             count[num] += 1 #increment count of num
-            if max_count < coount[num]: #if current count is greater than max_count
+            if max_count < count[num]: #if current count is greater than max_count
                 res = num #update result
                 max_count = count[num] #update max_count
         return res

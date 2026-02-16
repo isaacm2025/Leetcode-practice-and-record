@@ -32,6 +32,8 @@ Constraints:
 3 <= nums.length <= 1000
 -10^5 <= nums[i] <= 10^5'''
 
+from collections import defaultdict
+from typing import List
 #brute force:
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
@@ -69,7 +71,7 @@ class Solution:
                     res.append([nums[i], nums[j], target])
 
             for j in range(i + 1, len(nums)):
-                continue[nums[j]] += 1
+                count[nums[j]] += 1
         return res
 #time c: O(n^2)
 #space c: O(n)

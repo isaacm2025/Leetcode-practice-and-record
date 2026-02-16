@@ -20,7 +20,7 @@ Constraints:
 1 <= nums.length <= 1000.
 1 <= nums[i] <= 1000
 '''
-
+from typing import List
 class Solution:
     def getConcatenation(self, nums: List[int]) -> List[int]:
         ans = []
@@ -72,12 +72,12 @@ Space O(n) → you build another line of the same size'''
 
 class Solution:
     def getConcatenation(self, nums: List[int], x) -> List[int]:
-        ans = []
+        ans = [] #to store the concatenated array
 
-        for i in range(x):
-            for n in nums:
-                ans.append(n)
-        return ans  
+        for i in range(x): #we can use a variable x to determine how many times we want to concatenate the array
+            for n in nums: #we can iterate through the nums array and append each element to the ans array
+                ans.append(n) #we can use the append() method to add elements to the end of the ans array
+        return ans  #we can return the ans array after concatenating it x times
 
 '''“The algorithm iterates through the array once, so the time complexity is O(n).
 We also create a new array proportional to the input size, so the space complexity is O(n).”'''

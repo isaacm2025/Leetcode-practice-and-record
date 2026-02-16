@@ -29,7 +29,7 @@ Constraints:
 -10,000,000 <= target <= 10,000,000
 Only one valid answer exists.'''
 
-
+from typing import List
 #brute force approach
 
 class Solution:
@@ -83,10 +83,10 @@ class Solution:
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         hashmap = {} # Initialize an empty hashmap
-        for i, n in enumerate(nums): # Single pass through the array
-            diff = target - n # Calculate the complement
-            if diff in hashmap: # If complement exists in hashmap, return indices
-                return [hashmap[diff], i] 
+        for i, n in enumerate(nums): # Iterate through the array once
+            diff = target - n # Calculate the complement (the number needed to reach the target)
+            if diff in hashmap: # Check if the complement exists in the hashmap
+                return [hashmap[diff], i] # If it exists, return the indices of the complement and the current number
             hashmap[n] = i  # Store the number and its index in the hashmap
 
         return [] # No valid pair found

@@ -23,7 +23,8 @@ Constraints:
 1 <= nums.length <= 10^4.
 -1000 <= nums[i] <= 1000
 1 <= k <= number of distinct elements in nums.'''
-
+import heapq
+from typing import List
 #sorting
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:

@@ -29,19 +29,19 @@ At most 10,000 calls will be made to add, remove, and contains.'''
 
 class MyHashSet:
 
-    def __init__(self):
-        self.data = []
+    def __init__(self): # Initialize your data structure here.
+        self.data = [] # Use a list to store the keys in the hash set
 
-    def add(self, key: int) -> None:
-        if key not in self.data:
-            self.data.append(key)
+    def add(self, key: int) -> None: # Add key to the set if it is not already present
+        if key not in self.data: # Check if the key is not already in the set to avoid duplicates
+            self.data.append(key) # If the key is not present, add it to the list
 
-    def remove(self, key: int) -> None:
-        if key in self.data:
-            self.data.remove(key)
+    def remove(self, key: int) -> None: # Remove key from the set if it is present
+        if key in self.data:# Check if the key is present in the set before trying to remove it
+            self.data.remove(key)#  If the key is present, remove it from the list
 
-    def contains(self, key: int) -> bool:
-        return key in self.data
+    def contains(self, key: int) -> bool:# Returns true if this set contains the specified element
+        return key in self.data # Check if the key is present in the list and return True or False accordingly
 #time complexity O(n) for each function call
 #space complexity O(n)
 
