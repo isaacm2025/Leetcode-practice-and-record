@@ -56,3 +56,4 @@ class Solution:
         return arr[l: l + k]
 #time com: O(log(n-k) + k)
 #space com: O(k) for the output array
+
