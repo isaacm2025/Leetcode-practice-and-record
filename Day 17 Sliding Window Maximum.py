@@ -37,3 +37,19 @@ class Solution:
 #time complexity: O(n * k)
 #space: O(1) extra space, O(n - k + 1), n is the length of array and k is the size of the window
 
+#Heap
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        heap = []
+        output = []
+        for i in range(len(nums)):
+            heapq.heappush(heap, (-nums[i], i))
+            if i >= k - 1:
+                while heap[0][1] <= i - k:
+                    heapq.heappop(heap)
+                    output.append(-heap[0][0])
+        return output
+#time complexity: O(n log n)
+#space com: O(n)
+
+
