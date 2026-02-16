@@ -62,7 +62,7 @@ class Solution:
         
         count = [0] * 26  # Since there are 26 lowercase English letters
         
-        for i in range(len(s):
+        for i in range(len(s)):
             count[ord(s[i]) - ord('a')] += 1  # Increment count for character in s
             count[ord(t[i]) - ord('a')] -= 1  # Decrement count for character in t
 
@@ -74,3 +74,4 @@ class Solution:
 # Time Complexity: O(n+m) where n is the length of the strings
 # Space Complexity: O(1) since the size of the count array is fixed (26)
 
+    

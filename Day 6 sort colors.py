@@ -26,6 +26,8 @@ Constraints:
 0 <= nums[i] <= 2.
 Follow up: Could you come up with a one-pass algorithm using only constant extra space?'''
 
+from typing import List
+
 #brute force
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
