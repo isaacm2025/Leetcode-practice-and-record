@@ -72,3 +72,42 @@ class MyQueue:
 # param_2 = obj.pop()
 # param_3 = obj.peek()
 # param_4 = obj.empty()
+
+#using two stacks (amortized complexity)
+class MyQueue:
+    def __init__(self):
+        self.s1 = [] #to keep track of the elements in the queue
+        self.s2 = [] #to help us with the pop and peek operations
+
+    def push(self, x: int) -> None:
+        self.s1.append(x) #we can add the new element to the top of stack1
+        
+
+    def pop(self) -> int:
+        if not self.s2: #we need to move all the elements from s1 to s2 to get the front element of the queue if s2 is empty
+            while self.s2: #we can move the elements from s1 to s2 using pop() to get the top element of s1
+                self.s2.append(self.s1.pop()) #we can move the elements from s1 to s2 using pop() to get the top element of s1
+        return self.s2.pop() #we can pop the front element of the queue using pop() to get the top element of s2
+
+
+    def peek(self) -> int:
+        if not self.s2: #we need to move all the elements from s1 to s2 to get the front element of the queue if s2 is empty
+            while self.s1: #we can move the elements from s1 to s2 using pop() to get the top element of s1
+                self.s2.append(self.s1.pop()) #we can move the elements from s1 to s2 using pop() to get the top element of s1
+        return self.s2[-1] #we can get the front element of the queue using s2[-1] to get the top element of s2
+    
+
+    def empty(self) -> bool:
+        return max(len(self.s1), len(self.s2)) == 0 #we can check if the queue is empty by checking if both s1 and s2 are empty
+    
+#time complexity: O(1) for initialize, push, pop, peek, and empty (amortized)
+#space complexity: O(n) because we are using two stacks to store the elements
+        
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
