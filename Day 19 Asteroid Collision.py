@@ -50,4 +50,27 @@ class Solution:
     #time complexity: O(n) because we are iterating through the asteroids list once and performing operations on the stack, which takes O(1) time
     #space complexity: O(n) because in the worst case, we could have all the asteroids in the stack if they are all moving in the same direction and do not collide with each other
 
+#without stack
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        n = len(asteroids)
+        j = -1
+
+        for a in asteroids:
+            while j >= 0 and asteroids[j] > 0 and a < 0:
+                if asteroids[j] > abs(a):
+                    a = 0
+                    break
+                elif asteroids[j] == abs(a):
+                    a = 0
+                    j -= 1
+                    break
+                else:
+                    j -= 1
+            if a:
+                j += 1
+                asteroids[j] = a
+        return asteroids[:j + 1]
     
+    #time complexity: O(n) because we are iterating through the asteroids list once and performing operations on the stack, which takes O(1) time
+    #space complexity:O(n) because in the worst case, we could have all the asteroids in the stack if they are all moving in the same direction and do not collide with each other
