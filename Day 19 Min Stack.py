@@ -63,3 +63,28 @@ class MinStack:
     #space complexity: O(n) for getMin() and O(1) for other functions
 
 
+#two stacks:
+class MinStack:
+
+    def __init__(self):
+        self.stack = [] #main stack to store all the elements
+        self.minStack = [] #stack to store the minimum element at each level of the main stack
+
+    def push(self, val: int) -> None:
+        self.stack.append(val) #push the value to the main stack
+        val = min(val, self.minStack[-1] if self.minSStack else val) #compare the value with the current minimum and push the smaller one to the minStack
+        self.minStack.append(val) #push the minimum value to the minStack
+        
+
+    def pop(self) -> None:
+        self.stack.pop() #pop the top element from the main stack
+        self.minStack.pop() #pop the top element from the minStack to maintain the correct minimum value for the remaining elements in the main stack
+
+    def top(self) -> int:
+        return self.stack[-1] #return the top element of the main stack
+        
+
+    def getMin(self) -> int:
+        return self.minStack[-1] #return the top element of the minStack which is the minimum element in the main stack
+    #time complexity: O(1) for all functions
+    #space complexity: O(n) for the two stacks in the worst case when all elements are in increasing order and O(1) when all elements are the same.
