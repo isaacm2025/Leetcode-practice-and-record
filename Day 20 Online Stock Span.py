@@ -41,7 +41,7 @@ class StockSpanner:
         i = len(self.arr) - 2 #start from the second last element and move backwards
         while i >= 0 and self.arr[i] <= price: #while the current price is greater than or equal to the price at index i, move backwards
             i -= 1 #decrease i to check the previous price
-        return len(self.arr) - i - 1 3#return the span which is the number of elements from index i+1 to the end of the array
+        return len(self.arr) - i - 1 #return the span which is the number of elements from index i+1 to the end of the array
 #time complexity: O(n^2) in worst case when the prices are in increasing order
 #space complexity: O(n)
 
