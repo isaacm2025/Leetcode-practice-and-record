@@ -33,15 +33,30 @@ At most 10,000 calls will be made to next.'''
 class StockSpanner:
 
     def __init__(self):
-        self.arr = []
+        self.arr = [] #to store the prices
         
 
     def next(self, price: int) -> int:
-        self.arr.append(price)
-        i = len(self.arr) - 2
-        while i >= 0 and self.arr[i] <= price:
-            i -= 1
-        return len(self.arr) - i - 1
+        self.arr.append(price) #add the current price to the array
+        i = len(self.arr) - 2 #start from the second last element and move backwards
+        while i >= 0 and self.arr[i] <= price: #while the current price is greater than or equal to the price at index i, move backwards
+            i -= 1 #decrease i to check the previous price
+        return len(self.arr) - i - 1 3#return the span which is the number of elements from index i+1 to the end of the array
 #time complexity: O(n^2) in worst case when the prices are in increasing order
 #space complexity: O(n)
 
+#monotonic stack
+class StockSpanner:
+
+    def __init__(self):
+        self.stack = [] 
+
+    def next(self, price: int) -> int:
+        span = 1 #initialize span to 1 for the current price
+        while self.stack and self.stack[-1][0] <= price: #while the stack is not empty and the price at the top of the stack is less than or equal to the current price
+            span += self.stack[-1][1] #add the span of the price at the top of the stack to the current span
+            self.stack.pop() #pop the top of the stack because it is less than or equal to the current price
+        self.stack.append((price, span)) #push the current price and its span onto the stack
+        return span
+#time complexity: O(n) in total for n calls to next, because each price is pushed and popped at most once
+#space complexity: O(n) in worst case when the prices are in decreasing order
