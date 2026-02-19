@@ -53,3 +53,22 @@ class Solution:
         return res #we want to return the result list at the end of the function, since we want to return the number of days after the ith day before a warmer temperature appears on a future day for each temperature in the temperatures list, so we need to return the result list at the end of the function, since we want to return the number of days after the ith day before a warmer temperature appears on a future day for each temperature in the temperatures list, so we need to return the result list at the end of the function
     #time complexity: O(n) because we are iterating through the temperatures list once and performing operations on the stack, which takes O(1) time, so the overall time complexity is O(n)
     #space complexity: O(n) because in the worst case, we could have all the temperatures in the stack if they are all in decreasing order, so we are using O(n) space to store the stack, since we are using a stack to keep track of the indices of
+
+#dynamic programming:
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        res = [0] * n
+        for i in range(n - 2, -1, -1):
+            j = i + 1
+            while j < n and temperatures[j] <= temperatures[i]:
+                if res[j] > 0:
+                    j += res[j]
+                else:
+                    j = n
+            if j < n:
+                res[i] = j - i
+        return res
+    #time complexity: O(n) because we are iterating through the temperatures list once and performing operations on the result list, which takes O(1) time, so the overall time complexity is O(n)
+    #space complexity: O(n) because we are using a result list to store the number of days after the ith day before a warmer temperature appears on a future day for each temperature in the temperatures list, so we are using O(n) space to store the result list
+    #space complexity: O(1) because we are not using any additional space to store the result list, since we are using a variable to store the count of days after the ith day before a warmer temperature appears on a future day for each temperature in the temperatures list, so we are using O(1) space to store the count variable, since we are not using any additional space to store the result list, since we are using a variable to store the count of days after the ith day before a warmer temperature appears on a future day for each temperature in the temperatures list, so we are using O(1) space to store the count variable
