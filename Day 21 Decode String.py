@@ -31,20 +31,20 @@ s is guaranteed to be a valid input.
 #recursion:
 class Solution:
     def decodeString(self, s: str) -> str:
-        self.i = 0
+        self.i = 0 #pointer to keep track of the current index in the input string
 
         def helper():
             res = ""
-            k = 0
+            k = 0 #variable to keep track of the current number being processed
 
             while self.i < len(s):
-                c = s[self.i]
+                c = s[self.i] #current character being processed
 
                 if c.isdigit():
-                    k = k * 10 + int(c)
-                elif c == "[":
-                    self.ii += 1
-                    res += helper() * k 
+                    k = k * 10 + int(c) #update k by multiplying the previous value by 10 and adding the new digit
+                elif c == "[": #when we encounter an opening bracket, we need to recursively call the helper function to decode the substring inside the brackets
+                    self.ii += 1 #move the pointer to the next character after the opening bracket
+                    res += helper() * k #decode the substring and repeat it k times, then add it to the result
                     k = 0
                 elif c == "]":
                     return res
@@ -61,19 +61,42 @@ class Solution:
     def decodeString(self, s: str) -> str:
         stack = []
         for i in range(len(s)):
-            if s[i] != "]":
-                stack.append(s[i])
+            if s[i] != "]": #if the current character is not a closing bracket, we simply push it onto the stack
+                stack.append(s[i]) #push the current character onto the stack
             else:
                 sub = ""
-                while stack[-1] != "[":
-                    sub = stack.pop() + sub
+                while stack[-1] != "[": #when we encounter a closing bracket, we need to pop characters from the stack until we find the corresponding opening bracket, and concatenate them to form the substring that needs to be repeated
+                    sub = stack.pop() + sub #pop the top character from the stack and add it to the front of the substring
                 stack.pop()
 
                 k = ""
-                while stack and stack[-1].isdigit():
-                    k = stack.pop() + k
-                stack.append(int(k) * sub)
+                while stack and stack[-1].isdigit(): #after we have the substring, we need to pop characters from the stack until we find a non-digit character, and concatenate them to form the number k that indicates how many times the substring should be repeated
+                    k = stack.pop() + k #pop the top character from the stack and add it to the front of k
+                stack.append(int(k) * sub) #repeat the substring k times and push it back onto the stack
         return "".join(stack)
 #time complexity: O(n + N^2) n is the length of the input string and N is the length of the output string
 #space complexity: O(n + N)
 
+#two stack:
+class Solution:
+    def decodeString(self, s: str) -> str:
+        string_stack = []
+        count_stack = []
+        cur = ""
+        k = 0
+
+        for c in s:
+            if c.isdigit(): #if the current character is a digit, we need to update k by multiplying the previous value by 10 and adding the new digit, this is because the number k can have multiple digits, for example "12[a]" means we need to repeat "a" 12 times, so we need to keep track of the previous value of k and update it accordingly
+                k = k * 10 + int(c)
+            elif c == "[":
+                string_stack.append(cur)
+                count_stack.append(k)
+                cur = ""
+                k = 0
+            elif c == "]":
+                cur = string_stack.pop() + cur * count_stack.pop() #when we encounter a closing bracket, we need to pop the last string from the string stack and the last count from the count stack, and concatenate the current string repeated by the count to the popped string, then update cur to this new string
+            else:
+                cur += c
+        return cur
+#time complexity: O(n + N) n is the length of the input string and N is the length of the output string
+#space complexity: O(n + N)
