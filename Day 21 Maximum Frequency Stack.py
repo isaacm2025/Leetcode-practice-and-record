@@ -69,10 +69,10 @@ class FreqStack:
 
     def push(self, val: int) -> None:
         self.cnt[val] += 1
-        heapq.heappush(self.heap, (-self.cnt[val], -self.index, val))
+        heapq.heappush(self.heap, (-self.cnt[val], -self.index, val)) #push a tuple of (-frequency, -index, value) onto the heap. We use negative values for frequency and index to create a max-heap based on frequency and to break ties based on the most recent index.
         self.index += 1
     def pop(self) -> int:
-        freq, index, val = heapq.heappop(self.heap)
+        freq, index, val = heapq.heappop(self.heap) #pop the most frequent element from the heap, which will be the element with the highest frequency and if there is a tie, the most recent one based on index
         self.cnt[val] -= 1
         return val
 #time complexity: O(log n) for both push and pop operations, where n is the number of elements in the stack
@@ -93,9 +93,9 @@ class FreqStack:
         self.group[freq].append(val)
 
     def pop(self) -> int:
-        val = self.group[self.max_freq].pop()
+        val = self.group[self.max_freq].pop() #pop the most frequent element from the group of elements with the current maximum frequency
         self.cnt[val] -= 1
-        if not self.group[self.max_freq]:
+        if not self.group[self.max_freq]: #if there are no more elements with the current maximum frequency, we need to decrease the max_freq by 1
             self.max_freq -= 1
         return val
 #time complexity: O(1) for both push and pop operations
