@@ -56,3 +56,24 @@ class FreqStack:
         return self.stack.pop(i)
 #time complexity: O(n) for the pop operation, where n is the number of elements in the stack, O(1) for the push operation
 #space complexity: O(n) for the stack and the frequency dictionary
+
+#Heap:
+from collections import defaultdict
+import heapq    
+
+class FreqStack:
+    def __init__(self):
+        self.cnt = defaultdict(int)
+        self.index = 0
+        self.heap = []
+
+    def push(self, val: int) -> None:
+        self.cnt[val] += 1
+        heapq.heappush(self.heap, (-self.cnt[val], -self.index, val))
+        self.index += 1
+    def pop(self) -> int:
+        freq, index, val = heapq.heappop(self.heap)
+        self.cnt[val] -= 1
+        return val
+#time complexity: O(log n) for both push and pop operations, where n is the number of elements in the stack
+#space complexity: O(n) for the heap and the frequency dictionary
