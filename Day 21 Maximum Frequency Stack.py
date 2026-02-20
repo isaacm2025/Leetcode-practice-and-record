@@ -77,3 +77,26 @@ class FreqStack:
         return val
 #time complexity: O(log n) for both push and pop operations, where n is the number of elements in the stack
 #space complexity: O(n) for the heap and the frequency dictionary
+
+#hashmap and stack:
+class FreqStack:
+    def __init__(self):
+        self.cnt = defaultdict(int)
+        self.group = defaultdict(list)
+        self.max_freq = 0
+
+    def push(self, val: int) -> None:
+        self.cnt[val] += 1
+        freq = self.cnt[val]
+        if freq > self.max_freq:
+            self.max_freq = freq
+        self.group[freq].append(val)
+
+    def pop(self) -> int:
+        val = self.group[self.max_freq].pop()
+        self.cnt[val] -= 1
+        if not self.group[self.max_freq]:
+            self.max_freq -= 1
+        return val
+#time complexity: O(1) for both push and pop operations
+#space complexity: O(n) 
