@@ -39,12 +39,27 @@ class Solution:
         if nums[m] == target:
             return m
         if nums[m] > target:
-            return self.binary_search(m + 1, r, nums, target)
-        return self.binary_search(l, m - 1, nums, target)
+            return self.binary_search(m + 1, r, nums, target) #if the middle element is greater than the target, we need to search in the right half of the array
+        return self.binary_search(l, m - 1, nums, target) #if the middle element is less than the target, we need to search in the left half of the array
     def search(self, nums: List[int], target: int) -> int:
-        return self.binary_search(0, len(nums) - 1, nums, target)
+        return self.binary_search(0, len(nums) - 1, nums, target) #call the binary search helper function with the initial left and right pointers set to the start and end of the array, respectively
 #time complexity: O(log n) where n is the number of elements in the input array
 #space complexity: O(log n) for the recursive call stack
 
+#iterative binary search:
+from typing import List
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l , r = 0, len(nums) - 1
+        while l <= r:
+            m = l + ((r - l) // 2) #calculate the middle index to avoid potential overflow issues that can arise with large values of l and r
 
-
+            if nums[m] > target:
+                r = m - 1
+            elif nums[m] < target:
+                r = m + 1
+            else:
+                return m
+        return -1
+#time complexity: O(log n) where n is the number of elements in the input array
+#space complexity: O(1)
