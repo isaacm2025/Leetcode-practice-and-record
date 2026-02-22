@@ -41,3 +41,35 @@ class Solution:
         return int(sqrt(x))
 #time complexity: O(1)
 #space complexity: O(1)
+
+#binary search:
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        left, right = 0, x #the square root of x cannot be greater than x, so we can set the right pointer to x
+        res = 0
+
+        while left <= right:
+            mid = left + (right - left) // 2 #calculate the middle point to avoid overflow
+
+            if mid * mid > x: #if the square of the middle point is greater than x, we need to search in the left half
+                right = mid - 1 #move the right pointer to the left of the middle point
+            elif mid * mid < x: #if the square of the middle point is less than x, we need to search in the right half
+                left = mid + 1
+                res = mid
+            else:
+                return mid
+        return res
+#time complexity: O(log(n))
+#space complexity: O(1)
+
+#recursion:
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        if x < 2:
+            return x
+        
+        left = self.mySqrt(x >> 2) << 1 #divide x by 4 and multiply the result by 2 to get an estimate of the square root
+        right = left + 1 #the square root of x can only be left or left + 1, so we check both possibilities
+        return left if right ** 2 > x else right #if the square of right is greater than x, return left, otherwise return right
+#time complexity: O(log(n))
+#space complexity: O(log(n)) due to the recursive call stack
