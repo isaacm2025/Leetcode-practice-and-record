@@ -54,3 +54,21 @@ class Solution:
         return False
 #time complexity: O(m+n)
 #space complexity: O(1)
+
+#Binary search one pass
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        ROWS, COLS = len(matrix), len(matrix[0]) #the number of rows and columns in the matrix
+        left, right = 0, ROWS * COLS - 1 #the left and right pointers for the binary search
+        while left <= right:
+            mid = left + (right - left) // 2
+            row, col = mid // COLS, mid % COLS
+            if target > matrix[row][col]: #if the target is greater than the current element, we need to search in the right half of the current row
+                left = mid + 1
+            elif target < matrix[row][col]: #if the target is less than the current element, we need to search in the left half of the current row
+                right = mid - 1
+            else:
+                return True
+        return False
+#time complexity: O(log(m*n))
+#space complexity: O(1)
