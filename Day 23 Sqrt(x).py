@@ -18,6 +18,9 @@ Constraints:
 0 <= x <= ((2^31)-1)'''
 
 #brute force:
+from cmath import sqrt
+
+
 class Solution:
     def mySqrt(self, x: int) -> int:
         if x == 0: #the square root of 0 is 0
@@ -30,4 +33,11 @@ class Solution:
             res = i
         return res
 #time complexity: O(sqrt(n))
+#space complexity: O(1)
+
+#build in function:
+class Solution:
+    def mySqrt(self, x: int) -> int:
+        return int(sqrt(x))
+#time complexity: O(1)
 #space complexity: O(1)
