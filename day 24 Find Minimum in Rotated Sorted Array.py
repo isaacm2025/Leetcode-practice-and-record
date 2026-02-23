@@ -37,3 +37,36 @@ class Solution:
         return min(nums)
 #time complexity: O(n) where n is the number of elements in the nums array
 #space complexity: O(1)
+
+#binary search:
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        res = nums[0]
+        left, right = 0, len(nums) - 1 #the minimum element must be in the left half of the array, which means we can ignore the right half of the array, and we can continue to search for the minimum element in the left half of the array until we find it
+        while left <= right:
+            if nums[left] < nums[right]: #if the left element is less than the right element, it means that the minimum element is in the left half of the array, which means we can ignore the right half of the array, and we can continue to search for the minimum element in the left half of the array until we find it
+                res = min(res, nums[left]) #update the result with the minimum element in the left half of the array, which is the left element, and we can return the result because we have found the minimum element in the array
+                break #break the loop because we have found the minimum element in the array
+            mid = (left + right) // 2 #calculate the middle index of the array, which is the index of the middle element in the array
+            res = min(res, nums[mid]) #update the result with the minimum element in the left half of the array, which is the middle element, and we can continue to search for the minimum element in the left half of the array until we find it
+            if nums[mid] >= nums[left]: #if the middle element is greater than or equal to the left element, it means that the minimum element is in the right half of the array, which means we can ignore the left half of the array, and we can continue to search for the minimum element in the right half of the array until we find it
+                left = mid + 1
+            else:
+                right = mid - 1
+        return res
+#time complexity: O(log n) where n is the number of elements in the nums array
+#space complexity: O(1)
+
+#binary search with a different approach:
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        left, right = 0, len(nums) - 1 #the minimum element must be in the left half of the array, which means we can ignore the right half of the array, and we can continue to search for the minimum element in the left half of the array until we find it
+        while left < right:
+            mid = left + (right - left) // 2 #calculate the middle index of the array, which is the index of the middle element in the array
+            if nums[mid] > nums[right]: #if the middle element is greater than the right element, it means that the minimum element is in the right half of the array, which means we can ignore the left half of the array, and we can continue to search for the minimum element in the right half of the array until we find it
+                right = mid
+            else:
+                left = mid + 1
+        return nums[left]
+#time complexity: O(log n) where n is the number of elements in the nums array
+#space complexity: O(1)
