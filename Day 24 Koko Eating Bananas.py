@@ -37,3 +37,22 @@ class Solution:
             speed += 1
 #time complexity: O(n*m) where n is the number of piles and m is the maximum number of bananas in a pile
 #space complexity: O(1)
+
+#binary search:
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        left, right = 1, max(piles) #the minimum speed is 1 and the maximum speed is the maximum number of bananas in a pile
+        res = right #initialize the result to the maximum speed, which is the worst case scenario
+        while left <= right:
+            k = left + (right - left) // 2 #calculate the middle point to avoid overflow
+            total_hours = 0
+            for pile in piles:
+                total_hours += (pile + k - 1) // k #calculate the number of hours needed to eat the current pile at the current speed
+            if total_hours <= h: #if the total hours needed to eat all the piles at the current speed is less than or equal to h, we can try to find a smaller speed
+                res = k
+                right = k - 1
+            else:
+                left = k + 1
+        return res
+#time complexity: O(n*log(m)) where n is the number of piles and m is the maximum number of bananas in a pile
+#space complexity: O(1)
