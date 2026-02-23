@@ -63,3 +63,30 @@ class Solution:
             res += 1
 #time complexity: O(n^2) where n is the number of weights
 #space complexity: O(1)
+
+#binar search:
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        left, right = max(weights), sum(weights) #the minimum capacity of the ship must be at least the maximum weight in the weights array, otherwise we cannot ship that package, and the maximum capacity of the ship can be the sum of all the weights, which means we can ship all the packages in one day
+        res = right
+
+        def canShip(capacity):
+            ships, curr_cap = 1, capacity #initialize the number of ships needed to 1 and the current capacity of the ship to the capacity we are testing
+            for weight in weights:
+                if curr_cap < weight:
+                    ship += 1
+                    if ships > days:
+                        return False
+                    curr_cap = capacity
+                curr_cap -= weight
+            return True
+        while left <= right:
+            weight = left + (right - left) // 2 #calculate the middle point to avoid overflow
+            if canShip(weight):
+                res = min(res, weight) #if we can ship all the packages with the current weight, we can try to find a smaller weight
+                right = weight - 1
+            else:
+                left = weight + 1
+        return res
+#time complexity: O(n*log(n)) where n is the number of weights
+#space complexity: O(1)
