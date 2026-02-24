@@ -38,5 +38,53 @@ class Solution:
 #time complexity: O(n) where n is the length of the input list
 #space complexity: O(1) since we are not using any additional data structures
 
+#binary search (two pass)
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+        pivot = left
+        left, right = 0, len(nums) - 1
+        if target >= nums[pivot] and target <= nums[right]:
+            left = pivot
+        else:
+            right = pivot - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return -1
+#time complexity: O(log n) where n is the length of the input list
+#space complexity: O(1) since we are not using any additional data structures
 
+#binary search (one pass)
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1 #initialize the left and right pointers to the start and end of the list, respectively
+        while left <= right:
+            mid = (left + right) // 2 #calculate the middle index
+            if target == nums[mid]: #if the target is found,
+                return mid
+            if nums[left] <= nums[mid]:
+                if target >= nums[left] and target < nums[mid]: #if the target is in the left half of the array,
+                    right = mid - 1 #if the target is in the left half of the array, we move the right pointer to mid - 1 to search for the target in the left half
+                else:
+                    left = mid + 1 #if the target is not in the left half of the array, it must be in the right half, so we move the left pointer to mid + 1
+            else:
+                if target > nums[mid] and target <= nums[right]: #if the target is in the right half of the array,
+                    left = mid + 1
+                else:
+                    right = mid - 1
+        return -1 #if the target is not found, return -1
+#time complexity: O(log n) where n is the length of the input list
+#space complexity: O(1) since we are not using any additional data structures
     
