@@ -31,6 +31,9 @@ key and value only include lowercase English letters and digits.
 1 <= timestamp <= 1000
 '''
 #brute force
+from collections import defaultdict
+
+
 class TimeMap:
 
     def __init__(self):
@@ -56,3 +59,48 @@ class TimeMap:
 #time complexity: O(n) for get(), O(1) for set() where n is the number of timestamps stored for the key
 #space complexity: O(m * n) where m is the number of unique keys and n is the number of timestamps stored for each key
 
+#binary search(sorted map)
+class TimeMap:
+
+    def __init__(self):
+        self.m = defaultdict(dict) #initialize a default dictionary to store the key-value pairs and their corresponding timestamps
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.m[key][timestamp] = value #store the value for the key at the given timestamp
+    def get(self, key: str, timestamp: int) -> str:
+        if key not in self.m:
+            return ""
+        seen = 0
+        for time in self.m[key]: #iterate through the list of timestamps for the key
+            if time <= timestamp:
+                seen = max(seen, time) #if the timestamp is less than or equal to the given timestamp, update the seen variable to the maximum timestamp seen so far
+        if seen == 0:
+            return ""
+        return self.m[key][seen] #return the value corresponding to the maximum timestamp seen
+#time complexity: O(n) for get(), O(1) for set() where n is the number of timestamps stored for the key
+#space complexity: O(m * n) where m is the number of unique keys and n is the number of timestamps stored for each key
+
+#binary search(array of pairs)
+class TimeMap:
+
+    def __init__(self):
+        self.keyStore = {}
+        
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        if key not in self.keyStore:
+            self.keyStore[key] = []
+        self.keyStore[key].append((timestamp, value)) #store the timestamp and value as a pair in the list for the key
+
+    def get(self, key: str, timestamp: int) -> str:
+        res, values = "", self.keyStore.get(key, []) #get the list of timestamp-value pairs for the key
+        l, r = 0, len(values) - 1
+        while l <= r: #perform binary search on the list of timestamp-value pairs
+            mid = (l + r) // 2
+            if values[mid][0] <= timestamp: #if the timestamp at the middle index is less than or equal to the given timestamp, update the result and search in the right half of the list
+                res = values[mid][1]
+                l = mid + 1
+            else: #if the timestamp at the middle index is greater than the given timestamp, search in the left half of the list
+                r = mid - 1
+        return res #return the result found through binary search
+#time complexity: O(log n) for get(), O(1) for set() where n is the number of timestamps stored for the key
+#space complexity: O(m * n)
