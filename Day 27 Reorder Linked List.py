@@ -84,3 +84,46 @@ class Solution:
 
 #time complexity: O(n)
 #space complexity: O(n)
+
+#reverse and merge
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        if not head:
+            return
+        
+        #find the middle of the linked list
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        #reverse the second half of the linked list
+        prev = None
+        cur = slow
+        while cur:
+            next_node = cur.next
+            cur.next = prev
+            prev = cur
+            cur = next_node
+        
+        #merge the two halves of the linked list
+        first_half = head
+        second_half = prev
+        while second_half.next:
+            tmp1 = first_half.next
+            tmp2 = second_half.next
+            
+            first_half.next = second_half
+            second_half.next = tmp1
+            
+            first_half = tmp1
+            second_half = tmp2
+#time complexity: O(n)
+#space complexity: O(1)
