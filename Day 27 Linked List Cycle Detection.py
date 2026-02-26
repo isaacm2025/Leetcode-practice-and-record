@@ -47,3 +47,23 @@ class Solution:
         return False
 #time complexity: O(n)
 #space complexity: O(n)
+
+#two pointers
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow = head #slow pointer
+        fast = head #fast pointer
+        while fast and fast.next: #while fast pointer is not null and fast pointer's next
+            slow = slow.next #move slow pointer by 1
+            fast = fast.next.next #move fast pointer by 2
+            if slow == fast: #if slow pointer and fast pointer are the same, then there is a cycle
+                return True
+        return False
+#time complexity: O(n)
+#space complexity: O(1)
