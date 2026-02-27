@@ -44,7 +44,26 @@ class Solution:
         if removeIndex == 0:
             return head.next
         
-        nodes[removeIndex -1].next = nodes[removeIndex].next
+        nodes[removeIndex -1].next = nodes[removeIndex].next #if removeIndex is the last index, nodes[removeIndex].next will be None, which is correct
         return head
 #time complexity: O(n)
 #space complexity: O(n)
+
+#two pointer
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode(0, head) #create a dummy node to handle edge case when we need to remove the head node
+        left = dummy
+        right = head
+
+        while n > 0:
+            right = right.next
+            n -= 1
+        
+        while right:
+            left = left.next
+            right = right.next
+        left.next = left.next.next
+        return dummy.next
+#time complexity: O(n)
+#space complexity: O(1)
