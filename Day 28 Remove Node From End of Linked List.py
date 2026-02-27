@@ -67,3 +67,19 @@ class Solution:
         return dummy.next
 #time complexity: O(n)
 #space complexity: O(1)
+
+#recursive
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        def rec(self, head, n):
+            if not head:
+                return None
+            head.next = self.rec(head.next, n)
+            n[0] -= 1
+            if n[0] == 0:
+                return head.next
+            return head
+        def removeNthFromEnd(self, head, n):
+            return self.rec(head, [n])
+#time complexity: O(n)
+#space complexity: O(n) due to recursion stack
