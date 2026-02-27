@@ -66,5 +66,28 @@ class Solution:
 #time complexity: O(n)
 #space complexity: O(n)
 
+#hashmap
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        oldToCopy = collections.defaultdict(lambda: Node(0)) #map from original node to copied node, default value is a new node with val 0
+        oldToCopy[None] = None #handle edge case when head is None
+        current = head
+        while current:
+            oldToCopy[current].val = current.val
+            oldToCopy[current].next = oldToCopy[current.next] #if current.next is None, oldToCopy[current.next] will be None, which is correct
+            oldToCopy[current].random = oldToCopy[current.random] #if current.random is None, oldToCopy[current.random] will be None, which is correct
+            current = current.next
+        return oldToCopy[head]
+#time complexity: O(n)
+#space complexity: O(n)
 
         
