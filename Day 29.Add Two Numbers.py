@@ -55,3 +55,20 @@ class Solution:
 #time complexity: O(m+n) where m and n are the lengths of the two linked lists
 #space complexity: O(m + n) due to the recursive call stack and the new linked list created to store the result
 
+#iterative
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        cur = dummy
+        carry = 0
+        while l1 or l2 or carry:
+            v1 = l1.val if l1 else 0
+            v2 = l2.val if l2 else 0
+            carry, val = divmod(v1 + v2 + carry, 10)
+            cur.next = ListNode(val)
+            cur = cur.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+        return dummy.next
+#time complexity: O(m+n) where m and n are the lengths of the two linked lists
+#space complexity: O(max(m, n)) due to the new linked list created to store the result, where m and n are the lengths of the two input linked lists
