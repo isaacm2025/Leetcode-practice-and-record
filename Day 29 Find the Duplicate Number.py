@@ -37,3 +37,15 @@ class Solution:
         return -1
 #time complexity: O(n log n) due to the sorting step
 #space complexity: O(1) if we ignore the space used by the sorting algorithm, otherwise O(n) if the sorting algorithm used is not in-place
+
+#hash set
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        seen = set()
+        for num in nums:
+            if num in seen:
+                return num
+            seen.add(num)
+        return -1
+#time complexity: O(n) where n is the length of the input array
+#space complexity: O(n) in the worst case if all numbers are unique except for one, otherwise O(1) if the duplicate number is found early in the array
