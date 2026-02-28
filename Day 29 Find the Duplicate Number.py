@@ -49,3 +49,15 @@ class Solution:
         return -1
 #time complexity: O(n) where n is the length of the input array
 #space complexity: O(n) in the worst case if all numbers are unique except for one, otherwise O(1) if the duplicate number is found early in the array
+
+#array
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        seen = [0] * len(nums)
+        for num in nums:
+            if seen[num] == 1:
+                return num
+            seen[num] = 1
+        return -1
+#time complexity: O(n) where n is the length of the input array
+#space complexity: O(n) due to the additional array used to track seen numbers
