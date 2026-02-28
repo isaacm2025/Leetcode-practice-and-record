@@ -61,3 +61,15 @@ class Solution:
         return -1
 #time complexity: O(n) where n is the length of the input array
 #space complexity: O(n) due to the additional array used to track seen numbers
+
+#negative marking
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        for num in nums:
+            index = abs(num) - 1
+            if nums[index] < 0:
+                return abs(num)
+            nums[index] *= -1
+        return -1
+#time complexity: O(n) where n is the length of the input array
+#space complexity: O(1) since we are modifying the input array in place and not using any additional data structures to track seen numbers
