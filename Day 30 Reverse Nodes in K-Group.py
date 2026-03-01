@@ -56,4 +56,35 @@ class Solution:
 # In the worst case, when k is 1, the space complexity would be O(n) due to the recursion stack. 
 # However, when k is greater than 1, the space complexity is O(n/k) because each recursive call processes a group of k nodes.
 
+#iterative
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        dummy = ListNode(0, head)
+        group_prev = dummy
+
+        while True:
+            kth = self.getKth(group_prev, k)
+            if not kth:
+                break
+            group_next = kth.next
+            
+            prev, curr = kth.next, group_prev.next
+            while curr != group_next:
+                tmp = curr.next
+                curr.next = prev
+                prev = curr
+                curr = tmp
+
+            tmp = group_prev.next
+            group_prev.next = kth
+            group_prev = tmp
+
+        return dummy.next
+    def getKth(self, curr, k):
+        while curr and k > 0:
+            curr = curr.next
+            k -= 1
+        return curr
+#time complexity: O(n)
+#space complexity: O(1)
 
