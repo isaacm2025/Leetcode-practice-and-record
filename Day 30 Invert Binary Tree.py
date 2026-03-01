@@ -51,4 +51,16 @@ class Solution:
 # the space complexity would be O(log n) due to the maximum number of nodes at any level being n/2.
 
 
-        
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        return root
+#time complexity: O(n) where n is the number of nodes in the binary tree, because we need to visit each node once to invert the tree.
+#space complexity: O(n) in the worst case, when the binary tree is completely unbalanced (like a linked list), 
+# the recursion stack can hold all the nodes at once. In the best case, when the binary tree is perfectly balanced, 
+# the space complexity would be O(log n) due to the maximum number of nodes in any single path from root to leaf being log n.
+
