@@ -36,3 +36,19 @@ class Solution:
 #space complexity: O(n) in the worst case, when the binary tree is completely unbalanced (like a linked list), 
 # the recursion stack can hold all the nodes at once. In the best case, when the binary tree is perfectly balanced, 
 # the space complexity would be O(log n) due to the maximum number of nodes in any single path from root to leaf being log n.
+
+#iterative DFS (stack)
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        stack = [[root, 1]]
+        res = 0
+        while stack:
+            node, depth = stack.pop()
+            if node:
+                res = max(res, depth)
+                stack.append([node.left, depth + 1])
+                stack.append([node.right, depth + 1])
+        return res
+#time complexity: O(n) where n is the number of nodes in the binary tree, because we need to visit each node once to calculate the depth of the tree.
+#space complexity: O(n) in the worst case, when the binary tree is completely unalanced (like a linked list), the stack can hold all the nodes at once. 
+# In the best case, when the binary tree is perfectly balanced, the space complexity would be O(log n) due to the maximum number of nodes in any single path from root to leaf being log n.
