@@ -70,3 +70,25 @@ class Solution:
 #space complexity: O(n) in the worst case, when the binary tree is completely unbalanced (like a linked list), 
 # the recursion stack can hold all the nodes at once. In the best case, when the binary tree is perfectly balanced, 
 # the space complexity would be O(log n) due to the maximum number of nodes in any single path from root to leaf being log n.
+
+#iterative DFS (stack)
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        stack = [root]
+        mp = {None: (0,0)}
+
+        while stack:
+            node = stack[-1]
+            if node.left and node.left not in mp:
+                stack.append(node.left)
+            elif node.right and node.right not in mp:
+                stack.append(node.right)
+            else:
+                node = stack.pop()
+                leftHeight, leftDiameter = mp[node.left]
+                rightHeight, rightDiameter = mp[node.right]
+                mp[node] = (1 + max(leftHeight, rightHeight), max(leftDiameter, rightDiameter, leftHeight + rightHeight))
+        return mp[root][1]
+#time complexity: O(n) where n is the number of nodes in the binary tree, because we need to visit each node once to calculate the diameter of the tree.
+#space complexity: O(n) in the worst case, when the binary tree is completely unbalanced (like a linked list), the stack can hold all the nodes at once. 
+# In the best case, when the binary tree is perfectly balanced, the space complexity would be O(log n) due to the maximum number of nodes in any single path from root to leaf being log n.
