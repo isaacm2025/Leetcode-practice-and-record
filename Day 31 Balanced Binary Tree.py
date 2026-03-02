@@ -47,7 +47,26 @@ class Solution:
         if not root:
             return 0
         return 1 + max(self.height(root.left), self.height(root.right))
-#time complexity: O(n^2) where n is the number of nodes in the binary tree, because for each node, we are calculating the height of its left and right subtrees, which takes O(n) time in the worst case. Since we are doing this for each node, the overall time complexity is O(n^2).
-#space complexity: O(n) in the worst case, when the binary tree is completely unbalanced (like a linked list), the recursion stack can hold all the nodes at once. In the best case, when the binary tree is perfectly balanced, the space complexity would be O(log n) due to the maximum number of nodes in any single path from root to leaf being log n.
-        
+#time complexity: O(n^2) where n is the number of nodes in the binary tree, 
+# because for each node, we are calculating the height of its left and right subtrees, which takes O(n) time in the worst case. 
+# Since we are doing this for each node, the overall time complexity is O(n^2).
+#space complexity: O(n) in the worst case, when the binary tree is completely unbalanced (like a linked list), 
+# the recursion stack can hold all the nodes at once. In the best case, when the binary tree is perfectly balanced, 
+# the space complexity would be O(log n) due to the maximum number of nodes in any single path from root to leaf being log n.
+
+#depth first search (DFS) with memoization
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def dfs(root):
+            if not root:
+                return [True, 0]
+            left, right = dfs(root.left), dfs(root.right)
+            balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
+            return [balanced, 1 + max(left[1], right[1])]
+        return dfs(root)[0]
+#time complexity: O(n) where n is the number of nodes in the binary tree, 
+# because we need to visit each node once to check if the tree is balanced and to calculate the height of the tree.
+#space complexity: O(n) in the worst case, when the binary tree is completely unbalanced (like a linked list), 
+# the recursion stack can hold all the nodes at once. In the best case, when the binary tree is perfectly balanced, 
+# the space complexity would be O(log n) due to the maximum number of nodes in any single path from root to leaf being log  
 
