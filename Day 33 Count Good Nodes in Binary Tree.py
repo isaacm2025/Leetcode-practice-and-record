@@ -30,6 +30,9 @@ Constraints:
 #         self.right = right
 
 #Depth first search
+from collections import deque
+
+
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         def dfs(node, maxVal):
@@ -43,3 +46,24 @@ class Solution:
         return dfs(root, root.val)
 #time complexity: O(n) where n is the number of nodes in the tree
 #space complexity: O(h) where h is the height of the tree, due to the recursive call stack. In the worst case of a skewed tree, this could be O(n).
+
+#Breadth first search
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        res = 0
+        q = deque()
+        q.append((root, root.val))
+        while q:
+            node, maxval = q.popleft()
+            if node.val >= maxval:
+                res += 1
+            if node.left:
+                q.append((node.left, max(maxval, node.left.val)))
+            if node.right:
+                q.append((node.right, max(maxval, node.right.val)))
+        return res
+#time complexity: O(n) where n is the number of nodes in the tree
+#space complexity: O(n) where n is the maximum width of the tree, which in the worst case can be O(n) for a complete binary tree.
+
+
+        
