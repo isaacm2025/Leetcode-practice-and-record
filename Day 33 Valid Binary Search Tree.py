@@ -47,3 +47,23 @@ class Solution:
         return valid(root, float('-inf'), float('inf'))
 #time complexity: O(n) where n is the number of nodes in the tree, since we visit each node once.
 #space complexity: O(h) where h is the height of the tree, due to the recursive call stack. In the worst case of a skewed tree, this could be O(n).
+
+#BFS
+from collections import deque
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+        q = deque([(root, float('-inf'), float('inf'))])
+        while q:
+            node, left, right = q.popleft()
+            if not(left < node.val < right):
+                return False
+            if node.left:
+                q.append((node.left, left, node.val))
+            if node.right:
+                q.append((node.right, node.val, right))
+        return True
+#time complexity: O(n) where n is the number of nodes in the tree, since we visit each node once.
+#space complexity: O(n) in the worst case, if the tree is completely unbalanced and all nodes are on one side, the queue could hold all nodes at once. 
+#In a balanced tree, the space complexity would be O(w) where w is the maximum width of the tree.
