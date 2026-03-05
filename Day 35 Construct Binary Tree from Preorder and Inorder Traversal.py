@@ -61,3 +61,22 @@ class Solution:
         return dfs(0, len(inorder) - 1)
 #time complexity: O(n) because we are visiting each node once and the index lookup is O(1)
 #space complexity: O(n) because of the recursive stack and the hashmap storing the indices
+
+#DFS optimal
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        preIdx = inIdx = 0
+        def dfs(limit):
+            nonlocal preIdx, inIdx
+            if preIdx >= len(preorder) or (limit is not None and inorder[inIdx] == limit):
+                return None
+            root_val = preorder[preIdx]
+            root = TreeNode(root_val)
+            preIdx += 1
+            root.left = dfs(root_val)
+            inIdx += 1
+            root.right = dfs(limit)
+            return root
+        return dfs(None)
+#time complexity: O(n) because we are visiting each node once
+#space complexity: O(n) because of the recursive stack
