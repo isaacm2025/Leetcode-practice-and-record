@@ -43,3 +43,21 @@ class Solution:
         return root
 #time complexity: O(n^2) because of the index() function
 #space complexity: O(n) because of the recursive stack and the new lists created by slicing
+
+#Hashmap optimization
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        indices = {val: idx for idx, val in enumerate(inorder)}
+        self.preorder_index = 0
+        def dfs(left, right):
+            if left > right:
+                return None
+            root_val = preorder[self.preorder_index]
+            root = TreeNode(root_val)
+            self.preorder_index += 1
+            root.left = dfs(left, indices[root_val] - 1)
+            root.right = dfs(indices[root_val] + 1, right)
+            return root
+        return dfs(0, len(inorder) - 1)
+#time complexity: O(n) because we are visiting each node once and the index lookup is O(1)
+#space complexity: O(n) because of the recursive stack and the hashmap storing the indices
