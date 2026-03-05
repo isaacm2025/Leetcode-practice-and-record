@@ -36,4 +36,19 @@ class Solution:
 #time complexity: O(n)
 #space complexity: O(n)
 
-
+#iterative DFS optimal
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        stack = []
+        curr = root
+        while stack or curr:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            k -= 1
+            if k == 0:
+                return curr.val
+            curr = curr.right
+#time complexity: O(n)
+#space complexity: O(n) in worst case when tree is skewed, O(logn) in average case when tree is balanced
