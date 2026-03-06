@@ -46,3 +46,19 @@ class KthLargest:
 #time complexity: O(m * n log n) where m is the number of calls to add and n is the number of elements in the stream
 #space complexity: O(m) where m is the number of calls to add
 
+#min heap
+import heapq
+class KthLargest:
+
+    def __init__(self, k: int, nums: List[int]):
+        self.minHeap, self.k = nums, k
+        heapq.heapify(self.minHeap)
+        while len(self.minHeap) > k:
+            heapq.heappop(self.minHeap)
+    def add(self, val: int) -> int:
+        heapq.heappush(self.minHeap, val)
+        if len(self.minHeap) > self.k:
+            heapq.heappop(self.minHeap)
+        return self.minHeap[0]
+#time complexity: O(m log k) where m is the number of calls to add and k is the size of the heap
+#space complexity: O(k) where k is the size of the heap
