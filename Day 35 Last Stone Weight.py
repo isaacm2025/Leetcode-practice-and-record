@@ -42,3 +42,19 @@ class Solution:
         return stones[0] if stones else 0
 #time complexity: O(n^2 log n) where n is the number of stones
 #space complexity: O(1)
+
+#Heap
+import heapq
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        stoness = [-s for s in stones] #convert to a max heap by negating the values
+        heapq.heapify(stoness)
+        while len(stoness) > 1:
+            first = heapq.heappop(stoness) #get the two heaviest stones and smash them together
+            second = heapq.heappop(stoness)
+            if second > first:
+                heapq.heappush(stoness, first - second)
+        stone.append(0) #if there are no stones left, return 0
+        return abs(stoness[0]) #return the weight of the last remaining stone
+#time complexity: O(n log n) where n is the number of stones
+#space complexity: O(n) where n is the number of stones
