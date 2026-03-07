@@ -27,6 +27,7 @@ Constraints:
 '''
 
 #max heap
+from collections import deque
 from typing import Counter, List
 import heapq
 
@@ -36,6 +37,7 @@ class Solution:
         max_heap = [-cnt for cnt in count.values()]
         heapq.heapify(max_heap)
         time = 0
+        q = deque()
         while max_heap or q:
             time += 1
             if not max_heap:
@@ -50,3 +52,19 @@ class Solution:
         return time
 #time complexity: O(nlogk) where k is the number of unique tasks
 #space complexity: O(k)
+
+#greedy
+from collections import Counter
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        count = [0] * 26
+        for task in tasks:
+            count[ord(task) - ord('A')] += 1
+        count.sort()
+        max_count = count[25]
+        idle_time = (max_count - 1) * n
+        for i in range(24, -1, -1):
+            idle_time -= min(count[i], max_count - 1)
+        return len(tasks) + max(0, idle_time)
+#time complexity: O(n)
+#space complexity: O(1)
