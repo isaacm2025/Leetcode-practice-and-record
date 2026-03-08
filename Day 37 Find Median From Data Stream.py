@@ -50,3 +50,16 @@ class MedianFinder:
 #time complexity of addNum is O(1) and findMedian is O(nlogn) due to sorting the data list.
 #space complexity is O(n) where n is the number of elements in the data list.
 
+#sorting
+class MedianFinder:
+
+    def __init__(self):
+        self.data = []
+    def addNum(self, num: int) -> None:
+        self.data.append(num)
+    def findMedian(self) -> float:
+        self.data.sort()
+        n = len(self.data)
+        return (self.data[n // 2] if (n & 1) else (self.data[n // 2 - 1] + self.data[n // 2]) / 2)
+#time complexity of addNum is O(1) and findMedian is O(nlogn) due to sorting the data list.
+#space complexity is O(n) where n is the number of elements in the data list.
