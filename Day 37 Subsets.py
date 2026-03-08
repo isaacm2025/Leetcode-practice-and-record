@@ -48,3 +48,18 @@ class Solution:
         return res
 #time complexity: O(n*2^n) where n is the length of the input array. This is because there are 2^n subsets and each subset takes O(n) time to copy to the result list.
 #space complexity: O(n*2^n) for the result list which contains all subsets
+
+#bit manipulation
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        res = []
+        for i in range(1 << n):
+            subset = []
+            for j in range(n):
+                if i & (1 << j):
+                    subset.append(nums[j])
+            res.append(subset)
+        return res
+#time complexity: O(n*2^n) where n is the length of the input array. This is because there are 2^n subsets and each subset takes O(n) time to copy to the result list.
+#space complexity: O(n*2^n) for the result list which contains all subsets
