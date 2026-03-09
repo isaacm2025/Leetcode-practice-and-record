@@ -48,3 +48,18 @@ class Solution:
         return perms
 #time complexity: O(n^2 *n!)
 #space complexity: O(n^2 * n!)
+
+#backtracking optimal
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        self.res = []
+        self.backtrack(nums, [])
+        return self.res
+    def backtrack(self, nums: List[int], path: List[int]):
+        if not nums:
+            self.res.append(path)
+            return
+        for i in range(len(nums)):
+            self.backtrack(nums[:i] + nums[i+1:], path + [nums[i]])
+#time complexity: O(n * n!)
+#space complexity: O(n * n!)
