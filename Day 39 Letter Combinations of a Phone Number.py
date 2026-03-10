@@ -50,3 +50,29 @@ class Solution:
         return res
 #time complexity: O(n * 4^n) where n is the length of the input string digits. In the worst case, each digit can map to 4 characters (e.g., '7' and '9'), and we need to generate all possible combinations, which is 4^n. Additionally, we need to concatenate characters to form the current string, which takes O(n) time.
 #space complexity: O(n) for the recursion stack and the temporary string used to build the current combination. The output list can also take up to O(4^n) space in the worst case, if all combinations are generated.
+
+#iteration
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+        res = ['']
+        digitTochar = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+        for digit in digits:
+            tmp = []
+            for curStr in res:
+                for c in digitTochar[digit]:
+                    tmp.append(curStr + c)
+            res = tmp
+        return res
+#time complexity: O(n * 4^n) where n is the length of the input string digits. Similar to the backtracking approach, we generate all possible combinations, which is 4^n in the worst case. Additionally, we concatenate characters to form the current string,
+#space complexity: O(4^n) for the output list that stores all possible combinations. The temporary list used to build the new combinations also takes up to O(4^n) space in the worst case.
