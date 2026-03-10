@@ -42,3 +42,28 @@ class Solution:
         return True
 #time complexity: O(n*2^n) where n is the length of the string. In the worst case, we have to check all possible partitions of the string, which is 2^(n-1). For each partition, we check if each substring is a palindrome, which takes O(n) time.
 #space complexity: O(n) for the recursion stack and the temporary list used to store the current partition. The output list can also take up to O(n*2^n) space in the worst case, if all partitions are palindromic.
+
+
+#backtracking DP
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        for i in range(1, n + 1):
+            for j in range(n - i + 1):
+                dp[j][j + i - 1] = s[j] == s[j + i - 1] and (i <= 2 or dp[j + 1][j + i - 2])
+        res, part = [], []
+        def dfs(i):
+            if i >= len(s):
+                res.append(part.copy())
+                return
+            for j in range(i, len(s)):
+                if dp[i][j]:
+                    part.append(s[i:j+1])
+                    dfs(j+1)
+                    part.pop()
+        dfs(0)
+        return res
+#time complexity: O(n*2^n) where n is the length of the string. The DP table is filled in O(n^2) time, and the backtracking step explores all possible partitions, which is O(2^(n-1)).
+#space complexity: O(n^2) for the DP table, O(n) for the recursion stack and the temporary list used to store the current partition. The output list can also take up to O(n*2^n) space in the worst case, if all partitions are palindromic.
+                                                            
