@@ -56,3 +56,42 @@ class WordDictionary:
     
 #time complexity: O(n*m) where n is the number of words in the data structure and m is the length of the word being searched.
 #space complexity: O(n*m) where n is the number of words in the data structure and m is the average length of the words.
+
+#DFS
+class TriNode:
+    def __init__(self):
+        self.children = {}
+        self.isEndOfWord = False
+
+class WordDictionary:
+    def __init__(self):
+        self.root = TriNode()
+        
+
+    def addWord(self, word: str) -> None:
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TriNode()
+            cur = cur.children[c]
+        cur.isEndOfWord = True
+        
+
+    def search(self, word: str) -> bool:
+        def dfs(node, i):
+            if i == len(word):
+                return node.isEndOfWord
+            c = word[i]
+            if c == '.':
+                for child in node.children.values():
+                    if dfs(child, i + 1):
+                        return True
+                return False
+            else:
+                if c not in node.children:
+                    return False
+                return dfs(node.children[c], i + 1)
+        
+        return dfs(self.root, 0)
+#time complexity: O(n) for addWord and O(m) for search where n is the length of the word being added and m is the length of the word being searched.
+#space complexity: O(t + n)
