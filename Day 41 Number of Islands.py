@@ -27,6 +27,7 @@ grid[i][j] is '0' or '1'.
 '''
 
 
+from collections import deque
 from typing import List
 
 #DFS 
@@ -50,4 +51,35 @@ class Solution:
         return islands
 #time complexity: O(M*N) where M and N are the number of rows and columns in the grid, respectively. In the worst case, we may have to visit every cell in the grid once.
 #space complexity: O(M*N) in the worst case, where M and N are the number of rows and columns in the grid, respectively. This occurs when the grid is filled with land
+
+#BFS
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        direction = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        ROWS, COLS = len(grid), len(grid[0])
+        islands = 0
+
+        def bfs (r, c):
+            q = deque()
+            grid[r][c] = "0"
+            q.append((r, c))
+
+            while q:
+                row, col = q.popleft()
+                for dr, dc in direction:
+                    nr, nc = row + dr, col + dc
+                    if (nr < 0 or nc < 0 or nr >= ROWS or nc >= COLS or grid[nr][nc] == "0"):
+                        continue
+                    grid[nr][nc] = "0"
+                    q.append((nr, nc))
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == "1":
+                    bfs(r, c)
+                    islands += 1
+        return islands
+#time complexity: O(M*N) where M and N are the number of rows and columns in the grid, respectively. In the worst case, we may have to visit every cell in the grid once.
+#space complexity: O(m * n) in the worst case, where M and N are the number of rows and columns in the grid, respectively. This occurs when the grid
+#is filled with land, and we have to add all the land cells to the queue.
+
 
