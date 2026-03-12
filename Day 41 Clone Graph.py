@@ -55,6 +55,7 @@ class Node:
 """
 
 
+from collections import deque
 from typing import Optional
 from xml.dom.minidom import Node
 
@@ -74,4 +75,22 @@ class Solution:
 #time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph.
 #space complexity: O(N) where N is the number of nodes in the graph. This is because we are storing a mapping of each original node to its corresponding cloned node in the oldToNew dictionary, which can potentially store an entry for each node in the graph. 
 # Additionally, the recursive call stack can also grow up to O(N) in the worst case if the graph is a linear chain of nodes.
+
+#BFS
+class Solution:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+        oldToNew = {}
+        oldToNew = Node(node.val)
+        q = deque([node])
+        while q:
+            cur = q.popleft()
+            for nei in cur.neighbors:
+                if nei not in oldToNew:
+                    oldToNew[nei] = Node(nei.val)
+                    q.append(nei)
+                oldToNew[cur].neighbors.append(oldToNew[nei])
+        return oldToNew[node]
+
 
