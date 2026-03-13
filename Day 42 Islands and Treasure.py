@@ -46,6 +46,7 @@ n == grid[i].length
 1 <= m, n <= 100
 grid[i][j] is one of {-1, 0, 2147483647}'''
 
+from collections import deque
 from typing import List
 
 #brute force backtracking
@@ -74,5 +75,35 @@ class Solution:
 #time complexity: O(m*n*4^(m*n)) time complexity, O(m*n) space complexity
 #space complexity: O(m * n)
 
+#BFS
+class Solution:
+    def islandsAndTreasure(self, grid: List[List[int]]) -> None:
+        ROWS, COLS = len(grid), len(grid[0])
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        INF = 2147483647 #2**31 - 1, represents infinity
+
+        def bfs(r, c):
+            q = deque([(r, c)])
+            visit = [[False] * COLS for _ in range(ROWS)]
+            visit[r][c] = True
+            steps = 0
+            while q:
+                for _ in range(len(q)):
+                    row, col = q.popleft()
+                    if grid[row][col] == 0:
+                        return steps
+                    for dr, dc in directions:
+                        newRow, newCol = row + dr, col + dc
+                        if (0 <= newRow < ROWS and 0 <= newCol < COLS and not visit[newRow][newCol] and grid[newRow][newCol] != -1):
+                            visit[newRow][newCol] = True
+                            q.append((newRow, newCol))
+                steps += 1
+            return INF
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == INF:
+                    grid[r][c] = bfs(r, c)
+#time complexity: O((m * n)^2) time complexity, 
+#O(m*n) space complexity
 
 
