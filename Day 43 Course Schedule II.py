@@ -54,3 +54,25 @@ class Solution:
 #time complexity: O(N + P) where N is the number of courses and P is the number of prerequisites
 #space complexity: O(N + P) where N is the number of courses and P is the number of prerequisites
 
+#DFS, topological sort
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        adj = [[] for i in range(numCourses)]
+        indegree = [0] * numCourses
+        for crs, pre in prerequisites:
+            adj[pre].append(crs)
+            indegree[crs] += 1
+        output = []
+
+        def dfs(crs):
+            output.append(crs)
+            for nei in adj[crs]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    dfs(nei)
+        for c in range(numCourses):
+            if indegree[c] == 0:
+                dfs(c)
+        return output if len(output) == numCourses else []
+#time complexity: O(N + P) where N is the number of courses and P is the number of prerequisites
+#space complexity: O(N + P) where N is the number of courses and P is the number of prerequisites
