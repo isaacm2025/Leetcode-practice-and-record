@@ -29,6 +29,7 @@ prerequisites[i].length == 2
 All prerequisite pairs are unique.'''
 
 
+from collections import deque
 from typing import List
 #DFS
 class Solution:
@@ -53,5 +54,26 @@ class Solution:
             if not dfs(c):
                 return False
         return True
+#time complexity: O(N + P) where N is the number of courses and P is the number of prerequisites
+#space complexity: O(N + P) where N is the number of courses and P is the number of prerequisites
+
+#kahn's algorithm
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        indegree = {i: 0 for i in range(numCourses)}
+        graph = {i: [] for i in range(numCourses)}
+        for crs, pre in prerequisites:
+            graph[pre].append(crs)
+            indegree[crs] += 1
+        queue = deque([c for c in indegree if indegree[c] == 0])
+        count = 0
+        while queue:
+            course = queue.popleft()
+            count += 1
+            for nei in graph[course]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    queue.append(nei)
+        return count == numCourses
 #time complexity: O(N + P) where N is the number of courses and P is the number of prerequisites
 #space complexity: O(N + P) where N is the number of courses and P is the number of prerequisites
