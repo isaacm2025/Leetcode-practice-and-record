@@ -51,3 +51,26 @@ class Solution:
         return dfs(0, -1) and len(visitSet) == n
 #time complexity: O(N + E) where N is the number of nodes and E is the number of edges
 #space complexity: O(N + E) where N is the number of nodes and E is the number of edges
+
+#BFS
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) > n - 1:
+            return False
+        adj = [[] for i in range(n)]
+        for a, b in edges:
+            adj[a].append(b)
+            adj[b].append(a)
+        visitSet = set()
+        queue = deque([0])
+        while queue:
+            node = queue.popleft()
+            if node in visitSet:
+                return False
+            visitSet.add(node)
+            for nei in adj[node]:
+                if nei not in visitSet:
+                    queue.append(nei)
+        return len(visitSet) == n
+#time complexity: O(N + E) where N is the number of nodes and E is the number of edges
+#space complexity: O(N + E) where N is the number of nodes and E is the number of edges
