@@ -32,6 +32,7 @@ Constraints:
 1 <= tickets.length <= 300
 from_i != to_i'''
 
+from collections import defaultdict
 from typing import List
 #DFS
 class Solution:
@@ -59,3 +60,19 @@ class Solution:
         return res
 #time complexity: O(E * V) where E is the number of edges and V is the number of vertices
 #space complexity: O(E + V) for the adjacency list and the recursion stack
+
+#Hierholzer's algorithm
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in tickets:
+            adj[src].append(dst)
+        res = []
+        def dfs(node):
+            while adj[src]:
+                dst = adj[src].pop()
+                dfs(dst)
+        dfs("JFK")
+        return res[::-1]
+#time complexity: O(E log E) due to sorting the adjacency list and traversing all edges
+#space complexity: O(E) for the adjacency list and O(V) for the recursion stack, where E is the number of edges and V is the number of vertices
