@@ -48,4 +48,22 @@ class Solution:
 #space complexity: O(n + e) for the adjacency list and the distance dictionary
 
 
+#floyd warshall
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        inf = float("inf")
+        dist = [[inf] * n for _ in range(n)]
+        for u, v, w, in times:
+            dist[u - 1][v - 1] = w
+        for i in range(n):
+            dist[i][i] = 0
+        for mid in range(n):
+            for src in range(n):
+                for dst in range(n):
+                    dist[src][dst] = min(dist[src][dst], dist[src][mid] + dist[mid][dst])
+        res = max(dist[k - 1])
+        return res if res < inf else - 1
+#time complexity: O(n^3) due to the three nested loops for the Floyd-Warshall algorithm
+#space complexity: O(n^2) for the distance matrix
+
         
