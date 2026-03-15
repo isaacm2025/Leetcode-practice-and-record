@@ -87,4 +87,3 @@ class Solution:
         return []
 #time complexity: O(V + E) where V is the number of vertices and E is the number of edges
 #space complexity: O(V + E) for the adjacency list and visited array and cycle set
-            
