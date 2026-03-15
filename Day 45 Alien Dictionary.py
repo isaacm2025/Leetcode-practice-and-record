@@ -53,14 +53,14 @@ class Solution:
         visited = {}
         res = []
         def dfs(c):
-            if i in visited:
-                return visited[i]
-            visited[i] = True
-            for neighbor in adj[i]:
+            if c in visited:
+                return visited[c]
+            visited[c] = True
+            for neighbor in adj[c]:
                 if dfs(neighbor):
                     return True
-            visited[i] = False
-            res.append(i)
+            visited[c] = False
+            res.append(c)
         for i in adj:
             if dfs(i):
                 return ""
@@ -70,3 +70,34 @@ class Solution:
 #space complexity: O(V + E) where V is the number of unique characters and E is the number of edges in the graph.
             
 
+#Topological sort
+class Solution:
+    def foreignDictionary(self, words: List[str]) -> str:
+        adj = {c: set() for w in words for c in w}
+        indegree = {c: 0 for c in adj}
+
+        for i in range(len(words) - 1):
+            w1, w2 = words[i], words[i + 1]
+            minLen = min(len(w1), len(w2))
+            if len(w1) > len(w2) and w1[:minLen] == w2[:minLen]:
+                return ""
+            for j in range(minLen):
+                if w1[j] != w2[j]:
+                    if w2[j] not in adj[w1[j]]:
+                        adj[w1[j]].add(w2[j])
+                        indegree[w2[j]] += 1
+                    break
+        queue = deque([c for c in indegree if indegree[c] == 0])
+        res = []
+        while queue:
+            c = queue.popleft()
+            res.append(c)
+            for neighbor in adj[c]:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
+                    queue.append(neighbor)
+        if len(res) < len(indegree):
+            return ""
+        return "".join(res)
+#time complexity: O(N + V + E) where N is the total number of characters in the input, V is the number of unique characters and E is the number of edges in the graph.
+#space complexity: O(V + E) where V is the number of unique characters and E is the number of edges in the graph.
