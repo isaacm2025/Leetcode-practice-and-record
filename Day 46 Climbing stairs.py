@@ -26,6 +26,9 @@ Constraints:
 1 <= n <= 45'''
 
 #recursion
+import math
+
+
 class Solution:
     def climbStairs(self, n: int) -> int:
         def dfs(i):
@@ -61,4 +64,15 @@ class Solution:
             two = temp
         return one
 #time complexity: O(n)
+#space complexity: O(1)
+
+#math
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        sqrt5 = math.sqrt(5)
+        phi = (1 + sqrt5) / 2
+        psi = (1 - sqrt5) / 2
+        n = n + 1
+        return int((phi ** n - psi ** n) / sqrt5)
+#time complexity: O(1)
 #space complexity: O(1)
