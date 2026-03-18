@@ -75,3 +75,6 @@ class Solution:
         maxLen, center = max((n, i) for i, n in enumerate(p))
         start = (center - maxLen) // 2
         return s[start:start + maxLen]
+    
+#time complexity: O(n)
+#space complexity: O(n)
