@@ -50,3 +50,37 @@ class Solution:
 #time complexity: O(n^m) where n is the number of coins and m is the amount
 #space complexity: O(m)
 
+#dp(top down)
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        memo = {}
+        def dfs(amount):
+            if amount == 0:
+                return 0
+            if amount in memo:
+                return memo[amount]
+            res = 1e9
+            for coin in coins:
+                if amount - coin >= 0:
+                    res = min(res, dfs(amount - coin) + 1)
+            memo[amount] = res
+            return res
+        minCoins = dfs(amount)
+        return -1 if minCoins >= 1e9 else minCoins
+#time complexity: O(n*m) where n is the number of coins and m is the amount
+#space complexity: O(m)
+
+#dp(bottom up)
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp = [amount + 1] * (amount + 1)
+        dp[0] = 0
+        for i in range(1, amount + 1):
+            for c in coins:
+                if i - c >= 0:
+                    dp[i] = min(dp[i], dp[i - c] + 1)
+        return -1 if dp[amount] == amount + 1 else dp[amount]
+#time complexity: O(n*m) where n is the number of coins and m is the amount
+#space complexity: O(m)
+                       
+                       
