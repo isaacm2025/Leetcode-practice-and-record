@@ -62,5 +62,36 @@ class Solution:
 #time complexity: O((n* 2^n) + m) where n is the length of the string s and m is the total number of characters in the dictionary
 #space complexity: O(n +(m * t)) where n is the length of the string s, m is the average length of the words and t is the number of words in the dictionary
 
+#dp with top down
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        memo = {len(s): True}
+        def dfs(i):
+            if i in memo:
+                return memo[i]
+            for word in wordDict:
+                if ((i + len(word)) <= len(s) and s[i:i + len(word)] == word):
+                    if dfs(i + len(word)):
+                        memo[i] = True
+                        return True
+            memo[i] = False
+            return False
+        return dfs(0)
+#time complexity: O(n*m*t) where n is the length of the string s, m is the average length of the words and t is the number of words in the dictionary
+#space complexity: O(n)
 
+#dp with bottom up
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
+        for i in range(len(s) - 1, -1, -1):
+            for word in wordDict:
+                if ((i + len(word)) <= len(s) and s[i:i + len(word)] == word):
+                    dp[i] = dp[i + len(word)]
+                if dp[i]:
+                    break
+        return dp[0]
+#time complexity: O(n*m*t) where n is the length of the string s, m is the average length of the words and t is the number of words in the dictionary
+#space complexity: O(n)
 
