@@ -82,5 +82,26 @@ class Solution:
         return -1 if dp[amount] == amount + 1 else dp[amount]
 #time complexity: O(n*m) where n is the number of coins and m is the amount
 #space complexity: O(m)
-                       
-                       
+
+#BFS
+from collections import deque
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0:
+            return 0
+        q = deque([0])
+        visited = [False] * (amount + 1)
+        visited[0] = True
+        res = 0
+        while q:
+            res += 1
+            for _ in range(len(q)):
+                cur = q.popleft()
+                for coin in coins:
+                    next = cur + coin
+                    if next == amount:
+                        return res
+                    if next < amount and not visited[next]:
+                        visited[next] = True
+                        q.append(next)
+        return -1
