@@ -78,5 +78,39 @@ class Solution:
 #time complexity: O(n * target)
 #space complexity: O(target)
 
+#optimal dp
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2:
+            return False
+        target = sum(nums) // 2
+        dp = [False] * (target + 1)
+        dp[0] = True
+        for num in nums:
+            for j in range(target, num - 1, -1):
+                dp[j] = dp[j] or dp[j -num]
+        return dp[target]
+#time complexity: O(n * target)
+#space complexity: O(target)
+
+#hashset dp
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2:
+            return False
+        dp = set()
+        dp.add(0)
+        target = sum(nums) // 2
+        for i in range(len(nums) -1, -1, -1):
+            nextDp = set()
+            for t in dp:
+                if (t + nums[i]) == target:
+                    return True
+                nextDp.add(t)
+                nextDp.add(t + nums[i])
+            dp = nextDp
+        return False
+#time complexity: O(n * target)
+#space complexity: O(target)
 
         
