@@ -42,5 +42,24 @@ class Solution:
                 res += dfs(i, a - coins[i])
             return res
         return dfs(0, amount)
-#time complexity: O(2^(m + n))
-#space complexity: O(m + n)
+#time complexity: O(2^(max(n, a/m))
+#space complexity: o(max(n, a/m))
+
+#dp with bottom up
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        n = len(coins)
+        coins.sort()
+        dp = [[0] * (amount + 1) for _ in range(n + 1)]
+        for i in range(n + 1):
+            dp[i][0] = 1
+        for i in range(n - 1, -1, -1):
+            for a in range(amount + 1):
+                if a >= coins[i]:
+                    dp[i][a] = dp[i + 1][a] + dp[i][a - coins[i]]
+                else:
+                    dp[i][a] = dp[i + 1][a]
+        return dp[0][amount]
+#time complexity: O(n * a)
+#space complexity: O(n * a)
+
