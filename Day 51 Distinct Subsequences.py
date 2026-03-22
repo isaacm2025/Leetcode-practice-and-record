@@ -85,5 +85,41 @@ class Solution:
         return dp[0][0]
 #time complexity: O(m*n) where m and n are the lengths of s and t
 #space complexity: O(m*n) for the dp table
-                
+
+#dp (optimized space)
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        m, n = len(s), len(t)
+        dp = [0] * (n + 1)
+        next_dp = [0] * (n + 1)
+        dp[n] = next_dp[n] = 1
+        for i in range(m - 1, -1, -1):
+            for j in range(n - 1, -1, -1):
+                next_dp[j] = dp[j]
+                if s[i] == t[j]:
+                    next_dp[j] += dp[j + 1]
+            dp = next_dp[:]
+        return dp[0]
+#time complexity: O(m*n) where m and n are the lengths of s and t
+#space complexity: O(n) for the dp arrays
+
+#dp optimal
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        m, n = len(s), len(t)
+        dp = [0] * (n + 1)
+        dp[n] = 1
+        for i in range(m - 1, -1, -1):
+            prev = 1
+            for j in range(n - 1, -1, -1):
+                res = dp[j]
+                if s[i] == t[j]:
+                    res += prev
+                prev = dp[j]
+                dp[j] = res
+        return dp[0]
+#time complexity: O(m*n) where m and n are the lengths of s and t
+#space complexity: O(n) for the dp array
+
+
 
