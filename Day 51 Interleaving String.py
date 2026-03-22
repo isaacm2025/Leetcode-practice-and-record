@@ -91,3 +91,28 @@ class Solution:
 #time complexity: O(m*n) where m and n are the lengths of s1 and s2
 #space complexity: O(m*n) for the dp table
 
+#dp (optimized space)
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        m, n = len(s1), len(s2)
+        if m + n != len(s3):
+            return False
+        if n < m:
+            s1, s2 = s2, s1
+            m, n = n, m
+
+        dp = [False for _ in range(n + 1)]
+        dp[n] = True
+        for i in range(m, -1, -1):
+            next_dp = [False for _ in range(n + 1)]
+            if i == m:
+                next_dp[n] = True
+            for j in range(n, -1, -1):
+                if i < len(s1) and s1[i] == s3[i + j]:
+                    next_dp[j] = dp[j]
+                if j < len(s2) and s2[j] == s3[i + j]:
+                    next_dp[j] = next_dp[j] or next_dp[j + 1]
+            dp = next_dp
+        return dp[0]
+#time complexity: O(m*n) where m and n are the lengths of s1 and s2
+#space complexity: O(n) for the dp array
