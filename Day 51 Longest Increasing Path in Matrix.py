@@ -47,3 +47,29 @@ class Solution:
         return LTP
 #time complexity: O(m*n*4^(m*n)) where m and n are the number of rows and columns in the matrix
 #space complexity: O(m*n) for the recursion stack
+
+#dp (top-down)
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        ROWS, COLS = len(matrix), len(matrix[0])
+        dp = {}
+
+        def dfs(r, c, prev):
+            if (r < 0 or r == ROWS or c < 0 or c == COLS or matrix[r][c] <= prev):
+                return 0
+            if (r, c) in dp:
+                return dp[(r, c)]
+            res = 1
+            res = max(res, 1 + dfs(r + 1, c, matrix[r][c]))
+            res = max(res, 1 + dfs(r - 1, c, matrix[r][c]))
+            res = max(res, 1 + dfs(r, c + 1, matrix[r][c]))
+            res = max(res, 1 + dfs(r, c - 1, matrix[r][c]))
+            dp[(r, c)] = res
+            return res
+        LTP = 0
+        for r in range(ROWS):
+            for c in range(COLS):
+                LTP = max(LTP, dfs(r, c, float('-inf')))
+        return LTP
+#time complexity: O(m*n) where m and n are the number of rows and columns in the matrix
+#space complexity: O(m*n) for the dp dictionary and recursion stack
