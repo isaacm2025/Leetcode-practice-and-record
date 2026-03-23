@@ -46,3 +46,44 @@ class Solution:
         return dfs(0, False)
 #time complexity: O(2^n)
 #space complexity: O(n)
+
+#dp (top down)
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        memo = [[None] * 2 for _ in range(len(nums) + 1)]
+        def dfs(i, flag):
+            if i == len(nums):
+                return 0 if flag else -1e6
+            if memo[i][flag] is not None:
+                return memo[i][flag]
+            if flag:
+                memo[i][flag] = max(0, nums[i] + dfs(i + 1, True))
+            else:
+                memo[i][flag] = max(dfs(i + 1, False), nums[i] + dfs(i + 1, True))
+            return memo[i][flag]
+        return dfs(0, False)
+#time complexity: O(n)
+#space complexity: O(n)
+
+#space optimization
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        dp = [*nums]
+        for i in range(1, len(nums)):
+            dp[i] = max(dp[i], nums[i] + dp[i - 1])
+        return max(dp)
+#time complexity: O(n)
+#space complexity: O(n)
+
+#kadane's algorithm
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxSub, curSum = nums[0], 0
+        for num in nums:
+            if curSum < 0:
+                curSum = 0
+            curSum += num
+            maxSub = max(maxSub, curSum)
+        return maxSub
+#time complexity: O(n)
+#space complexity: O(1)
