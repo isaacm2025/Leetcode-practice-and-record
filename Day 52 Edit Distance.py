@@ -60,7 +60,7 @@ class Solution:
                 return n - j
             if j == n:
                 return m - i
-            if (i, j) in dp;
+            if (i, j) in dp:
                 return dp[(i, j)]
             if word1[i] ==[word2][j]:
                 dp[(i, j)] = dfs(i + 1, j+ 1)
