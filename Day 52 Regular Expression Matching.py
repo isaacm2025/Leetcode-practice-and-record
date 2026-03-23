@@ -43,7 +43,7 @@ class Solution:
                 return i == m
             match = i < m and (s[i] == p[j] or p[j] == '.')
             if j + 1 < n and p[j + 1] == '*':
-                return (dfs(i, j + 2) or match and dfs(i + 1, j)))
+                return (dfs(i, j + 2) or match and dfs(i + 1, j))
             if match:
                 return dfs(i + 1, j + 1)
             return False
@@ -75,4 +75,24 @@ class Solution:
 #space complexity: O(m * n)
 
 
-            
+#space optimization
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        dp = [False] * (len(p) + 1)
+        dp[len(p)] = True
+        for i in range(len(s), -1, -1):
+            nextDp = [False] * (len(p) + 1)
+            nextDp[len(p)] = (i == len(s))
+            for j in range(len(p) -1, -1, -1):
+                match = i < len(s) and (s[i] == p[j] or p[j] == '.')
+                if (j + 1) < len(p) and p[j + 1] == '*':
+                    nextDp[j] = nextDp[j + 2]
+                    if match:
+                        nextDp[j] = nextDp[j] or dp[j]
+                elif match:
+                    nextDp[j] = dp[j + 1]
+            dp = nextDp
+        return dp[0]
+#time complexity: O(m * n)
+#space complexity: O(n)
+                    
