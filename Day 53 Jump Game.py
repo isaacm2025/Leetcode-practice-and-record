@@ -36,3 +36,42 @@ class Solution:
         return dfs(0)
 #time complexity: O(n!)
 #space complexity: O(n)
+
+#dp top down
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        memo = {}
+        def dfs(i):
+            if i in memo:
+                return memo[i]
+            if i == len(nums) -1:
+                return True
+            if nums[i] == 0:
+                return False
+            end = min(len(nums) - 1, i + nums[i])
+            for j in range(i + 1, end + 1):
+                if dfs(j):
+                    memo[i] = True
+                    return True
+            memo[i] = False
+            return False
+        return dfs(0)
+#time complexity: O(n^2)
+#space complexity: O(n)
+
+#dp bottom up
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        n = len(nums)
+        dp = [False] * n
+        dp[-1] = True
+        for i in range(n - 2, -1, -1):
+            end = min(n - 1, i + nums[i])
+            for j in range(i + 1, end + 1):
+                if dp[j]:
+                    dp[i] = True
+                    break
+        return dp[0]
+#time complexity: O(n^2)
+#space complexity: O(n)
+
