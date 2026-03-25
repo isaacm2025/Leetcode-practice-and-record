@@ -67,3 +67,29 @@ class Solution:
 #time complexity: O(n^2) where n is the length of string s
 #space complexity: O(n^2) where n is the length of string s
                 
+#dp optimized
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        left = []
+        star = []
+        for i, ch in enumerate(s):
+            if ch == '(':
+                left.append(i)
+            elif ch == '*':
+                star.append(i)
+            else:
+                if not left and not star:
+                    return False
+                if left:
+                    left.pop()
+                else:
+                    star.pop()
+        while left and star:
+            if left[-1] < star[-1]:
+                left.pop()
+                star.pop()
+            else:
+                return False
+        return not left
+#time complexity: O(n) where n is the length of string s
+#space complexity: O(n) where n is the length of string s
