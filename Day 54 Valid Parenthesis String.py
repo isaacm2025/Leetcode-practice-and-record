@@ -93,3 +93,20 @@ class Solution:
         return not left
 #time complexity: O(n) where n is the length of string s
 #space complexity: O(n) where n is the length of string s
+
+#greedy
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        leftMin, leftMax = 0, 0
+        for ch in s:
+            if ch == "(":
+                leftMin, leftMax = leftMin + 1, leftMax + 1
+            elif ch == ")":
+                leftMin, leftMax = max(leftMin - 1, 0), leftMax - 1
+            else:
+                leftMin, leftMax = max(leftMin - 1, 0), leftMax + 1
+            if leftMax < 0:
+                return False
+        return leftMin == 0
+#time complexity: O(n) where n is the length of string s
+#space complexity: O(1)
