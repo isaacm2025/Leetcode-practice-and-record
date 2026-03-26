@@ -71,3 +71,20 @@ class Solution:
         return n - max_non_overlapping
 #time complexity: O(nlogn) for sorting, O(n^2) for the nested loops, overall O(nlogn + n^2)
 #space complexity: O(n) for sorting, O(n) for the dp array, overall O(n)
+
+#greedy
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        res = 0
+        prevEnd = intervals[0][1]
+
+        for start, end in intervals[1:]:
+            if start < prevEnd:
+                prevEnd = end
+            else:
+                prevEnd = min(end, prevEnd)
+                res += 1
+        return res
+#time complexity: O(nlogn) for sorting, O(n) for iterating through the intervals, overall O(nlogn)
+#space complexity: O(n) for sorting, O(1) for the variables, overall O(n)
