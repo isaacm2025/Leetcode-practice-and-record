@@ -36,3 +36,38 @@ class Solution:
         return len(intervals) - dfs(0, -1)
 #time complexity: O(nlogn) for sorting, O(2^n) for the recursion, overall O(nlogn + 2^n)
 #space complexity: O(n) for sorting, O(n) for the recursion stack, overall O(n)
+
+#dp top down
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda x: x[1])
+        n = len(intervals)
+        memo = {}
+        def dfs(i):
+            if i in memo:
+                return memo[i]
+            res = 1
+            for j in range(i + 1, n):
+                if intervals[i][1] <= intervals[j][0]:
+                    res = max(res, 1 + dfs(j))
+            memo[i] = res
+            return res
+        return n - max(dfs(i) for i in range(n))
+#time complexity: O(nlogn) for sorting, O(n^2) for the recursion, overall O(nlogn + n^2)
+#space complexity: O(n) for sorting, O(n) for the memoization, O(n) for the recursion stack, overall O(n)
+
+#dp bottom up
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda x: x[1])
+        n = len(intervals)
+        dp = [0] * n
+        for i in range(n):
+            dp[i] = 1
+            for j in range(i):
+                if intervals[j][1] <= intervals[i][0]:
+                    dp[i] = max(dp[i], 1 + dp[j])
+        max_non_overlapping = max(dp)
+        return n - max_non_overlapping
+#time complexity: O(nlogn) for sorting, O(n^2) for the nested loops, overall O(nlogn + n^2)
+#space complexity: O(n) for sorting, O(n) for the dp array, overall O(n)
