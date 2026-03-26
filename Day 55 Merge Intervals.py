@@ -62,3 +62,27 @@ class Solution:
 #time complexity: O(nlogn) for sorting the keys of the map, O(n) for iterating through the intervals, overall O(nlogn)
 #space complexity: O(n) for the map, O(n) for the output list, O(1) for the interval list.
 
+#greedy
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        max_val = max(interval[0] for interval in intervals)
+        mp = [0] * (max_val + 1)
+        for start, end in intervals:
+            mp[start] = max(end + 1, mp[start])
+        res = []
+        have = -1
+        interval_start = -1
+        for i in range(len(mp)):
+            if mp[i] != 0:
+                if interval_start == -1:
+                    interval_start = i
+                have = max(have, mp[i] - 1)
+            if have == i:
+                res.append([interval_start, have])
+                interval_start = -1
+                have = -1
+        if interval_start != -1:
+            res.append([interval_start, have])
+        return res
+#time complexity: O(n) for iterating through the intervals, O(m) for iterating through the map, overall O(n + m) where m is the maximum value of the start intervals.
+#space complexity: O(n) for the output list, O(m) for the map, O(1) for the interval list.
