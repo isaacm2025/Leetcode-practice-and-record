@@ -88,3 +88,4 @@ class Solution:
         return res
 #time complexity: O(n) for merging the intervals
 #space complexity: O(n) space for the output list, O(1) space for the newInterval list.
+
