@@ -37,3 +37,28 @@ class Solution:
         return output
 #time complexity: O(nlogn) for sorting, O(n) for merging, overall O(nlogn)
 #space complexity: O(n) for the output list, O(1) for the input list.
+
+#sweep line algorithm
+import heapq
+from collections import defaultdict
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        mp = defaultdict(int)
+        for start, end in intervals:
+            mp[start] += 1
+            mp[end] -= 1
+        res = []
+        interval = []
+        have = 0
+        for i in sorted(mp):
+            if not interval:
+                interval.append(i)
+            have += mp[i]
+            if have == 0:
+                interval.append(i)
+                res.append(interval)
+                interval = []
+        return res
+#time complexity: O(nlogn) for sorting the keys of the map, O(n) for iterating through the intervals, overall O(nlogn)
+#space complexity: O(n) for the map, O(n) for the output list, O(1) for the interval list.
+
