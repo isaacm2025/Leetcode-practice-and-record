@@ -65,3 +65,25 @@ class Solution:
         return max_rooms
 #time complexity: O(nlogn) due to sorting
 #space complexity: O(n) due to the map storing start and end times
+
+#two pointer solution: sort the start and end times separately, then use two pointers to traverse both lists.
+# If the start time of the current meeting is less than the end time of the earliest ending meeting, we need a new room. 
+# Otherwise, we can reuse a room and move the end pointer
+
+class Solution:
+    def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        start = sorted(i.start for i in intervals)
+        end = sorted(i.end for i in intervals)
+        s, e = 0, 0
+        res = count = 0
+        while s < len(intervals):
+            if start[s] < end[e]:
+                count += 1
+                s += 1
+            else:
+                count -= 1
+                e += 1
+            res = max(res, count)
+        return res
+#time complexity: O(nlogn) due to sorting
+#space complexity: O(n) due to the separate lists for start and end times
