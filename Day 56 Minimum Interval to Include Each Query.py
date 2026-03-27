@@ -26,6 +26,7 @@ Constraints:
 1 <= left_i <= right_i <= 10000
 1 <= queries[j] <= 10000'''
 
+import heapq
 from typing import List
 #brute force
 class Solution:
@@ -42,3 +43,23 @@ class Solution:
         return res
 #time complexity: O(n*m) where n is the number of intervals and m is the number of queries
 #space complexity: O(m) for the result array
+
+#min heap solution: sort intervals by start time, then for each query, we can use a min heap to keep track of the intervals that are currently active (i.e., those that have started but not yet ended). 
+# For each query, we can pop from the heap any intervals that have ended before the query time, and then check the top of the heap for the smallest interval that contains the query.
+class Solution:
+    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
+        intervals.sort()
+        min_heap = []
+        res = {}
+        i = 0
+        for q in sorted(queries):
+            while i < len(intervals) and intervals[i][0] <= q:
+                l, r = intervals[i]
+                heapq.heappush(min_heap, (r - l + 1, r))
+                i += 1
+            while min_heap and min_heap[0][1] < q:
+                heapq.heappop(min_heap)
+            res[q] = min_heap[0][0] if min_heap else -1
+        return [res[q] for q in queries]
+#time complexity: O(nlogn + mlogm) due to sorting and heap operations
+#space complexity: O(n) for the heap and result dictionary
