@@ -29,6 +29,7 @@ class Interval(object):
         self.start = start
         self.end = end
 
+from collections import defaultdict
 import heapq
 from typing import List
 #min heap solution: sort intervals by start time, then use a min heap to keep track of end times of meetings currently using rooms. 
@@ -52,3 +53,15 @@ class Solution:
 
 class Solution:
     def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        mp = defaultdict(int)
+        for i in intervals:
+            mp[i.start] += 1
+            mp[i.end] -= 1
+        ongoing = 0
+        max_rooms = 0
+        for time in sorted(mp.keys()):
+            ongoing += mp[time]
+            max_rooms = max(max_rooms, ongoing)
+        return max_rooms
+#time complexity: O(nlogn) due to sorting
+#space complexity: O(n) due to the map storing start and end times
