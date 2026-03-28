@@ -99,3 +99,5 @@ class Solution:
                 matrix[0][c] = 0
 #time complexity O((m*n)) for the nested loops to find the zeroes and set the rows and columns to zero
 #space complexity O(1) since we are using the first row and column to store the zeroes and a variable to track if the first row has a zero
+
+
