@@ -53,5 +53,30 @@ class Solution:
         return output
 #time complexity O(log n) for the sum of squares function and O(k) for the while loop where k is the number of iterations until we find a cycle or reach 1
 #space complexity O(log n) for the hash set to store the visited numbers
+
+#fast and slow pointers
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        slow, fast = n, self.sumOfSquares(n)
+        power = lam = 1
+        while slow != fast:
+            if power == lam:
+                slow = fast
+                power *= 2
+                lam = 0
+            fast = self.sumOfSquares(fast)
+            lam += 1
+        return True if fast == 1 else False
+    def sumOfSquares(self, n: int) -> int:
+        output = 0
+        while n:
+            digit = n % 10
+            digit = digit * digit
+            output += digit
+            n //= 10
+        return output
+#time complexity O(log n) for the sum of squares function and O(k) for the while loop where k is the number of iterations until we find a cycle or reach 1
+#space complexity O(1) for the fast and slow pointers
+        
         
 
