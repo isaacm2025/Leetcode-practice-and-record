@@ -42,4 +42,30 @@ class Solution:
         digits.reverse()
 
         while one:
-            if i
+            if i < len(digits):
+                if digits[i] == 9:
+                    digits[i] = 0
+                else:
+                    digits[i] += 1
+                    one = 0
+            else:
+                digits.append(1)
+                one = 0
+            i += 1
+        digits.reverse()
+        return digits
+#time complexity O(n) where n is the number of digits in the input list
+#space complexity O(1) since we are modifying the input list in place
+
+#iteration without reversing the list
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        n = len(digits)
+        for i in range(n - 1, -1, -1):
+            if digits[i] < 9:
+                digits[i] += 1
+                return digits
+            digits[i] = 0
+        return [1] + digits
+#time complexity O(n) where n is the number of digits in the input list
+#space complexity O(1) since we are modifying the input list in place, except for the case where we need to add a new digit at the beginning, which takes O(n) space
