@@ -39,4 +39,19 @@ class Solution:
             res *= x
         return res if n >= 0 else 1 / res
 #time complexity O(n) where n is the absolute value of the exponent
-#space complexity O(1) since we are using a constant amount of space to store the
+#space complexity O(1) since we are using a constant amount of space to store the result
+
+#recursion
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        def helper(x, n):
+            if x == 0:
+                return 0
+            if n == 0:
+                return 1
+            res = helper(x * x, n//2)
+            return x *res if n % 2 else res
+        res = helper(x, abs(n))
+        return res if n >= 0 else 1 / res
+#time complexity O(log n) where n is the absolute value of the exponent
+#space complexity O(log n) for the recursive call stack
