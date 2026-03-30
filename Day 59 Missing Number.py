@@ -26,7 +26,7 @@ class Solution:
         n = len(nums)
         nums.sort()
         for i in range(n):
-            if nums[i] ! = i:
+            if nums[i] != i:
                 return i
         return n
 #space complexity O(1) if we ignore the space used by the sorting algorithm
