@@ -41,3 +41,10 @@ class Solution:
         return dp
 #time complexity: O(n)
 #space complexity: O(n)
+
+#built-in function
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        return [bin(i).count('1') for i in range(n + 1)]
+#time complexity: O(n)
+#space complexity: O(n)
