@@ -30,7 +30,7 @@ class Solution:
         res = 0
         for i in range(32):
             bit = (n >> i) & 1
-            res +=(bit << (31 - i)))
+            res +=(bit << (31 - i))
         return res
 #space complexity O(1)
 #time complexity O(1) since we are always iterating 32 times
