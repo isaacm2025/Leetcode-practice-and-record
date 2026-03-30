@@ -31,3 +31,26 @@ class Solution:
         return n
 #space complexity O(1) if we ignore the space used by the sorting algorithm
 #time complexity O(n log n) due to sorting
+
+#hash set
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        num_set = set(nums)
+        n = len(nums)
+        for i in range(n + 1):
+            if i not in num_set:
+                return i
+#space complexity O(n) due to the hash set
+#time complexity O(n) due to the loop and hash set lookups
+
+#bitwise xor
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        xorr = n
+        for i in range(n):
+            xorr ^= i
+            xorr ^= nums[i]
+        return xorr
+#space complexity O(1)
+#time complexity O(n) due to the loop
