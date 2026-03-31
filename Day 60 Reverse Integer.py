@@ -54,3 +54,20 @@ class Solution:
 #time complexity: O(n)
 #space complexity: O(n)
 
+#iterative
+class Solution:
+    def reverse(self, x: int) -> int:
+        min = -2147483648 #-2^31
+        max = 2147483647 #2^31 - 1
+        res = 0
+        sign = -1 if x < 0 else 1
+        x = abs(x)
+        while x != 0:
+            res = res * 10 + x % 10
+            x //= 10
+        res *= sign
+        if res < min or res > max:
+            return 0
+        return res
+#time complexity: O(n)
+#space complexity: O(1)
