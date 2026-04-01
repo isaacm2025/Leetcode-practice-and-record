@@ -35,4 +35,23 @@ class Solution:
         return False
 #time complexity: O(n log n)
 #space complexity: O(1)
-        
+
+
+#hash set
+class Solution:
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        seen = set()
+        for num in nums:
+            if num in seen:
+                return True
+            seen.add(num)
+        return False
+#time complexity: O(n)
+#space complexity: O(n)
+
+#hash set length
+class Solution:
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        return len(set(nums)) < len(nums)
+#time complexity: O(n)
+#space complexity: O(n)
