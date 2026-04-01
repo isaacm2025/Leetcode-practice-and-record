@@ -39,3 +39,21 @@ class Solution:
         return res
 #time complexity: O(n log n) due to sorting the list of tuples
 #space complexity: O(n) for the count dictionary and the list of tuples
+
+#bucket sort
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = {}
+        freq = [[] for i in range(len(nums) + 1)] #create a list of empty lists to serve as buckets for frequencies
+        for num in nums:
+            count[num] = 1 + count.get(num, 0) #count the frequency of each number in nums and store it in count
+        for num, c in count.items():
+            freq[c].append(num) #append the number to the bucket corresponding to its frequency
+        res = []
+        for i in range(len(freq) - 1, 0, -1): #iterate through the buckets in reverse order (from highest frequency to lowest)
+            for num in freq[i]:
+                res.append(num) #append the numbers in the current bucket to the result list
+                if len(res) == k: #if we have collected k elements, return the result
+                    return res
+#time complexity: O(n) for counting frequencies and filling the buckets, O(n) in the worst case for iterating through the buckets, resulting in O(n) overall
+#space complexity: O(n) for the count dictionary and the list of buckets
