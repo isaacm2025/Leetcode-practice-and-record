@@ -57,7 +57,7 @@ from typing import List
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         cols, rows, squares = defaultdict(set), defaultdict(set), defaultdict(set)
-        for i in range(9):
+        for r in range(9):
             for c in range(9):
                 if board[r][c] == ".":
                     continue
@@ -67,5 +67,23 @@ class Solution:
                 rows[r].add(board[r][c])
                 squares[(r // 3, c // 3)].add(board[r][c])
         return True
-#time complexity is O(1) since the board size is fixed and space complexity is O(1) since the board size is fixed.
+#time complexity is O(n^2) since the board size is fixed and 
+#space complexity is O(n^2) since the board size is fixed.
 
+#bit masking
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        rows, cols, squares = [0] * 9, [0] * 9, [0] * 9
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] == ".":
+                    continue
+                val = int(board[r][c]) - 1
+                if (rows[r] & (1 << val) or cols[c] & (1 << val) or squares[(r // 3) * 3 + c // 3] & (1 << val)):
+                    return False
+                rows[r] |= (1 << val)
+                cols[c] |= (1 << val)
+                squares[(r // 3) * 3 + c // 3] |= (1 << val)
+        return True
+#time complexity is O(n^2) since the board size is fixed and
+#space complexity is O(n) since we are using three arrays of size 9.
