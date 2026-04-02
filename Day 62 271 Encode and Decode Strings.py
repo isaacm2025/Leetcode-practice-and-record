@@ -75,7 +75,7 @@ class Solution:
         sizes, res, i = [], [], 0
         while s[i] != '#':
             cur = ""
-            while s[i] ! = ',':
+            while s[i] != ',':
                 cur += s[i]
                 i += 1
             sizes.append(int(cur))
@@ -84,6 +84,32 @@ class Solution:
         for sz in sizes:
             res.append(s[i:i+sz])
             i += sz
+        return res
+#time complexity is O(m) for each encode and decode where m is the total number of characters in the input list of strings.
+#space complexity is O(n + m) for each encode and decode where n is the number of strings in the input list and m is the total number of characters in the input list of strings.
+
+#optimal
+class Solution:
+
+    def encode(self, strs: List[str]) -> str:
+        res = ""
+        for s in strs:
+            res += str(len(s)) + '#' + s
+        return res
+    
+
+    def decode(self, s: str) -> List[str]:
+        res = []
+        i = 0
+        while i < len(s):
+            j = i
+            while s[j] != '#':
+                j += 1
+            length = int(s[i:j])
+            i = j + 1
+            j = i + length
+            res.append(s[i:j])
+            i = j
         return res
 #time complexity is O(m) for each encode and decode where m is the total number of characters in the input list of strings.
 #space complexity is O(n + m) for each encode and decode where n is the number of strings in the input list and m is the total number of characters in the input list of strings.
