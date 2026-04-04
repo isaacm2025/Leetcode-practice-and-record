@@ -67,10 +67,6 @@ class Solution:
             s2Count[ord(s2[i]) - ord('a')] += 1
         matches = 0
         for i in range(26):
-            s1Count[ord(s1[i]) - ord('a')] += 1
-            s2Count[ord(s2[i]) - ord('a')] += 1
-        matches = 0
-        for i in range(26):
             matches += 1 if s1Count[i] == s2Count[i] else 0
         l = 0
         for r in range(len(s1), len(s2)):
