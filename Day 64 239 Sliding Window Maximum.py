@@ -38,3 +38,42 @@ class Solution:
 #time complexity: O(n * k) where n is the length of the input array and k is the size of the sliding window
 #space complexity: O(n - k + 1) which is the size of the output list
 
+
+#Heap
+import heapq
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        heap = []
+        output = []
+        for i in range(len(nums)):
+            heapq.heappush(heap, (-nums[i], i))
+            if i >= k - 1:
+                while heap[0][1] <= i - k:
+                    heapq.heappop(heap)
+                output.append(-heap[0][0])
+        return output
+#time complexity: O(n log k) where n is the length of the input array and k is the size of the sliding window
+#space complexity: O(k) which is the size of the heap
+
+#dynamic programming
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        n = len(nums)
+        left = [0] * n
+        right = [0] * n
+        for i in range(n):
+            if i % k == 0:
+                left[i] = nums[i]
+            else:
+                left[i] = max(left[i - 1], nums[i])
+        for j in range(n - 1, -1, -1):
+            if j == n - 1 or (j + 1) % k == 0:
+                right[j] = nums[j]
+            else:
+                right[j] = max(right[j + 1], nums[j])
+        output = []
+        for i in range(n - k + 1):
+            output.append(max(left[i + k - 1], right[i]))
+        return output
+#time complexity: O(n) where n is the length of the input array
+#space complexity: O(n) which is the size of the left and right arrays
