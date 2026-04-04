@@ -36,3 +36,22 @@ class Solution:
         return res
 #time complexity: O(26 * n) where n is the length of the string
 #space complexity: O(26) which is the size of the count dictionary
+
+
+#optimal sliding window
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        count = {}
+        res = 0
+        l = 0
+        maxf = 0
+        for r in range(len(s)):
+            count[s[r]] = 1+ count.get(s[r], 0)
+            maxf = max(maxf, count[s[r]])
+            while (r - l + 1) - maxf > k:
+                count[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+#time complexity: O(n) where n is the length of the string
+#space complexity: O(m) where m is the number of distinct characters in the string (at most 26 for uppercase English characters)
