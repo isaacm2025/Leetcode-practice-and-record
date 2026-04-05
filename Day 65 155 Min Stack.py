@@ -58,3 +58,26 @@ class MinStack:
         return mini
 #time complexity: O(n) where n is the number of elements in the stack, O(1) for push, pop and top operations and O(n) for getMin operation
 #space complexity: O(n) which is the size of the temporary stack, O(1) for push, pop and top operations and O(n) for getMin operation
+
+#Two stacks
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        val = min(val, self.minStack[-1] if self.minStack else val)
+        self.minStack.append(val)
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minStack.pop()
+    def top(self) -> int:
+        return self.stack[-1]
+    def getMin(self) -> int:
+        return self.minStack[-1]
+    
+#time complexity: O(1) for push, pop, top and getMin operations
+#space complexity: O(n) which is the size of the stack and the minStack in the worst case when all elements in the stack are the same and are the minimum element
