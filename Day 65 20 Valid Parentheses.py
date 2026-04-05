@@ -38,3 +38,20 @@ class Solution:
         return s == ''
 #time complexity: O(n^2) where n is the length of the input string
 #space complexity: O(n) which is the size of the input string
+
+#stack
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        closeToOpen = { ")" : "(", "]" : "[", "}" : "{" }
+        for char in s:
+            if char in closeToOpen:
+                if stack and stack[-1] == closeToOpen[char]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(char)
+        return True if not stack else False
+#time complexity: O(n) where n is the length of the input string
+#space complexity: O(n) which is the size of the stack in the worst case when all characters in the input string are opening bracketss
