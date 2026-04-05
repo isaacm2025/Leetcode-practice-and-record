@@ -42,3 +42,24 @@ class Solution:
         return int(tokens[0])
 #time complexity: O(n^2) where n is the number of tokens in the input list, O(n) for the while loop and O(n) for the for loop
 #space complexity: O(1) since we are modifying the input list in place and not using any additional data structures
+
+#recursion
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        def dfs():
+            token = tokens.pop()
+            if token in "+-*/":
+                return int(token)
+            right = dfs()
+            left = dfs()
+            if token == "+":
+                return left + right
+            elif token == "-":
+                return left - right
+            elif token == "*":
+                return left * right
+            else:
+                return int(left / right)
+        return dfs()
+#time complexity: O(n) where n is the number of tokens in the input list, since we are processing each token once
+#space complexity: O(n) which is the maximum depth of the recursion stack in the worst case when all tokens are operators and we have to evaluate them one by one
