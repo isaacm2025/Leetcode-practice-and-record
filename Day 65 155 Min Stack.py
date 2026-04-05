@@ -1,0 +1,60 @@
+'''Design a stack class that supports the push, pop, top, and getMin operations.
+
+MinStack() initializes the stack object.
+void push(int val) pushes the element val onto the stack.
+void pop() removes the element on the top of the stack.
+int top() gets the top element of the stack.
+int getMin() retrieves the minimum element in the stack.
+Each function should run in 
+O
+(
+1
+)
+O(1) time.
+
+Example 1:
+
+Input: ["MinStack", "push", 1, "push", 2, "push", 0, "getMin", "pop", "top", "getMin"]
+
+Output: [null,null,null,null,0,null,2,1]
+
+Explanation:
+MinStack minStack = new MinStack();
+minStack.push(1);
+minStack.push(2);
+minStack.push(0);
+minStack.getMin(); // return 0
+minStack.pop();
+minStack.top();    // return 2
+minStack.getMin(); // return 1'''
+
+#brute force
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        
+
+    def pop(self) -> None:
+        self.stack.pop()
+        
+
+    def top(self) -> int:
+        return self.stack[-1]
+        
+
+    def getMin(self) -> int:
+        tmp = []
+        mini = self.stack[-1]
+        while len(self.stack):
+            mini = min(mini, self.stack[-1])
+            tmp.append(self.stack.pop())
+        while len(tmp):
+            self.stack.append(tmp.pop())
+        return mini
+#time complexity: O(n) where n is the number of elements in the stack, O(1) for push, pop and top operations and O(n) for getMin operation
+#space complexity: O(n) which is the size of the temporary stack, O(1) for push, pop and top operations and O(n) for getMin operation

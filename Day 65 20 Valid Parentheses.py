@@ -55,3 +55,4 @@ class Solution:
         return True if not stack else False
 #time complexity: O(n) where n is the length of the input string
 #space complexity: O(n) which is the size of the stack in the worst case when all characters in the input string are opening bracketss
+
