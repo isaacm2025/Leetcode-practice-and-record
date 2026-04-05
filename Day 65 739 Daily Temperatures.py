@@ -38,3 +38,16 @@ class Solution:
 #time complexity: O(n^2) where n is the number of temperatures in the input list, O(n) for the outer loop and O(n) for the inner loop
 #space complexity: O(n) which is the size of the output list
 
+#stack
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        res = [0] * len(temperatures)
+        stack = []
+        for i, t in enumerate(temperatures):
+            while stack and t > stack[-1][0]:
+                stackT, stackInd = stack.pop()
+                res[stackInd] = i - stackInd
+            stack.append((t, i))
+        return res
+#time complexity: O(n) where n is the number of temperatures in the input list, each temperature is pushed and popped at most once from the stack
+#space complexity: O(n) which is the size of the stack in the worst case when the input list is in decreasing order
