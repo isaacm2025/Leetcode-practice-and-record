@@ -51,3 +51,21 @@ class Solution:
         return res
 #time complexity: O(n) where n is the number of temperatures in the input list, each temperature is pushed and popped at most once from the stack
 #space complexity: O(n) which is the size of the stack in the worst case when the input list is in decreasing order
+
+
+#dp
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        res = [0] * n
+        for i in range(n - 2, -1, -1):
+            j = i + 1
+            while j < n and temperatures[j] <= temperatures[i]:
+                if res[j] > 0:
+                    j += res[j]
+                else:
+                    j = n
+            res[i] = 0 if j == n else j - i
+        return res
+#time complexity: O(n) where n is the number of temperatures in the input list, each temperature is processed at most once and we are skipping the temperatures that are less than or equal to the current temperature
+#space complexity: O(n) which is the size of the output list, O(1) for the variables used in the loop
