@@ -45,3 +45,20 @@ class Solution:
 #time complexity: O(logn) where n is the number of elements in the array, we are halving the search space at each step
 #space complexity: O(logn) due to the recursive call stack, in the worst case when the target is not found, 
 #we will have logn recursive calls on the call stack. In the best case when the target is found at the first mid point, we will have only one recursive call on the call stack, so the space complexity is O(1) in that case. Overall, the space complexity is O(logn) in the worst case.
+
+#iterative binary search
+class solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] > target:
+                r = mid - 1
+            elif nums[mid] < target:
+                l = mid + 1
+            else:
+                return mid
+        return -1
+#time complexity: O(logn) where n is the number of elements in the array, we are halving the search space at each step
+#space complexity: O(1) since we are using a constant amount of space to store the left and right pointers and the mid index
+
