@@ -35,4 +35,36 @@ class Solution:
         return min(nums)
 #time complexity: O(n) where n is the number of elements in the array, we are iterating through the array to find the minimum element
 #space complexity: O(1) since we are using a constant amount of space to store the minimum element
-        
+
+#binary search
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        res = nums[0]
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            if nums[l] < nums[r]:
+                res = min(res, nums[l])
+                break
+            mid = (l + r) // 2
+            res = min(res, nums[mid])
+            if nums[mid] >= nums[l]:
+                l = mid + 1
+            else:
+                r = mid - 1
+        return res
+#time complexity: O(logn) where n is the number of elements in the array, we are halving the search space at each step
+#space complexity: O(1) since we are using a constant amount of space to store the minimum element and the left and right pointers and the mid index
+
+#bs lower bound
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            mid = l + (r - l) // 2
+            if nums[mid] < nums[r]:
+                r = mid
+            else:
+                l = mid + 1
+        return nums[l]
+#time complexity: O(logn) where n is the number of elements in the array, we are halving the search space at each step
+#space complexity: O(1) since we are using a constant amount of space to store the left and right pointers and the mid index
