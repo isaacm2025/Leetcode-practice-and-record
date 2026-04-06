@@ -70,3 +70,4 @@ class Solution:
         return index if index < len(nums) and nums[index] == target else - 1
 #time complexity: O(logn) where n is the number of elements in the array, the bisect_left function uses binary search to find the insertion point for the target in the sorted array
 #space complexity: O(1) since we are using a constant amount of space to store the index returned by the bisect_left function
+
