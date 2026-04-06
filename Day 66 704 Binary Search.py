@@ -31,7 +31,7 @@ All the integers in nums are unique.'''
 #recursive binary search
 from typing import List
 class Solution:
-    def search(self, nums: List[int], target: int) -> int:
+    def search(self, nums: List[int], target: int, l: int, r: int) -> int:
         if l > r:
             return -1
         mid = (l + r) // 2
@@ -62,3 +62,11 @@ class solution:
 #time complexity: O(logn) where n is the number of elements in the array, we are halving the search space at each step
 #space complexity: O(1) since we are using a constant amount of space to store the left and right pointers and the mid index
 
+#built in binary search
+import bisect
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        index = bisect.bisect_left(nums, target)
+        return index if index < len(nums) and nums[index] == target else - 1
+#time complexity: O(logn) where n is the number of elements in the array, the bisect_left function uses binary search to find the insertion point for the target in the sorted array
+#space complexity: O(1) since we are using a constant amount of space to store the index returned by the bisect_left function
