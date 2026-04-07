@@ -56,3 +56,29 @@ class TimeMap:
         return "" if seen == 0 else self.keyStore[key][seen][-1]
 #time complexity: O(1) for set() and O(n) for get()
 #space complexity: O(n * m) where n is the number of keys and m is the number of timestamps for each key
+
+
+#binary search
+class TimeMap:
+
+    def __init__(self):
+        self.keyStore = {}
+
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        if key not in self.keyStore:
+            self.keyStore[key] = []
+        self.keyStore[key].append([value, timestamp])
+        
+    def get(self, key: str, timestamp: int) -> str:
+        res, value = "", self.keyStore.get(key, [])
+        left, right = 0, len(value) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if value[mid][1] <= timestamp:
+                res = value[mid][0]
+                left = mid + 1
+            else:
+                right = mid - 1
+        return res
+#time complexity: O(1) for set() and O(log n) for get()
+#space complexity: O(n * m) where n is the number of keys and m is the number of timestamps for each key
