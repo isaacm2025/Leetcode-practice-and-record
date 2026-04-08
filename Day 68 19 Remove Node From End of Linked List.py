@@ -72,3 +72,25 @@ class Solution:
         return head
 #time complexity: O(n) where n is the length of the linked list
 #space complexity: O(1)
+
+
+#two pointers
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode(0, head)
+        left, right = dummy, head
+        while n > 0:
+            right = right.next
+            n -= 1
+        while right:
+            left = left.next
+            right = right.next
+        left.next = left.next.next
+        return dummy.next
+#time complexity: O(n) where n is the length of the linked list
+#space complexity: O(1)
+            
