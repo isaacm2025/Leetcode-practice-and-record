@@ -45,3 +45,28 @@ class Solution:
         return res.next
 #time complexity:O(nlogn) where n is the total number of nodes across all linked lists, because we need to sort the values of all nodes.
 #space complexity:O(n) where n is the total number of nodes across all linked lists, because we need to store the values of all nodes in a list before sorting and creating the merged linked list.
+
+
+#iteration
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val =val
+        self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        res = ListNode(0)
+        cur = res
+        while True:
+            minNode = -1
+            for i in range(len(lists)):
+                if not lists[i]:
+                    continue
+                if minNode == -1 or lists[minNode].val > lists[i].val:
+                    minNode = i
+            if minNode == -1:
+                break
+            cur.next = list[minNode]
+            cur = cur.next
+        return res.next
+#time complexity:O(nk) where n is the total number of nodes across all linked lists and k is the number of linked lists, because in the worst case, we may need to compare the heads of all k linked lists for each of the n nodes to find the minimum node.
+#space complexity:O(1) because we are only using a constant amount of extra space to store the pointers and variables needed for the merging process, regardless of the number of nodes or linked lists.
