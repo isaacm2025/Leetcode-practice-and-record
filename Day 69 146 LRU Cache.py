@@ -62,3 +62,23 @@ class LRUCache:
         self.cache.append([key, value])
 #time complexity:O(n) for both get and put operations, where n is the number of key-value pairs in the cache. This is because we need to iterate through the cache to find the key for the get operation and to check for the key's existence for the put operation.
 #space complexity:O(n) where n is the capacity of the cache, because in the worst case, we can store up to n key-value pairs in the cache.
+
+#built in data structure
+from collections import OrderedDict
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.cachee = OrderedDict()
+        self.cap = capacity
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cacche[key] = value
+        if len(self.cache) > self.cap:
+            self.cache.popitem(last = False)
+#time complexity:O(1) for both get and put operations, because the OrderedDict provides O(1) time complexity for key lookups, insertions, and deletions.
+#space complexity:O(n) where n is the capacity of the cache, because in the worst case, we can store up to n key-value pairs in the cache.
