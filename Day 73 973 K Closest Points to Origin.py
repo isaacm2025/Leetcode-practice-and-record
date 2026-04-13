@@ -38,3 +38,21 @@ class Solution:
         return points[:k]
 #time complexity: O(n logn) for sorting the array
 #space complexity: O(1) for sorting the array in place, O(k) for storing the output array.
+
+#max-heap
+class Solution:
+    def kClosest(self, points: List[list[int]], k: int) -> List[List[int]]:
+        maxHeap = []
+        for x, y in points:
+            dist = -(x**2 + y**2)
+            heapq.heappush(maxHeap, [dist, x, y])
+            if len(maxHeap) > k:
+                heapq.heappop(maxHeap)
+        res = []
+        while maxHeap:
+            dist, x, y = heapq.heappop(maxHeap)
+            res.append([x,y])
+        return res
+#time complexity: O(n logk) for building the heap and O(k logk) for popping all the elements from the heap.
+#space complexity: O(k) for storing the heap
+
