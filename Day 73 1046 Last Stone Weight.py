@@ -29,6 +29,7 @@ Constraints:
 1 <= stones.length <= 20
 1 <= stones[i] <= 100'''
 
+import heapq
 from typing import List
 #sorting
 class Solution:
@@ -41,3 +42,16 @@ class Solution:
         return stones[0] if stones else 0
 #time complexity: O(n^2 logn) for sorting the array n times
 #space complexity: O(1) for sorting the array in place, O(n) for storing the array.
+
+#heap
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        maxHeap = [-s for s in stones]
+        heapq.heapify(maxHeap)
+        while len(maxHeap) > 1:
+            cur = heapq.heappop(maxHeap) - heapq.heappop(maxHeap)
+            if cur < 0:
+                heapq.heappush(maxHeap, cur)
+        return -maxHeap[0] if maxHeap else 0
+#time complexity: O(n logn) for building the heap and O(n logn) for popping all the elements from the heap.
+#space complexity: O(n) for storing the heap
