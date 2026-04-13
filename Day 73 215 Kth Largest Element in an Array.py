@@ -20,13 +20,22 @@ Constraints:
 -1000 <= nums[i] <= 1000
 '''
 
+import heapq
 from typing import List
 
 
-
+#sorting
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         nums.sort()
         return nums[len(nums) - k]
 #time complexity: O(nlogn)
 #space complexity: O(1)
+
+#min heap
+
+class Solution:
+    def findKthLargest(self, nums, k):
+        return heapq.nlargest(k, nums)[-1]
+#time complexity: O(nlogk)
+#space complexity: O(k)
