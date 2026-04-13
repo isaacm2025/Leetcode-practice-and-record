@@ -58,7 +58,7 @@ class KthLargest:
     
     def add(self, val: int) -> int:
         heapq.heappush(self.minHeap, val)
-        if len(self.miinHeap) > self.k:
+        if len(self.minHeap) > self.k:
             heapq.heappop(self.minHeap)
         return self.minHeap[0]
 #time complexity: O(m * logk) for adding m elements to the heap. O(n) for building the heap from the initial array.
