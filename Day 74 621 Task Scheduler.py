@@ -40,3 +40,19 @@ class Solution:
         return max(0, idle) + len(tasks)
 #time complexity: O(n) for counting the frequency of each task and O(1) for sorting the count array, O(1) for iterating through the count array.
 #space complexity: O(1) for storing the count array, O(1) for storing the idle variable.
+
+#math
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        count = [0] * 26
+        for task in tasks:
+            count[ord(task) - ord('A')] += 1
+        maxf = max(count)
+        maxCount = 0
+        for i in count:
+            maxCount += 1 if i == maxf else 0
+        time = (maxf - 1) * (n + 1) + maxCount
+        return max(len(tasks), time)
+#time complexity: O(n) for counting the frequency of each task and O(1) for finding the maximum frequency and counting the number of tasks with the maximum frequency.
+#space complexity: O(1) for storing the count array, O(1) for storing the maxf and maxCount variables.
+
