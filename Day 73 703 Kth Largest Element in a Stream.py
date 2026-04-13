@@ -28,6 +28,7 @@ Constraints:
 There will always be at least k integers in the stream when you search for the kth integer.'''
 
 #sorting
+import heapq
 from typing import List
 
 
@@ -46,3 +47,19 @@ class KthLargest:
     
 #time complexity: O(m*nlogn) for sorting the array
 #space complexity: O(n) for storing the array. O(1) for sorting the array in place, O(m) for storing the added elements in the array.
+
+#min-heap
+class KthLargest:
+    def __init__(self, k: int, nums: List[int]):
+        self.minHeap, self.k = nums, k
+        heapq.heapify(self.minHeap)
+        while len(self.minHeap) > k:
+            heapq.heappop(self.minHeap)
+    
+    def add(self, val: int) -> int:
+        heapq.heappush(self.minHeap, val)
+        if len(self.miinHeap) > self.k:
+            heapq.heappop(self.minHeap)
+        return self.minHeap[0]
+#time complexity: O(m * logk) for adding m elements to the heap. O(n) for building the heap from the initial array.
+#space complexity: O(k) for storing the heap. O(n) for storing the initial array. O(m) for storing the added elements in the heap.
