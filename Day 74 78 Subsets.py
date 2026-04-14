@@ -39,3 +39,13 @@ class Solution:
         return res
 #time complexity: O(n * 2^n) for generating all subsets and copying them
 # space complexity: O(n) for the recursion stack and subset list, O(2^n) for the result list
+
+#iteration
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = [[]]
+        for num in nums:
+            res += [subset + [num] for subset in res]
+        return res
+#time complexity: O(n * 2^n) for generating all subsets and copying them
+# space complexity: O(2^n) for the result list, O(n) for the subset list in the list comprehension
