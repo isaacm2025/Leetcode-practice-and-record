@@ -49,3 +49,26 @@ class Solution:
             generate_subsets(i + 1, cur, total)
         generate_subsets(0, [], 0)
         return [list(combination) for combination in res]
+    
+#backtracking (optimized)
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[list[int]]:
+        res = []
+        candidates.sort()
+
+        def dfs(idx, path, cur):
+            if cur == target:
+                res.append(path.copy())
+                return
+            for i in range(idx, len(candidates)):
+                if i > idx and candidates[i] == candidates[i - 1]:
+                    continue
+                if cur + candidates[i] > target:
+                    break
+                path.append(candidates[i])
+                dfs(i + 1, path, cur + candidates[i])
+                path.pop()
+        dfs(0, [], 0)
+        return res
+#time complexity: O(n * 2^n) where n is the number of candidates. In the worst case, we may have to explore all possible combinations of candidates, which can be up to 2^n. Additionally, we need to copy the current path to the result list, which takes O(n) time. Therefore, the overall time complexity is O(n * 2^n).
+#space complexity: O(n) for the recursion stack and the path list. In the worst case, the depth of the recursion can be up to n, and the path list can also contain up to n elements. Therefore, the overall space complexity is O(n).
