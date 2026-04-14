@@ -30,7 +30,7 @@ class Solution:
                     return False
             return not open
         def dfs(s: str):
-            if n * 2 == len(s);
+            if n * 2 == len(s):
                 if valid(s):
                     res.append(s)
                 return
@@ -40,3 +40,18 @@ class Solution:
         return res
 #time complexity: O(2^(2n) * n) where 2^(2n) is the number of possible combinations of parentheses and n is the time taken to validate each combination.
 #space complexity: O(2^(2n) * n) where 2^(2n) is the number of possible combinations of parentheses and n is the space taken to store each combination.
+
+#dp
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = [[] for _ in range(n + 1)]
+        res[0] = [""]
+        for k in range(n + 1):
+            for i in range(k):
+                for left in res[i]:
+                    for right in res[k - 1 - i]:
+                        res[k].append("(" + left + ")" + right)
+        return res[-1]
+    
+#time complexity: O(4^n / sqrt(n)) where 4^n is the number of possible combinations of parentheses and sqrt(n) is the time taken to generate each combination.
+#space complexity: O(4^n / sqrt(n)) where 4^n is
