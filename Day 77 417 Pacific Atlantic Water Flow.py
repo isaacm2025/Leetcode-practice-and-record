@@ -27,6 +27,7 @@ Constraints:
 1 <= heights.length, heights[r].length <= 100
 0 <= heights[r][c] <= 1000'''
 
+from collections import deque
 from typing import List
 #dfs
 class Solution:
@@ -53,6 +54,43 @@ class Solution:
         for r in range(ROWS):
             for c in range(COLS):
                 if (r, c) in pacific and (r, c) in atlantic:
+                    res.append([r, c])
+        return res
+#time complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
+#space complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
+
+
+#BFS
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        ROWS, COLS = len(heights), len(heights[0])
+        direction = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        pac = [[False] * COLS for _ in range(ROWS)]
+        atl = [[False] * COLS for _ in range(ROWS)]
+
+        def bfs(source, ocean):
+            q = deque(source)
+            while q:
+                r, c = q.popleft()
+                ocean[r][c] = True
+                for dr, dc in direction:
+                    nr, nc = r + dr, c + dc
+                    if (0 <= nr < ROWS and 0 <= nc < COLS and not ocean[nr][nc] and heights[nr][nc] >= heights[r][c]):
+                        q.append((nr, nc))
+        pacific = []
+        atlantic = []
+        for c in range(COLS):
+            pacific.append((0, c))
+            atlantic.append((ROWS - 1, c))
+        for r in range(ROWS):
+            pacific.append((r, 0))
+            atlantic.append((r, COLS - 1))
+        bfs(pacific, pac)
+        bfs(atlantic, atl)
+        res = []
+        for r in range(ROWS):
+            for c in range(COLS):
+                if pac[r][c] and atl[r][c]:
                     res.append([r, c])
         return res
 #time complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
