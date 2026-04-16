@@ -55,4 +55,6 @@ class Solution:
             time += 1
         return time if fresh == 0 else -1
 
+#time complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
+#space complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
                 
