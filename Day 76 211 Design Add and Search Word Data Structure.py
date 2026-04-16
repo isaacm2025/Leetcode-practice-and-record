@@ -90,6 +90,7 @@ class WordDictionary:
                     cur = cur.children[c]
             return cur.word
         return dfs(0, self.root)
-    
+#time O(n) for addWord, O(t) for search where t is the number of nodes in the trie
+#space O(t + n) for storing the words in trie
             
         
