@@ -28,7 +28,7 @@ prerequisites[i].length == 2
 0 <= a[i], b[i] < numCourses
 All prerequisite pairs are unique.'''
 
-from collections import defaultdict
+from collections import defaultdict, deque
 from typing import List
 
 #DFS
@@ -58,3 +58,26 @@ class Solution:
 #time complexity: O(E + V) where E is the number of edges and V is the number of vertices in the graph
 #space complexity: O(E + V) where E is the number of edges and V is the number of vertices in the graph
     
+#topological sort
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        indegree = [0] * numCourses
+        adj = [[] for i in range(numCourses)]
+        for src, dst in prerequisites:
+            adj[src].append(dst)
+            indegree[dst] += 1
+        q = deque()
+        for n in range(numCourses):
+            if indegree[n] == 0:
+                q.append(n)
+        finish = 0
+        while q:
+            node = q.popleft()
+            finish += 1
+            for nei in adj[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    q.append(nei)
+        return finish == numCourses
+#time complexity: O(E + V) where E is the number of edges and V is the number of vertices in the graph
+#space complexity: O(E + V) where E is the number of edges and V is the number of vertices in the graph
