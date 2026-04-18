@@ -34,6 +34,7 @@ from_i != to_i'''
 
 #dfs
 from ast import List
+from collections import defaultdict
 
 class Solution:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
@@ -59,5 +60,22 @@ class Solution:
             return False
         dfs("JFK")
         return res
+#time complexity: O(E * V) where E is the number of edges and V is the number of vertices
+#space complexity: O(E + V) where E is the number of edges and V is the number of vertices
+
+#recursion
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets)[::-1]:
+            adj[src].append(dst)
+        res = []
+        def dfs(src):
+            while adj[src]:
+                dst = adj[src].pop()
+                dfs(dst)
+            res.append(src)
+        dfs("JFK")
+        return res[::-1]
 #time complexity: O(E * V) where E is the number of edges and V is the number of vertices
 #space complexity: O(E + V) where E is the number of edges and V is the number of vertices
