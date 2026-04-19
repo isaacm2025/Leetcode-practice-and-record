@@ -73,3 +73,17 @@ class Solution:
         return res
 #time complexity: O(n) where n is the length of the input array
 #space complexity: O(n) where n is the length of the input array for the list of subarrays
+
+#kadane's algorithm
+class Solution:
+    def maxProduct(self, nums: List[int]) ->int:
+        res = nums[0]
+        curMin, curMax = 1, 1
+        for num in nums:
+            tmp = curMax * num
+            curMax = max(num, tmp, curMin * num, num * curMin)
+            curMin = min(tmp, num * curMin, num)
+            res = max(res, curMax)
+        return res
+#time complexity: O(n) where n is the length of the input array
+#space complexity: O(1)
