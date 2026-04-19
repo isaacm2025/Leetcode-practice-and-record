@@ -1,0 +1,52 @@
+'''You are given an integer n representing the number of steps to reach the top of a staircase. You can climb with either 1 or 2 steps at a time.
+
+Return the number of distinct ways to climb to the top of the staircase.
+
+Example 1:
+
+Input: n = 2
+
+Output: 2
+Explanation:
+
+1 + 1 = 2
+2 = 2
+Example 2:
+
+Input: n = 3
+
+Output: 3
+Explanation:
+
+1 + 1 + 1 = 3
+1 + 2 = 3
+2 + 1 = 3
+Constraints:
+
+1 <= n <= 45
+'''
+#recursive solution
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        def dfs(i):
+            if i >= n:
+                return i == n
+            return dfs(i + 1) + dfs(i + 2)
+        return dfs(0)
+#time complexity O(2^n) where n is the number of steps to reach the top of the staircase
+#space complexity O(n) where n is the number of steps to reach the top of the staircase
+
+#dp
+class Solution:
+    def climbStairs(sself, n: int) -> int:
+        cache = [-1] * n
+        def dfs(i):
+            if i >= n:
+                return i == n
+            if cache[i] != -1:
+                return cache[i]
+            cache[i] = dfs(i + 1) + dfs(i + 2)
+            return cache[i]
+        return dfs(0)
+#time complexity O(n) where n is the number of steps to reach the top of the staircase
+#space complexity O(n) where n is the number of steps to reach the top of the staircase
