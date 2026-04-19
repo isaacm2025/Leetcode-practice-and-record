@@ -36,3 +36,20 @@ class Solution:
         return max(dfs(0, False), dfs(1, False))
 #time complexity: O(2^n)
 #space complexity: O(n) due to the recursion stack
+
+
+#dp space optimized
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        def rob_line(nums):
+            rob1, rob2 = 0, 0
+            for num in nums:
+                new_rob = max(rob1 + num, rob2)
+                rob1 = rob2
+                rob2 = new_rob
+            return rob2
+        return max(rob_line(nums[:-1]), rob_line(nums[1:]))
+#time complexity: O(n) where n is the length of the input array nums
+#space complexity: O(1) since we are using only a constant amount of space to store the variables rob1 and rob2
