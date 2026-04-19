@@ -52,3 +52,15 @@ class Solution:
         return dfs(0)
 #time complexity: O(n) where n is the length of the input array nums
 #space complexity: O(n) due to the recursion stack and the memoization array
+
+#space optimized dp
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        rob1, rob2 = 0, 0
+        for num in nums:
+            temp = max(num + rob1, rob2)
+            rob1 = rob2
+            rob2 = temp
+        return rob2
+#time complexity: O(n) where n is the length of the input array nums
+#space complexity: O(1) since we are using only a constant amount of space to store the two variables rob1 and rob2.
