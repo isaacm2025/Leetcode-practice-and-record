@@ -50,3 +50,28 @@ class Solution:
         return dfs(0, 0, 0)
 #time complexity: O(2^(m+n)) where m and n are the lengths of s1 and s2 respectively. In the worst case, we may have to explore all possible interleavings of s1 and s2 to check if they match s3.
 #space complexity: O(m+n) due to the recursive call stack. In the worst case, the depth of the recursion can go up to m+n when we have to explore all characters of s1 and s2.
+
+#dp optimal
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        m, n = len(s1), len(s2)
+        if m +n != len(s3):
+            return False
+        if n < m:
+            s1, s2, = s2, s1
+            m, n = n, m
+        dp = [False for _ in range(n+1)]
+        dp[n] = True
+        for i in range(m, -1, -1):
+            nextDP = True if i == m else False
+            for j in range(n, -1, -1):
+                res = False if j < n else nextDP
+                if i < m and s1[i] == s3[i + j] and dp[j]:
+                    res = True
+                if j < n and s2[j] == s3[i + j] and nextDP:
+                    res = True
+                dp[j] = res
+                nextDP = res
+        return dp[0]
+#time complexity: O(m*n) where m and n are the lengths of s1 and s2 respectively. We need to fill a 2D table of size (m+1) x (n+1) to determine if s3 can be formed by interleaving s1 and s2.
+#space complexity: O(n) where n is the length of s2. We can optimize the space complexity to O(n) by using a 1D array instead of a 2D table, since the value of dp[i][j] only depends on the previous row (i-1) and the current row (i).
