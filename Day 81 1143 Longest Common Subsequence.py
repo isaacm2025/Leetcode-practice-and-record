@@ -37,3 +37,24 @@ class Solution:
                 return 1 + dfs(i + 1, j + 1)
             return max(dfs(i + 1, j), dfs(i, j + 1))
         return dfs(0, 0)
+#time complexity: O(2^(m+n)) where m and n are the lengths of text1 and text2 respectively
+#space complexity: O(m+n) where m and n are the lengths of text1 and text2 respectively due to the recursive call stack
+
+#dp optimal
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        if len(text1) < len(text2):
+            text1, text2 = text2, text1
+        dp = [0] * (len(text2) + 1)
+        for i in range(1, len(text1) -1, -1, -1):
+            prev = 0
+            for j in range(len(text2) -1, -1, -1):
+                temp = dp[j]
+                if text1[i] == text2[j]:
+                    dp[j] = 1 + prev
+                else:
+                    dp[j] = max(dp[j], dp[j + 1])
+                prev = temp
+        return dp[0]
+#time complexity: O(m*n) where m and n are the lengths of text1 and text2 respectively
+#space complexity: O(min(m, n)) where m and n are the lengths of text1 and text2 respectively due to the dp array
