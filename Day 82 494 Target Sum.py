@@ -24,6 +24,7 @@ Constraints:
 -1000 <= target <= 1000
 '''
 
+from collections import defaultdict
 from typing import List
 
 
@@ -37,3 +38,18 @@ class Solution:
         return backtrack(0, 0)
 #time complexity: O(2^n) where n is the length of nums
 #space complexity: O(n) where n is the length of nums
+
+#dp space optimized
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        dp = defaultdict(int)
+        dp[0] = 1
+        for num in nums:
+            next_dp = defaultdict(int)
+            for total, count in dp.items():
+                next_dp[total + num] += count
+                next_dp[total - num] += count
+            dp = next_dp
+        return dp[target]
+#time complexity: O(n * m) where n is the length of nums and m is the range of possible totals (which can be at most 2000 since nums[i] <= 1000 and target can be at most 1000)
+#space complexity: O(m) where m is the range of possible totals (which can be at most 2000 since nums[i] <= 1000 and target can be at most 1000)
