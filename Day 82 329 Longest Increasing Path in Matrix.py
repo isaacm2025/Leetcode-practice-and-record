@@ -47,3 +47,29 @@ class Solution:
         return LONGEST
 #time complexity: O(m*n*4^(m*n)) where m and n are the number of rows and columns in the matrix respectively. In the worst case, we may have to explore all possible paths starting from each cell, and each cell can have up to 4 possible directions to move.
 #space complexity: O(m*n) due to the recursive call stack. In the worst case, the depth of the recursion can go up to m*n when we have to explore all cells in the matrix.
+
+
+#dp
+class Solution:
+    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+        ROWS, COLS = len(matrix), len(matrix[0])
+        dp = {}
+
+        def dfs(r, c, preVal):
+            if (r < 0 or r == ROWS or c < 0 or c == COLS or matrix[r][c] <= preVal):
+                return 0
+            if (r, c) in dp:
+                return dp[(r, c)]
+            res = 1
+            res = max(res, 1 + dfs(r - 1, c, matrix[r][c]))
+            res = max(res, 1 + dfs(r + 1, c, matrix[r][c]))
+            res = max(res, 1 + dfs(r, c - 1, matrix[r][c]))
+            res = max(res, 1 + dfs(r, c + 1, matrix[r][c]))
+            dp[(r, c)] = res
+            return res
+        for r in range(ROWS):
+            for c in range(COLS):
+                dfs(r, c, -1)
+        return max(dp.values())
+#time complexity: O(m*n) where m and n are the number of rows and columns in the matrix respectively. Each cell is visited at most once due to memoization, and the time taken to compute the longest path from each cell is constant.
+#space complexity: O(m*n) due to the recursive call stack and the memoization dictionary. In the worst case, the depth of the recursion can go up to m*n when we have to explore all cells in the matrix, and the memoization dictionary can store results for all cells in the matrix.
