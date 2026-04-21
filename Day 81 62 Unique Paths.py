@@ -32,3 +32,15 @@ class Solution:
         return dfs(0, 0)
 #time complexity O(2^(m + n)) where m is the number of rows and n is the number of columns in the grid
 #space complexity O(m + n) where m is the number of rows and n is the number of columns in the grid
+
+#dp
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [[0] * n for _ in range(m + 1)]
+        dp[m - 1][n - 1] = 1
+        for i in range(m - 1, -1, -1):
+            for j in range(n - 1, -1, -1):
+                dp[i][j] += dp[i + 1][j] + dp[i][j + 1]
+        return dp[0][0]
+#time complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
+#space complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
