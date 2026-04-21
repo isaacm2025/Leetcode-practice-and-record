@@ -34,3 +34,24 @@ class Solution:
         return dfs(0, sum(nums) // 2)
 #time complexity: O(2^n) where n is the length of the input array
 #space complexity: O(n) where n is the length of the input array due to the recursive call stack
+
+
+#dp
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2:
+            return False
+        dp = set()
+        dp.add(0)
+        target = sum(nums) // 2
+        for i in range(len(nums)):
+            nextDP = set()
+            for t in dp:
+                if (t + nums[i]) == target:
+                    return True
+                nextDP.add(t + nums[i])
+                nextDP.add(t)
+            dp = nextDP
+        return False
+#time complexity: O(n * target) where n is the length of the input array and target is the sum of the input array divided by 2
+#space complexity: O(target) where target is the sum of the input array divided by 2 due to the dp set storing all possible sums up to the target
