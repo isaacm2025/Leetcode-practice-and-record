@@ -66,7 +66,7 @@ class Solution:
                     dp[j] = nextDp
                 else:
                     dp[j] = 1 + min(dp[j], dp[j + 1], nextDp)
-                nexDp = temp
+                nextDp = temp
         return dp[0]
 #time complexity: O(m*n)
 #space complexity: O(n)
