@@ -56,3 +56,16 @@ class Solution:
         return max(dp)
 #time complexity: O(n)
 #space complexity: O(n)
+
+#kadane's algorithm
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxSub, curSum = nums[0], 0
+        for num in nums:
+            if curSum < 0:
+                curSum = 0
+            curSum += num
+            maxSub = max(maxSub, curSum)
+        return maxSub
+#time complexity: O(n)
+#space complexity: O(1)
