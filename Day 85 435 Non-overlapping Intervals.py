@@ -35,3 +35,32 @@ class Solution:
         return len(intervals) - dfs(0, -1)
 #time complexity: O(2^n) in the worst case, where n is the number of intervals. This is because in the worst case, we may have to explore all possible combinations of intervals to find the maximum number of non-overlapping intervals.
 #space complexity: O(n) in the worst case due to the recursion stack, where n is the number of intervals.
+
+#bs
+from typing import List
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key=lambda x: x[1])
+        n = len(intervals)
+        dp = [0] * n
+        dp[0] = 1
+
+        def bs(r, target):
+            l = 0
+            while l < r:
+                mid = (l + r) >> 1
+                if intervals[mid][1] <= target:
+                    l = mid + 1
+                else:
+                    r = mid
+            return l
+        for i in range(1, n):
+            idx = bs(i, intervals[i][0])
+            if idx == 0:
+                dp[i] = dp[i - 1]
+            else:
+                dp[i] = max(dp[i - 1], dp[idx - 1] + 1)
+        return n - dp[-1]
+#time complexity: O(nlogn) due to sorting and binary search, where n is the number of intervals.
+#space complexity: O(n) due to the dp array, where n is the number of intervals.
+
