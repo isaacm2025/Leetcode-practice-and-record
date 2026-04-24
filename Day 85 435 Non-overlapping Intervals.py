@@ -64,3 +64,19 @@ class Solution:
 #time complexity: O(nlogn) due to sorting and binary search, where n is the number of intervals.
 #space complexity: O(n) due to the dp array, where n is the number of intervals.
 
+#greedy
+from typing import List
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        res = 0
+        prev = intervals[0][1]
+        for start, end in intervals[1:]:
+            if start >= prev:
+                prev = end
+            else:
+                res += 1
+                prev = min(end, prev)
+        return res
+#time complexity: O(nlogn) due to sorting, where n is the number of intervals.
+#space complexity: O(1) if we don't consider the space used for sorting, otherwise O(n) due to the space used for sorting, where n is the number of intervals.
