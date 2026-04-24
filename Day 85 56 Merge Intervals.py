@@ -36,3 +36,29 @@ class Solution:
         return output
 #time complexity: O(nlogn) due to sorting
 #space complexity: O(n) in the worst case when there are no overlapping intervals, otherwise O(1) if we don't consider the output array.
+
+#greedy
+from typing import List
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        maxVal = max(interval[0] for interval in intervals)
+        mp = [0] * (maxVal + 1)
+        for start, end in intervals:
+            mp[start] = max(end + 1, mp[start])
+        res = []
+        have = -1
+        interval_start = -1
+        for i in range(len(mp)):
+            if mp[i] !=0:
+                if interval_start == -1:
+                    interval_start = i
+                have = max(mp[i] - 1, have)
+            if have == i:
+                res.append([interval_start, have])
+                have = -1
+                interval_start = -1
+        if interval_start != -1:
+            res.append([interval_start, have])
+        return res
+#time complexity: O(n + m), where n is the number of intervals and m is the maximum value of the start of the intervals.
+#space complexity: O(m), where m is the maximum value of the start of the intervals.
