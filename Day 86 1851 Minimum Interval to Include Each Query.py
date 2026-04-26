@@ -43,3 +43,21 @@ class Solution:
 #time complexity: O(n*m) where n is the number of intervals and m is the number of queries. This is because for each query, we iterate through all intervals to find the minimum length interval that contains the query point.
 #space complexity: O(m) where m is the number of queries. This is because we store the result for each query in the output array.
 
+#minheap
+class Solution:
+    def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
+        intervals.sort()
+        minHeap = []
+        res = {}
+        i = 0
+        for q in sorted(queries):
+            while i < len(intervals) and intervals[i][0] <= q:
+                l, r = intervals[i]
+                heapq.heappush(minHeap, (r - l + 1, r))
+                i += 1
+            while minHeap and minHeap[0][1] < q:
+                heapq.heappop(minHeap)
+            res[q] = minHeap[0][0] if minHeap else -1
+        return [res[q] for q in quries]
+#time complexity: O(n log n + m log m) where n is the number of intervals and m is the number of queries. This is because we sort the intervals and queries, and we also use a min heap to find the minimum length interval for each query.
+#space complexity: O(n + m) where n is the number of intervals and m is the number of queries.
