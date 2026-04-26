@@ -58,6 +58,6 @@ class Solution:
             while minHeap and minHeap[0][1] < q:
                 heapq.heappop(minHeap)
             res[q] = minHeap[0][0] if minHeap else -1
-        return [res[q] for q in quries]
+        return [res[q] for q in queries]
 #time complexity: O(n log n + m log m) where n is the number of intervals and m is the number of queries. This is because we sort the intervals and queries, and we also use a min heap to find the minimum length interval for each query.
 #space complexity: O(n + m) where n is the number of intervals and m is the number of queries.
