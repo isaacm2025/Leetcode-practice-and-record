@@ -73,3 +73,13 @@ class Solution:
 #time complexity: O(n log n) where n is the length of the input array due to sorting
 #space complexity: O(1) or O(n) depending on the sorting algorithm used
 
+#bit manipulation
+from typing import List
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res = 0
+        for num in nums:
+            res = num ^ res
+        return res
+#time complexity: O(n) where n is the length of the input array
+#space complexity: O(1)
