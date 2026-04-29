@@ -31,3 +31,14 @@ class Solution:
 #time complexity: O(nlogn)
 #space complexity: O(1) or O(n) depending on the sorting algorithm used
 
+#hash set
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        numSet = set(nums)
+        n = len(nums)
+        for i in range(n + 1):
+            if i not in numSet:
+                return i
+#time complexity: O(n)
+#space complexity: O(n)
+        
