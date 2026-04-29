@@ -57,3 +57,19 @@ class Solution:
         return list(s)[0]
 #time complexity: O(n) where n is the length of the input array
 #space complexity: O(n) where n is the number of unique elements in the input array
+
+#sorting
+from typing import List
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        i = 0
+        while i < len(nums) - 1:
+            if nums[i] == nums[i + 1]:
+                i += 2
+            else:
+                return nums[i]
+        return nums[-1]
+#time complexity: O(n log n) where n is the length of the input array due to sorting
+#space complexity: O(1) or O(n) depending on the sorting algorithm used
+
