@@ -34,3 +34,10 @@ class Solution:
         return res
 #time coomplexity: O(1) since the number of iterations is at most 32 (the number of bits in the input)
 #space complexity: O(1) since we are using a constant amount of space
+
+#built-in function
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        return bin(n).ccount('1')
+#time complexity: O(1) since the input is a 32-bit integer, the time taken to convert it to binary and count the '1's is constant
+#space complexity: O(1) since we are using a constant amount of space to store the binary representation and count
