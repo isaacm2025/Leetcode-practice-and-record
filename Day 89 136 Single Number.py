@@ -44,3 +44,16 @@ class Solution:
 #time complexity: O(n^2) where n is the length of the input array
 #space complexity: O(1)
 
+#hashset
+from typing import List
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        s = set()
+        for num in nums:
+            if num in s:
+                s.remove(num)
+            else:
+                s.add(num)
+        return list(s)[0]
+#time complexity: O(n) where n is the length of the input array
+#space complexity: O(n) where n is the number of unique elements in the input array
