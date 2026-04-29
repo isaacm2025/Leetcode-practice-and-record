@@ -23,3 +23,14 @@ class Solution:
         return res
 #time complexity: O(1) since the number of bits is fixed at 32.
 #space complexity: O(1) since we are using a constant amount of space to store the binary string and the result.
+
+#bit manipulation
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        res = 0
+        for i in range(32):
+            bit = (n >> i) & 1
+            res += (bit << (31 - i))
+        return res
+#time complexity: O(1) since the number of bits is fixed at 32.
+#space complexity: O(1) since we are using a constant amount of space to store the result.
