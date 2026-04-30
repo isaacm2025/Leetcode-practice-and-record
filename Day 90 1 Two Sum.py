@@ -61,3 +61,16 @@ class Solution:
         return []
 #time complexity: O(nlogn) where n is the length of nums
 #space complexity: O(n) for the sorted list A
+
+#hashmap(one pass)
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        prevMap = {}
+        for i, n in enumerate(nums):
+            diff = target - n
+            if diff in prevMap:
+                return [prevMap[diff], i]
+            prevMap[n] = i
+        return []
+#time complexity: O(n) where n is the length of nums
+#space complexity: O(n) for the hash map prevMap
