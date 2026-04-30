@@ -39,3 +39,23 @@ class Solution:
         return res
 #time complexity: O(n log n) where n is the number of elements in nums. This is because we sort the array of counts which takes O(n log n) time.
 #space complexity: O(n) where n is the number of elements in nums. This is because we store the count of each element in a dictionary which takes O(n) space in the worst case when all elements are distinct.
+
+#bucket sort
+from collections import Counter
+from typing import List
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = {}
+        freq = [[] for i in range(len(nums) + 1)]
+        for num in nums:
+            count[num] = count.get(num, 0) + 1
+        for num, cnt in count.items():
+            freq[cnt].append(num)
+        res = []
+        for i in range(len(freq) - 1, 0, -1):
+            for num in freq[i]:
+                res.append(num)
+                if len(res) == k:
+                    return res
+#time complexity: O(n) where n is the number of elements in nums. This is because we count the frequency of each element which takes O(n) time and we also iterate through the frequency array which takes O(n) time in the worst case when all elements are distinct.
+#space complexity: O(n) where n is the number of elements in nums. This is because we store the count of each element in a dictionary which takes O(n) space in the worst case when all elements are distinct. Additionally, we also store the frequency of each element in a list which takes O(n) space in the worst case when all elements are distinct.
