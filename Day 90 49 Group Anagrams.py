@@ -36,3 +36,17 @@ class Solution:
 #time complexity: O(n * k log k) where n is the number of strings and k is the maximum length of a string in strs. This is because we sort each string which takes O(k log k) time and we do this for all n strings.
 #space complexity: O(n * k) where n is the number of strings and k is the maximum length of a string in strs. This is because in the worst case, all strings could be anagrams of each other and we would store all n strings in the same list in the dictionary. 
 # Additionally, we also store the sorted version of each string as a key in the dictionary, which also takes O(n * k) space in the worst case.
+
+#hash table
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list)
+        for s in strs:
+            count = [0] * 26
+            for c in s:
+                count[ord(c) - ord('a')] += 1
+            res[tuple(count)].append(s)
+        return list(res.values())
+#time complexity: O(n * k) where n is the number of strings and k is the maximum length of a string in strs. This is because we count the frequency of each character in each string which takes O(k) time and we do this for all n strings.
+#space complexity: O(n * k) where n is the number of strings and k is the maximum length of a string in strs. This is because in the worst case, all strings could be anagrams of each other and we would store all n strings in the same list in the dictionary. 
+# Additionally, we also store the count of characters for each string as a key in the dictionary, which also takes O(n * k) space in the worst case.
