@@ -55,4 +55,20 @@ class Solution:
         return []
 #time complexity: O(nlogn)
 #space complexity: O(1)
-                
+
+#two pointers
+from typing import List
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        low, high = 0, len(numbers) - 1
+        while low < high:
+            curSum = numbers[low] + numbers[high]
+            if curSum > target:
+                high -= 1
+            elif curSum < target:
+                low += 1
+            else:
+                return [low + 1, high + 1]
+        return []
+#time complexity: O(n)
+#space complexity: O(1)
