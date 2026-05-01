@@ -36,3 +36,23 @@ class Solution:
         return []
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#bs
+from ast import List
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        for i in range(len(numbers)):
+            low, high = i + 1, len(numbers) - 1
+            tmp = target - numbers[i]
+            while low <= high:
+                mid = low + (high - low) // 2
+                if numbers[mid] == tmp:
+                    return [i + 1, mid + 1]
+                elif numbers[mid] < tmp:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+        return []
+#time complexity: O(nlogn)
+#space complexity: O(1)
+                
