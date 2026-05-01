@@ -58,7 +58,7 @@ Follow up: Could you write a generalized algorithm to work on any possible set o
 from ast import List
 
 class Solution:
-    def encoode(self, strs: List[str]) -> str:
+    def encode(self, strs: List[str]) -> str:
         if not strs:
             return ""
         sizes, res = [], ""
@@ -87,6 +87,29 @@ class Solution:
         for sz in size:
             res.append(s[i:i + sz])
             i += sz
+        return res
+#time complexity: O(m) where m is the number of strings in the input list
+#space complexity: O(m + n) where m is the number of strings in the input list and n is the total number of characters in the input list of strings
+
+#optimal
+class Solution:
+    def encode(self, strs: List[str]) -> str:
+        res = ""
+        for s in strs:
+            res += str(len(s)) + "#" + s
+        return res
+    def decode(self, s: str) -> List[str]:
+        res = []
+        i = 0
+        while i < len(s):
+            j = i
+            while s[j] != '#':
+                j += 1
+            length = int(s[i:j])
+            i = j + 1
+            j = i + length
+            res.append(s[i:j])
+            i = j
         return res
 #time complexity: O(m) where m is the number of strings in the input list
 #space complexity: O(m + n) where m is the number of strings in the input list and n is the total number of characters in the input list of strings
