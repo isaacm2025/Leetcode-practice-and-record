@@ -45,3 +45,32 @@ class Solution:
                         tmp = [nums[i], nums[j], nums[k]]
                         res.add(tuple(tmp))
         return [list(i) for i in res]
+#time complexity: O(n^3)
+#space complexity: O(m) where m is the number of triplets in the result
+
+#two pointer
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+        for i, a in enumerate(nums):
+            if a > 0:
+                break
+            if i > 0 and a == nums[i - 1]:
+                continue
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                threeSum = a + nums[l] + nums[r]
+                if threeSum > 0:
+                    r -= 1
+                elif threeSum < 0:
+                    l += 1
+                else:
+                    res.append([a, nums[l], nums[r]])
+                    l += 1
+                    r -= 1
+                    while l < r and nums[l] == nums[l - 1]:
+                        l += 1
+        return res
+#time complexity: O(n^2)
+#space complexity: O(1) not counting the space for the output list, O(m) where m is the number of triplets in the result
