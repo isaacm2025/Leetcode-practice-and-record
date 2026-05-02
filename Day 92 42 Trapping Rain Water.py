@@ -32,3 +32,24 @@ class Solution:
         return res
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#stack
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        if not height:
+            return 0 
+        stack = []
+        res = 0
+        for i in range(len(height)):
+            while stack and height[i] >= height[stack[-1]]:
+                mid = height[stack.pop()]
+                if stack:
+                    right = height[i]
+                    left = height[stack[-1]]
+                    h = min(right, left) - mid
+                    w = i - stack[-1] - 1
+                    res += h * w
+            stack.append(i)
+        return res
+#time complexity: O(n)
+#space complexity: O(n)
