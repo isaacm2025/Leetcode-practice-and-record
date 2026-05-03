@@ -54,3 +54,22 @@ class MinStack:
         return mini
 #time comeplexity: O(n) for getMin, O(1) for push, pop and top
 #space complexity: O(n) for getMin, O(1) for push, pop and top
+
+#two stack
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        val = min(val, self.minStack[-1] if self.minStack else val)
+        self.minStack.append(val)
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minStack.pop()
+    def top(self) -> int:
+        return self.stack[-1]
+    def getMin(self) -> int:
+        return self.minStack[-1]
+#time comeplexity: O(1) for push, pop, top and getMin
+#space complexity: O(n) for push, pop, top and getMin
