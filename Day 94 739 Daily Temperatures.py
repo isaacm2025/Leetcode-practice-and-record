@@ -51,3 +51,22 @@ class Solution:
         return res
 #time complexity: O(n) because we are iterating through the temperatures list once, O(n) in the worst case for the stack if all temperatures are in decreasing order
 #space complexity: O(n) because we are creating a new list of results, O(n) in the worst case for the stack if all temperatures are in decreasing order
+
+
+#dp
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        res = [0] * n
+        for i in range(n - 2, -1, -1):
+            j = i + 1
+            while j < n and temperatures[j] <= temperatures[i]:
+                if res[j] > 0:
+                    j = n
+                    break
+                j += res[j]
+            if j < n:
+                res[i] = j - i
+        return res
+#time complexity: O(n) because we are iterating through the temperatures list once, O(n) in the worst case for the inner while loop if all temperatures are in decreasing order
+#space complexity: O(n) because we are creating a new list of results, O(1) for the j variable
