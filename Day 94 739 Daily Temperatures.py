@@ -37,3 +37,17 @@ class Solution:
         return res
 #time complexity: O(n^2) because we are iterating through the temperatures list multiple times
 #space complexity: O(n) because we are creating a new list of results, O(1) for the count variable
+
+#stack
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        res = [0] * len(temperatures)
+        stack = []
+        for i, temp in enumerate(temperatures):
+            while stack and temp > stack[-1][0]:
+                stackTemp, stackIndex = stack.pop()
+                res[stackIndex] = i - stackIndex
+            stack.append((temp, i))
+        return res
+#time complexity: O(n) because we are iterating through the temperatures list once, O(n) in the worst case for the stack if all temperatures are in decreasing order
+#space complexity: O(n) because we are creating a new list of results, O(n) in the worst case for the stack if all temperatures are in decreasing order
