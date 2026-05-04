@@ -30,6 +30,7 @@ All the integers in nums are unique.
 
 '''
 #recursive
+from bisect import bisect
 from typing import List
 
 class Solution:
@@ -60,5 +61,13 @@ class Solution:
             else:
                 return m
         return -1
+#time complexity: O(log n)
+#space complexity: O(1)
+
+#builtin
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        index = bisect.bisect_left(nums, target)
+        return index if index < len(nums) and nums[index] == target else - 1
 #time complexity: O(log n)
 #space complexity: O(1)
