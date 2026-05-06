@@ -51,3 +51,32 @@ class Solution:
             return merged[totalLen // 2]
 #time complexity O((m+n)log(m+n)) where m and n are the lengths of nums1 and nums2 respectively
 #space complexity O(m+n) where m and n are the lengths of nums1 and nums
+
+#two pointer
+from typing import List
+class Solution:
+    def findMedianSortedArrays(self, nums1, nums2):
+        len1, len2 = len(nums1), len(nums2)
+        i = j = 0
+        median1 = median2 = 0
+        for count in range((len1 + len2) // 2 + 1):
+            median2 = median1
+            if i < len1 and j < len2:
+                if nums1[i] > nums2[j]:
+                    median1 = nums2[j]
+                    j += 1
+                else:
+                    median1 = nums1[i]
+                    i += 1
+            elif i < len1:
+                median1 = nums1[i]
+                i += 1
+            else:
+                median1 = nums2[j]
+                j += 1
+            if (len1 + len2) % 2 == 1:
+                return float(median1)
+            else:
+                return (median1 + median2) / 2.0
+#time complexity O(m+n) where m and n are the lengths of nums1 and nums2 respectively
+#space complexity O(1)
