@@ -57,7 +57,7 @@ class TimeMap:
 #space complexity O(n) where n is the number of set() calls
 
 #bs
-from sortedcontainers import SortedDict
+from Sortedcontainers import SortedDict
 class TimeMap:
 
     def __init__(self):
