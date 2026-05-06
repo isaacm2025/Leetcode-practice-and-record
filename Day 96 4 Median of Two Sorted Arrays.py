@@ -74,9 +74,9 @@ class Solution:
             else:
                 median1 = nums2[j]
                 j += 1
-            if (len1 + len2) % 2 == 1:
-                return float(median1)
-            else:
-                return (median1 + median2) / 2.0
+        if (len1 + len2) % 2 == 1:
+            return float(median1)
+        else:
+            return (median1 + median2) / 2.0
 #time complexity O(m+n) where m and n are the lengths of nums1 and nums2 respectively
 #space complexity O(1)
