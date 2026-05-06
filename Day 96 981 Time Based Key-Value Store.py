@@ -31,6 +31,9 @@ key and value only include lowercase English letters and digits.
 1 <= timestamp <= 1000'''
 
 #bf
+from collections import defaultdict
+
+
 class TimeMap:
 
     def __init__(self):
@@ -52,3 +55,21 @@ class TimeMap:
 
 #time complexity O(1) for set() and O(n) for get() where n is the number of timestamps for the given key
 #space complexity O(n) where n is the number of set() calls
+
+#bs
+from sortedcontainers import SortedDict
+class TimeMap:
+
+    def __init__(self):
+        self.m = defaultdict(SortedDict)
+    def set(self, key: str, value: str, timestamp: int) -> None:
+        self.m[key][timestamp] = value
+    def get(self, key: str, timestamp: int) -> str:
+        if key not in self.m:
+            return ""
+        timestamps = self.m[key]
+        idx = timestamps.bisect_right(timestamp) - 1
+        if idx >= 0:
+            closet_timestamp = timestamps.iloc[idx]
+            return self.m[key][closet_timestamp]
+        return ""
