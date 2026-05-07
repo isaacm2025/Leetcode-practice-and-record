@@ -72,3 +72,24 @@ class Solution:
         return head
 #time complexity: O(N)
 #space complexity: O(1)
+
+#recursion
+# Definition for singly-linked list.
+from typing import Optional
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+class Solution:
+    def rec(self, head, n):
+        if not head:
+            return None
+        head.next = self.rec(head.next, n)
+        n[0] -= 1
+        if n[0] == 0:
+            return head.next
+        return head
+    def removeNthFromEnd(self, head, n):
+        return self.rec(head, [n])
+#time complexity: O(N)
+#space complexity: O(N)
