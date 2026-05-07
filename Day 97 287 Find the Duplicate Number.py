@@ -61,3 +61,23 @@ class Solution:
         return -1
 #time complexity: O(n) because we traverse the array once.
 #space complexity: O(1) because we are modifying the input array in place and not using any additional data structures.
+
+#bit manipulation
+class Solution:
+    def findDUplicate(self, nums: List[int]) -> int:
+        n = len(nums) - 1
+        res = 0
+        for b in range(32):
+            x = y = 0
+            mask = 1 << b
+            for num in nums:
+                if num & mask:
+                    x += 1
+            for num in range(1, n):
+                if num & mask:
+                    y += 1
+            if x > y:
+                res |= mask
+        return res
+#time complexity: O(32 * n) because we traverse the array a constant number of times (32 times for the bit manipulation).
+#space complexity: O(1) because we are using a constant amount of extra space to store the result and the counters for the bits.
