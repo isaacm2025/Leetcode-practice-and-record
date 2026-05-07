@@ -54,3 +54,28 @@ class Solution:
         return res
 #time complexity: O(n) where n is the number of nodes in the tree
 #space complexity: O(h) where h is the height of the tree, besst case O(log n) for a balanced tree and worst case O(n) for a skewed tree
+
+#bfs    
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+from collections import deque
+class Solution:
+    def maxDepth(self, root:Optional[TreeNode]) -> int:
+        q = deque()
+        if root:
+            q.append(root)
+        level = 0
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            level += 1
+        return level
+#time complexity: O(n) where n is the number of nodes in the tree
+#space complexity: O(w) where w is the maximum width of the tree, best case O(1) for a skewed tree and worst case O(n/2) for a balanced tree
