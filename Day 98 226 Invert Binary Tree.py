@@ -49,3 +49,20 @@ class Solution:
         return root
 #time complexity: O(n)
 #space complexity: O(n)
+
+#DFS
+class TreeNode:
+    def __init__(self, val = 0, leeft = None, right = None):
+        self.val = val
+        self.left = self.left
+        self.right = self.right
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        return root
+#time complexity: O(n)
+#space complexity: O(n)
