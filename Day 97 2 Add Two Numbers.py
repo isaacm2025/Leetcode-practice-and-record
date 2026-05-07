@@ -47,3 +47,23 @@ class Solution:
         return self.add(l1, l2, 0)  
 #time complexity: O(m + n) where m and n are the lengths of the two linked lists.
 #space complexity: O(m + n) in the worst case, when the two linked lists have the same length and there is a carry at the end.
+
+#iterative
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        cur = dummy
+        carry = 0
+        while l1 or l2 or carry:
+            v1 = l1.val if l1 else 0
+            v2 = l2.val if l2 else 0
+            val = v1 + v2 + carry
+            carry = val // 10
+            val = val % 10
+            cur.next = ListNode(val)
+            cur = cur.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+        return dummy.next
+#time complexity: O(m + n) where m and n are the lengths of the two linked lists.
+#space complexity: O(1) etra space for the output linked list, which is not counted in space complexity analysis., O(max(m, n)) in the worst case, when the two linked lists have the same length and there is a carry at the end.
