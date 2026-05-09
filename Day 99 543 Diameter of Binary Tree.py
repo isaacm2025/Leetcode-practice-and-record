@@ -46,3 +46,20 @@ class Solution:
 #time complexity: O(n^2) where n is the number of nodes in the tree. We are calculating the height of the tree for each node, which takes O(n) time, and we are doing this for each node in the tree, resulting in O(n^2) time complexity.
 #space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the recursion will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case.
         
+
+#dfs
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        res = 0
+        def dfs(root):
+            nonlocal res
+            if not root:
+                return 0
+            left = dfs(root.left)
+            right = dfs(root.right)
+            res = max(res, left + right)
+            return 1 + max(left, right)
+        dfs(root)
+        return res
+#time complexity: O(n) where n is the number of nodes in the tree. We are visiting each node once to calculate the diameter and height of the tree, resulting in O(n) time complexity.
+#space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the recursion will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case.
