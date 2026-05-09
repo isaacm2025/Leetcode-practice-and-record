@@ -31,6 +31,7 @@ Constraints:
 '''
 
 # Definition for a binary tree node.
+from collections import deque
 from typing import Optional
 #dfs
 class TreeNode:
@@ -64,3 +65,27 @@ class Solution:
         return True
 #time complexity: O(n) where n is the number of nodes in the tree. We are visiting each node in the tree once to compare the values and structure of the two trees.
 #space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the stack will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case.
+
+#bfs
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        q1, q2 = deque([p]), deque([q])
+        while q1 and q2:
+            for _ in range(len(q1)):
+                nodeP, nodeQ = q1.popleft(), q2.popleft()
+                if nodeP is None and nodeQ is None:
+                    continue
+                if nodeP is None or nodeQ is None or nodeP.val != nodeQ.val:
+                    return False
+                q1.append(nodeP.left)
+                q1.append(nodeP.right)
+                q2.append(nodeQ.left)
+                q2.append(nodeQ.right)
+        return True
+#time complexity: O(n) where n is the number of nodes in the tree. We are visiting each node in the tree once to compare the values and structure of the two trees.
+#space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum number of nodes in the queue at any time will be equal to the maximum width of the tree, which can be O(n) in the worst case and O(log n) in the best case.
