@@ -24,6 +24,7 @@ Constraints:
 
 # Definition for a binary tree node.
 #dfs
+import collections
 from typing import Optional, List
 class TreeNode:
     def __init__(self, val = 0, left = None, right = None):
@@ -46,3 +47,25 @@ class Solution:
 #time complexity: O(n) where n is the number of nodes in the tree. We visit each node exactly once to add its value to the corresponding level in the result list.
 #space complexity: O(n) in the worst case when the tree is completely unbalanced (e.g., a linked list), and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the recursion will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case. 
 #Additionally, the result list will also take O(n) space to store the values of all nodes in the tree
+
+#bfs
+from collections import deque
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        res = []
+        if not root:
+            return res
+        q = collections.deque()
+        q.append(root)
+        while q:
+            qLen = len(q)
+            level = []
+            for i in range(qLen):
+                node = q.popleft()
+                if node:
+                    level.append(node.val)
+                    q.append(node.left)
+                    q.append(node.right)
+            if level:
+                res.append(level)
+        return res
