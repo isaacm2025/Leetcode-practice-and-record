@@ -63,3 +63,23 @@ class Solution:
         return res
 #time complexity: O(n) where n is the number of nodes in the tree. We are visiting each node once to calculate the diameter and height of the tree, resulting in O(n) time complexity.
 #space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the recursion will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case.
+
+#iterative DFS
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        stack = [root]
+        mp = {None: (0, 0)}
+        while stack:
+            node = stack[-1]
+            if node.left and node.left not in mp:
+                stack.append(node.left)
+            elif node.right and node.right not in mp:
+                stack.append(node.right)
+            else:
+                node = stack.pop()
+                leftHeight, leftDiameter = mp[node.left]
+                rightHeight, rightDiameter = mp[node.right]
+                mp[node] = (1 + max(leftHeight, rightHeight), max(leftDiameter, rightDiameter, leftHeight + rightHeight))
+        return mp[root][1]
+#time complexity: O(n) where n is the number of nodes in the tree. We are visiting each node once to calculate the diameter and height of the tree, resulting in O(n) time complexity.
+#space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the stack will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case. Additionally, we are using a dictionary to store the height and diameter of each node, which can also take O(n) space in the worst case.
