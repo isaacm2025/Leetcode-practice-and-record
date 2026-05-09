@@ -49,3 +49,18 @@ class Solution:
 #time complexity: O(n) where n is the number of nodes in the tree. We are visiting each node in the tree once to compare the values and structure of the two trees.
 #space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the recursion will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case.
 
+#iteration
+class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        stack = [(p, q)]
+        while stack:
+            node1, node2 = stack.pop()
+            if not node1 and not node2:
+                continue
+            if not node1 or not node2 or node1.val != node2.val:
+                return False
+            stack.append((node1.right, node2.right))
+            stack.append((node1.left, node2.left))
+        return True
+#time complexity: O(n) where n is the number of nodes in the tree. We are visiting each node in the tree once to compare the values and structure of the two trees.
+#space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the stack will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case.
