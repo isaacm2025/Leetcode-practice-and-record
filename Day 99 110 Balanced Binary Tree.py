@@ -51,3 +51,16 @@ class Solution:
         return 1 + max(self.height(root.left), self.height(root.right))
 #time complexity: O(n^2) where n is the number of nodes in the tree. We are calculating the height of the tree for each node, which takes O(n) time, and we are doing this for each node in the tree, resulting in O(n^2) time complexity.
 #space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the recursion will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case.
+
+#dfs
+class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        def dfs(root):
+            if not root:
+                return [True, 0]
+            left, right = dfs(root.left), dfs(root.right)
+            balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
+            return [balanced, 1 + max(left[1], right[1])]
+        return dfs(root)[0]
+#time complexity: O(n) where n is the number of nodes in the tree. We are visiting each node once to calculate the height and check if it is balanced, resulting in O(n) time complexity.
+#space complexity: O(n) in the worst case when the tree is skewed, and O(log n) in the best case when the tree is balanced. This is because the maximum depth of the recursion will be equal to the height of the tree, which can be O(n) in the worst case and O(log n) in the best case.
