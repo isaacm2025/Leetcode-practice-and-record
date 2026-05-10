@@ -41,3 +41,24 @@ class Solution:
         root.left = self.buildTree(preorder[1: mid + 1], inorder[:mid])
         root.right = self.buildTree(preorder[mid + 1:], inorder[mid + 1])
         return root
+#time complexity: O(n^2) because of the index function
+#space complexity: O(n) because of the recursion stack and the new lists created by slicing
+
+#hashmap & dfs
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        indices = {val: idx for idx, val in enumerate(inorder)}
+        self.pre_idx = 0
+        def dfs(left, right):
+            if left > right:
+                return None
+            root_val = preorder[self.pre_idx]
+            self.pre_idx += 1
+            root = TreeNode(root_val)
+            mid = indices[root_val]
+            root.left = dfs(left, mid - 1)
+            root.right = dfs(mid + 1, right)
+            return root
+        return dfs(0, len(inorder) - 1)
+#time complexity: O(n) because we are using a hashmap to store the indices of the inorder traversal, which allows us to find the index of the root value in O(1) time
+#space complexity: O(n) because of the recursion stack and the hashmap storing the indices
