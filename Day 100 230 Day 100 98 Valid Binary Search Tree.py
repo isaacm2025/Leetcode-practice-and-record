@@ -61,3 +61,20 @@ class Solution:
         return arr[k - 1]
 #time complexity: O(n) where n is the number of nodes in the tree
 #space complexity: O(n) where n is the number of nodes in the tree
+
+#iterative DFS
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        stack = []
+        curr = root
+        while stack or curr:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            k -= 1
+            if k == 0:
+                return curr.val
+            curr = curr.right
+#time complexity: O(n) where n is the number of nodes in the tree
+#space complexity: O(n) where n is the number of nodes in the tree
