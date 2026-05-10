@@ -41,3 +41,23 @@ class Solution:
         return dfs(root, root.val)
 #time complexity: O(n)
 #space complexity: O(n) in worst case when the tree is skewed, O(log n) in best case when the tree is balanced.
+
+#bfs
+from collections import deque
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        res = 0
+        q = deque()
+        q.append((root, -float('inf')))
+        while q:
+            node, maxVal = q.popleft()
+            if node.val >= maxVal:
+                res += 1
+            if node.left:
+                q.append((node.left, max(maxVal, node.val)))
+            if node.right:
+                q.append((node.right, max(maxVal, node.val)))
+        return res
+#time complexity: O(n)
+#space complexity: O(n) in worst case when the tree is skewed, O(log n) in best case when the tree is balanced.
+
