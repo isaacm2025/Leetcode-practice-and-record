@@ -81,3 +81,19 @@ class Solution:
         return time
 #time complexity: O(m) where m is the number of unique tasks
 #space complexity: O(1) in worst case due to maxHeap and q, but can be O(n) in worst case if all tasks are the same
+
+#greedy
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        count = [0] * 26
+        for task in tasks:
+            count[ord(task) - ord('A')] += 1
+        count.sort()
+        maxf = count[25]
+        idle = (maxf - 1) * n
+        for i in range(24, -1, -1):
+            idle -= min(count[i], maxf - 1)
+        return max(0, idle) + len(tasks)
+#time complexity: O(n) due to counting and sorting
+#space complexity: O(1) due to fixed size count array
+
