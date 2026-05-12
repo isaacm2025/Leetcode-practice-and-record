@@ -29,3 +29,10 @@ class Solution:
 #time complexity: O(nlogn)
 #space complexity: O(1)
 
+#min_heap
+import heapq
+class Solution:
+    def findKthLargest(self, nums, k):
+        return heapq.nlargest(k, nums)[-1]
+#time complexity: O(nlogk)
+#space complexity: O(k)
