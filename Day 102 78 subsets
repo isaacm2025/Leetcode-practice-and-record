@@ -35,3 +35,13 @@ class Solution:
         return res
 #time complexity: O(n * 2^n) since there are 2^n subsets and we are copying each subset to the result list
 #space complexity: O(n) for the recursion stack and O(n) for the subset list, O(2^n) for the result list in worst case when all subsets are of size n/2
+
+#iteration
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = [[]]
+        for num in nums:
+            res += [subset + [num] for subset in res]
+        return res
+#time complexity: O(n * 2^n) since there are 2^n subsets and we are copying each subset to the result list
+#space complexity: O(2^n) for the result list in worst case when all subsets are of size n/2
