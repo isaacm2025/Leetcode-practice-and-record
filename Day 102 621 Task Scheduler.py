@@ -29,6 +29,8 @@ Constraints:
 #bf
 
 from ast import List
+from collections import Counter, deque
+import heapq
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
         count = [0] * 26
@@ -58,3 +60,24 @@ class Solution:
 #time complexity: O(n^2) in worst case
 #space complexity: O(n) in worst case due to processed list
 
+#max heap
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        count = Counter(tasks)
+        maxHeap = [-cnt for cnt in count.values()]
+        heapq.heapify(maxHeap)
+        time = 0
+        q = deque()
+        while maxHeap or q:
+            time += 1
+            if not maxHeap:
+                time = q[0][1]
+            else:
+                cnt = 1 + heapq.heappop(maxHeap)
+                if cnt:
+                    q.append((cnt, time + n))
+            if q and q[0][1] == time:
+                heapq.heappush(maxHeap, q.popleft()[0])
+        return time
+#time complexity: O(m) where m is the number of unique tasks
+#space complexity: O(1) in worst case due to maxHeap and q, but can be O(n) in worst case if all tasks are the same
