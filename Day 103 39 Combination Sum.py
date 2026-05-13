@@ -55,3 +55,23 @@ class Solution:
         return res
 #time complexity: O(2^(t/m)) where t is the target and m is the minimum number in nums.
 #space complexity: O(t/m) for the recursion stack and the result list.
+
+#optimal backtracking
+class Solution:
+    def combinationSum(self, nums: List[int], target:int) -> List[List[int]]:
+        res = []
+        nums.sort()
+        def dfs(i, cur, total):
+            if total == target:
+                res.append(cur.copy())
+                return
+            for j in range(i, len(nums)):
+                if total + nums[j] > target:
+                    return
+                cur.append(nums[j])
+                dfs(j, cur, total + nums[j])
+                cur.pop()
+        dfs(0, [], 0)
+        return res
+#time complexity: O(2^(t/m)) where t is the target and m is the minimum number in nums.
+#space complexity: O(t/m) for the recursion stack and the result list.
