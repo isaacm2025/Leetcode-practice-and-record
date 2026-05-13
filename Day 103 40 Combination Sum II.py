@@ -48,3 +48,26 @@ class Solution:
         return [list(combination) for combination in res]
 #time complexity: O(n * 2^n) where n is the length of candidates.
 #space complexity: O(n * 2^n) for the recursion stack and the result set.
+
+#backtracking
+class Solution:
+    def combinationSum2(self, candidates, target):
+        res = []
+        candidates.sort()
+        def dfs(i, cur, total):
+            if total == target:
+                res.append(cur.copy())
+                return
+            if total > target or i == len(candidates):
+                return
+            cur.append(candidates[i])
+            dfs(i + 1, cur, total + candidates[i])
+            cur.pop()
+            while i + 1 < len(candidates) and candidates[i] == candidates[i + 1]:
+                i += 1
+            dfs(i + 1, cur, total)
+        dfs(0, [], 0)
+        return res
+#time complexity: O(n * 2^n) where n is the length of candidates.
+#space complexity: O(n) for the recursion stack and the result list.
+
