@@ -46,3 +46,22 @@ class Solution:
         return perms
 #time complexity: O(n^2 * n!) where n is the length of nums.
 #space complexity: O(n * n!) for the result list.
+
+#backtracking(bid mask)
+from typing import List
+class Solution:
+    def permute(self, nums):
+        self.res = []
+        self. backtrack([], nums, 0)
+        return self.res
+    def backtrack(self, perm: List[int], nums: List[int], mask: int):
+        if len(perm) == len(nums):
+            self.res.append(perm[:])
+            return
+        for i in range(len(nums)):
+            if not (mask & (1 << i)):
+                perm.append(nums[i])
+                self.backtrack(perm, nums, mask | (1 << i))
+                perm.pop()
+#time complexity: O(n * n!) where n is the length of nums.
+#space complexity: O(n * n!) for the recursion stack and the result list.
