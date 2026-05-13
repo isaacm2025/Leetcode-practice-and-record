@@ -71,3 +71,25 @@ class Solution:
 #time complexity: O(n * 2^n) where n is the length of candidates.
 #space complexity: O(n) for the recursion stack and the result list.
 
+#optimal backtracking
+from typing import List
+class Solution:
+    def combinationSum2(self, candidates, target: int) -> List[list[int]]:
+        res = []
+        candidates.sort()
+        def dfs(idx, path, total):
+            if total == target:
+                res.append(path.copy())
+                return
+            for i in range(idx, len(candidates)):
+                if i > idx and candidates[i] == candidates[i - 1]:
+                    continue
+                if total + candidates[i] > target:
+                    break
+                path.append((candidates[i]))
+                dfs(i + 1, path, total + candidates[i])
+                path.pop()
+        dfs(0, [], 0)
+        return res
+#time complexity: O(n * 2^n) where n is the length of candidates.
+#space complexity: O(n) for the recursion stack and the result list.
