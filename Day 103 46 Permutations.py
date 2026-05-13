@@ -30,3 +30,19 @@ class Solution:
         return res
 #time complexity: O(n^2 * n!) where n is the length of nums.
 #space complexity: O(n * n!) for the recursion stack and the result list.
+
+#iteration
+class Solution:
+    def permute(self, nums):
+        perms = [[]]
+        for num in nums:
+            new_perms = []
+            for p in perms:
+                for i in range(len(p) + 1):
+                    p_copy = p.copy()
+                    p_copy.insert(i, num)
+                    new_perms.append(p_copy)
+            perms = new_perms
+        return perms
+#time complexity: O(n^2 * n!) where n is the length of nums.
+#space complexity: O(n * n!) for the result list.
