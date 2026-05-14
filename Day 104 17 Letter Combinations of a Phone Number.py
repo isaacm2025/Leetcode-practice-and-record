@@ -50,3 +50,30 @@ class Solution:
 #time complexity: O(n * 4^n) where n is the length of the input string digits. The number of possible combinations is at most 4^n, and generating each combination takes O(n) time.
 #space complexity: O(n) where n is the length of the input string digits. The recursion stack can go up to O(n) in the worst case, and the space used to store the current combination can also take up to O(n) space in the worst case. 
 #The space used to store the final result can also take up to O(n * 4^n) space in the worst case, but it is not counted towards the overall space complexity since it is not part of the recursion stack.
+
+#iteration
+from typing import List
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+        res = [""]
+        digitTochar = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'
+        }
+        for d in digits:
+            tmp = []
+            for c in res:
+                for char in digitTochar[d]:
+                    tmp.append(c + char)
+            res = tmp
+        return res
+#time complexity: O(n * 4^n) where n is the length of the input string digits. The number of possible combinations is at most 4^n, and generating each combination takes O(n) time.
+#space complexity: O(n * 4^n) where n is the length of the input string digits. The space used to store the final result can take up to O(n * 4^n) space in the worst case, since there can be at most 4^n combinations and each combination can take up to O(n) space.
