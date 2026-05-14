@@ -43,3 +43,54 @@ class Solution:
 #time complexity: O(n * 2^n) where n is the length of the string s. The number of possible partitions is 2^(n-1) and checking if each partition is a palindrome takes O(n) time.
 #space complexity: O(n) where n is the length of the string s. 
 # The recursion stack can go up to O(n) in the worst case, and the space used to store the current partition can also take up to O(n) space in the worst case. The space used to store the final result can also take up to O(n * 2^n) space in the worst case, but it is not counted towards the overall space complexity since it is not part of the recursion stack.
+
+#dp
+from typing import List
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        for l in range(1, n + 1):
+            for i in range(n - l + 1):
+                dp[i][i + l - 1] = (s[i] == s[i + l - 1] and (i + 1 > (i + l - 2) or dp[i + 1][i + l - 2]))
+        res, part = [], []
+        def dfs(i):
+            if i >= len(s):
+                res.append(part.copy())
+                return
+            for j in range(i, len(s)):
+                if dp[i][j]:
+                    part.append(s[i: j + 1])
+                    dfs(j + 1)
+                    part.pop()
+        dfs(0)
+        return res
+#time complexity: O(n * 2^n) where n is the length of the string s. The number of possible partitions is 2^(n-1) and checking if each partition is a palindrome takes O(1) time using the dp table.
+#space complexity: O(n^2) where n is the length of the string s. 
+#The dp table takes O(n^2) space, and the recursion stack can go up to O(n) in the worst case. The space used to store the current partition can also take up to O(n) space in the worst case. The space used to store the final result can also take up to O(n * 2^n) space in the worst case, but it is not counted towards the overall space complexity since it is not part of the recursion stack.
+
+#recursive
+from typing import List
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        for l in range(1, n + 1):
+            for i in range(n - l + 1):
+                dp[i][i + l - 1] = (s[i] == s[i + l - 1] and (i + 1 > (i + l - 2) or dp[i + 1][i + l - 2]))
+        def dfs(i):
+            if i >= n:
+                return [[]]
+            res = []
+            for j in range(i, n):
+                if dp[i][j]:
+                    nxt = dfs(j + 1)
+                    for part in nxt:
+                        cur = [s[i: j + 1]] + part
+                        res.append(cur)
+            return res
+        return dfs(0)
+#time complexity: O(n * 2^n) where n is the length of the string s. The number of possible partitions is 2^(n-1) and checking if each partition is a palindrome takes O(1) time using the dp table.
+#space complexity: O(n^2) where n is the length of the string s. 
+#The dp table takes O(n^2) space, and the recursion stack can go up to O(n) in the worst case. 
+#The space used to store the final result can also take up to O(n * 2^n) space in the worst case, but it is not counted towards the overall space
