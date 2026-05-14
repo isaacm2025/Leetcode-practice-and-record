@@ -36,7 +36,7 @@ class Solution:
         board = [["."]* n for i in range(n)]
         def backtrack(row):
             if row == n:
-                copy = ["".join(row) for now in board]
+                copy = ["".join(row) for row in board]
                 res.append(copy)
                 return
             for c in range(n):
@@ -50,6 +50,37 @@ class Solution:
                 col.remove(c)
                 posDiag.remove(row + c)
                 negDiag.remove(row - c)
+                board[row][c] = "."
+        backtrack(0)
+        return res
+#time complexity: O(n!)
+#space complexity: O(n^2)
+
+#bit manipulation
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        col = 0
+        posDiag = 0
+        negDiag = 0
+        res = []
+        board = [["."] * n for i in range(n)]
+        def backtrack(row):
+            nonlocal col, posDiag, negDiag
+            if row == n:
+                copy = ["".join(row) for row in board]
+                res.append(copy)
+                return
+            for c in range(n):
+                if ((col & (1 << c)) or (posDiag & (1 << (row + c))) or (negDiag & (1 << (row - c + n)))):
+                    continue
+                col ^= (1 << c)
+                posDiag ^= (1 << (row + c))
+                negDiag ^= (1 << (row - c + n))
+                board[row][c] = "Q"
+                backtrack(row + 1)
+                col ^= (1 << c)
+                posDiag ^= (1 << (row + c))
+                negDiag ^= (1 << (row - c + n))
                 board[row][c] = "."
         backtrack(0)
         return res
