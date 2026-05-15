@@ -49,3 +49,30 @@ class Solution:
 #space complexity: O(M*N) in the worst case when the grid is filled with land, the recursive call stack can go as deep as M*N in the worst case. 
 #In practice, the space complexity is often less than O(M*N) due to the nature of the grid and the distribution of land and water.
 
+#bfs
+from collections import deque
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        directions = [[1,0], [-1, 0], [0, 1], [0, -1]]
+        ROWS, COLS = len(grid), len(grid[0])
+        islands = 0
+        def bfs(r, c):
+            q = deque()
+            grid[r][c] = "0"
+            q.append((r, c))
+            while q:
+                row, col = q.popleft()
+                for dr, dc in directions:
+                    nr, nc = dr + row, dc + col
+                    if (nr < 0 or nc < 0 or nr >= ROWS or nc >= COLS or grid[nr][nc] == "0"):
+                        continue
+                    q.append((nr, nc))
+                    grid[nr][nc] = "0"
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == "1":
+                    bfs(r, c)
+                    islands += 1
+        return islands
+#time complexity: O(M*N) where M and N are the number of rows and columns in the grid, respectively. We visit each cell at most once.
+#space complexity: O(M*N) in the worst case when the grid is filled with land, the queue can hold up to M*N cells in the worst case.
