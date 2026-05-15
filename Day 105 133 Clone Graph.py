@@ -67,3 +67,23 @@ class Solution:
         return dfs(node) if node else None
 #time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph. We visit each node and edge at most once.
 #space complexity: O(N) where N is the number of nodes in the graph. The space used by the hash map and the recursive call stack can grow up to O(N) in the worst case.
+
+#bfs
+from collections import deque
+class Solution:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+        oldToNew = {}
+        oldToNew[node] = Node(node.val)
+        q = deque([node])
+        while q:
+            cur = q.popleft()
+            for nei in cur.neighbors:
+                if nei not in oldToNew:
+                    oldToNew[nei] = Node(nei.val)
+                    q.append(nei)
+                oldToNew[cur].neighbors.append(oldToNew[nei])
+        return oldToNew[node]
+#time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph. We visit each node and edge at most once.
+#space complexity: O(N) where N is the number of nodes in the graph. The space used by the hash map and the queue can grow up to O(N) in the worst case.
