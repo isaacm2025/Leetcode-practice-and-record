@@ -55,3 +55,29 @@ class Solution:
         return res
 #time complexity: O(V + E)
 #space complexity: O(V + E)
+
+#topological sort using bfs
+from collections import deque
+from typing import List
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        graph = {i: [] for i in range(numCourses)}
+        indegree = {i: 0 for i in range(numCourses)}
+        for course, pre in prerequisites:
+            graph[pre].append(course)
+            indegree[course] += 1
+        queue = deque()
+        for c in range(numCourses):
+            if indegree[c] == 0:
+                queue.append(c)
+        res = []
+        while queue:
+            course = queue.popleft()
+            res.append(course)
+            for pre in graph[course]:
+                indegree[pre] -= 1
+                if indegree[pre] == 0:
+                    queue.append(pre)
+        return res if len(res) == numCourses else []
+#time complexity: O(V + E)
+#space complexity: O(V + E)
