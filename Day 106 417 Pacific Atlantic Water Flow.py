@@ -56,5 +56,40 @@ class Solution:
         return res
 #time complexity: O(M*N)
 #space complexity: O(M*N)
+
+#bfs
+from collections import deque
+from typing import List
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        ROWS, COLS = len(heights), len(heights[0])
+        pac, atl = set(), set()
+        def bfs(queue, visit):
+            while queue:
+                r, c = queue.popleft()
+                visit.add((r,c))
+                for dr, dc in [[1,0], [-1,0], [0,1], [0,-1]]:
+                    nr, nc = r + dr, c + dc
+                    if (nr < 0 or nc < 0 or nr == ROWS or nc == COLS or (nr, nc) in visit or heights[nr][nc] < heights[r][c]):
+                        continue
+                    queue.append((nr,nc))
+        pacQueue = deque()
+        atlQueue = deque()
+        for c in range(COLS):
+            pacQueue.append((0,c))
+            atlQueue.append((ROWS - 1,c))
+        for r in range(ROWS):
+            pacQueue.append((r,0))
+            atlQueue.append((r,COLS - 1))
+        bfs(pacQueue, pac)
+        bfs(atlQueue, atl)
+        res = []
+        for r in range(ROWS):
+            for c in range(COLS):
+                if (r, c) in pac and (r, c) in atl:
+                    res.append([r, c])
+        return res
+#time complexity: O(M*N)
+#space complexity: O(M*N)
         
 
