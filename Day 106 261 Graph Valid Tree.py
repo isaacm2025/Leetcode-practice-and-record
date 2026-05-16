@@ -43,3 +43,28 @@ class Solution:
                         return False
             return True
         return dfs(0, -1) and len(visit) == n
+#time complexity: O(V + E)
+#space complexity: O(V + E)
+
+#bfs
+from collections import deque
+from typing import List
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        graph = {i: [] for i in range(n)}
+        for a, b in edges:
+            graph[a].append(b)
+            graph[b].append(a)
+        visit = set()
+        queue = deque([0])
+        while queue:
+            node = queue.popleft()
+            if node in visit:
+                return False
+            visit.add(node)
+            for neighbor in graph[node]:
+                if neighbor not in visit:
+                    queue.append(neighbor)
+        return len(visit) == n
+#time complexity: O(V + E)
+#space complexity: O(V + E)
