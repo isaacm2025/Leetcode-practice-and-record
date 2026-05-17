@@ -61,3 +61,22 @@ class Solution:
         return res
 #time complexity: O(n * m), where n is the number of tickets and m is the number of destinations for each source.
 #space complexity: O(n * m), where n is the number of tickets and m is the number of destinations for each source.
+
+#recursion
+from collections import defaultdict
+from typing import List
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets)[::-1]:
+            adj[src].append(dst)
+        res = []
+        def dfs(src):
+            while adj[src]:
+                dst = adj[src].pop()
+                dfs(dst)
+            res.append(src)
+        dfs("JFK")
+        return res[::-1]
+#time complexity: O(ElogE), where E is the number of tickets.
+#space complexity: O(E), where E is the number of tickets.
