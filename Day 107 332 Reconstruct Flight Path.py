@@ -80,3 +80,23 @@ class Solution:
         return res[::-1]
 #time complexity: O(ElogE), where E is the number of tickets.
 #space complexity: O(E), where E is the number of tickets.
+
+#iterative
+from collections import defaultdict
+from typing import List
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets)[::-1]:
+            adj[src].append(dst)
+        stack = ["JFK"]
+        res = []
+        while stack:
+            current = stack[-1]
+            if not adj[current]:
+                res.append(stack.pop())
+            else:
+                stack.append(adj[current].pop())
+        return res[::-1]
+#time complexity: O(ElogE), where E is the number of tickets.
+#space complexity: O(E), where E is the number of tickets.
