@@ -57,3 +57,31 @@ class Solution:
 #space complexity is O(N^2) because we are using a visited matrix to keep track of the cells we have already visited.
 
 
+#dfs
+import heapq
+from typing import List
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        visit = [[False] * n for _ in range(n)]
+        minHeap = maxHeap = grid[0][0]
+        for row in range(n):
+            maxHeap = max(maxHeap, max(grid[row]))
+            minHeap = min(minHeap, min(grid[row]))
+        def dfs(node, time):
+            r, c = node
+            if min(r, c) < 0 or max(r, c) >= n or visit[r][c] or grid[r][c] > time:
+                return False
+            if r ==(n - 1) and c == (n -1):
+                return True
+            visit[r][c] = True
+            return (dfs((r + 1, c), time) or dfs((r - 1, c), time) or dfs((r, c + 1), time) or dfs((r, c - 1), time))
+        for time in range(minHeap, maxHeap):
+            if dfs((0, 0), time):
+                return time
+            for r in range(n):
+                for c in range(n):
+                    visit[r][c] = False
+        return maxHeap
+#time complexity is O(N^4)
+#space complexity is O(N^2) because we are using a visited matrix to keep track of the cells we have already visited.
