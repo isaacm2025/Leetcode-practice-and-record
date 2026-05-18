@@ -51,3 +51,15 @@ class Solution:
         return dfs(0)
 #time complexity: O(n)
 #space complexity: O(n)
+
+#dp (optimized)
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        a, b = 1, 1
+        for _ in range(n - 1):
+            temp = one
+            one = one + two
+            two = temp
+        return one
+#time complexity: O(n)
+#space complexity: O(1)
