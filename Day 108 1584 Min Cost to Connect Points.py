@@ -48,3 +48,30 @@ class Solution:
         return res
 #time complexity is O(N^2 log N) because we are building the adjacency list with O(N^2) and then we are using a min heap to get the minimum cost edge which takes O(log N) time. The space complexity is O(N^2) because we are storing the adjacency list.
 #space complexity is O(N^2) because we are storing the adjacency list.
+
+#prim's optimized solution
+import heapq
+from typing import List
+class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        n, node = len(points), 0
+        dist = [100000000] * n
+        visit = [False] * n
+        edges, res = 0, 0
+
+        while edges < n - 1:
+            visit[node] = True
+            nextNode = -1
+            for i in range(n):
+                if visit[i]:
+                    continue
+                curDist = (abs(points[i][0] - points[node][0]) + abs(points[i][1] - points[node][1]))
+                dist[i] = min(dist[i], curDist)
+                if nextNode == -1 or dist[i] < dist[nextNode]:
+                    nextNode = i
+            res += dist[nextNode]
+            node = nextNode
+            edges += 1
+        return res
+#time complexity is O(N^2) because we are iterating through all the points to find the minimum distance to the next node. The space complexity is O(N) because we are storing the distance and visit arrays.
+#space complexity is O(N) because we are storing the distance and visit arrays.
