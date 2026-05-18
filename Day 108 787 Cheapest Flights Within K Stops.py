@@ -37,6 +37,7 @@ fromi != toi
 '''
 
 #bellmanford
+from collections import deque
 from typing import List
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
@@ -54,3 +55,25 @@ class Solution:
 #time complexity is O(n + (m * k)) where n is the number of airports, m is the number of flights and k is the maximum number of stops. 
 #The space complexity is O(n) because we are using an array to store the prices for each airport.
 
+#shortest Path
+import heapq
+from typing import List
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        prices = [float("inf")] * n
+        prices[src] = 0
+        adj = [[] for _ in range(n)]
+        for s, d, p in flights:
+            adj[s].append([d, p])
+        q = deque([(0, src, 0)])
+        while q:
+            p, s, stops = q.popleft()
+            if stops > k:
+                continue
+            for d, np in adj[s]:
+                if p + np < prices[d]:
+                    prices[d] = p + np
+                    q.append((p + np, d, stops + 1))
+        return -1 if prices[dst] == float("inf") else prices[dst]
+#time complexity is O(n*k) because in the worst case, we may have to explore all possible paths from src to dst with at most k stops.
+#space complexity is O(n + m) where n is the number of airports and m is the number of flights. We are using an adjacency list to store the flights and a queue to perform a breadth-first search.
