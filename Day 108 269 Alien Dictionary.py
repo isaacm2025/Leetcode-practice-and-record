@@ -39,8 +39,7 @@ The input words will contain characters only from lowercase 'a' to 'z'.
 
 #dfs
 from collections import deque
-
-
+from typing import List
 class Solution:
     def foreignDictionary(self, words: List[str]) -> str:
         adj = {c: set() for w in words for c in w}
