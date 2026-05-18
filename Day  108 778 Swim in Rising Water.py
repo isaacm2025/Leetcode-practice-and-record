@@ -85,3 +85,26 @@ class Solution:
         return maxHeap
 #time complexity is O(N^4)
 #space complexity is O(N^2) because we are using a visited matrix to keep track of the cells we have already visited.
+
+#dijkstra's algorithm
+import heapq
+from typing import List
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        N = len(grid)
+        visit = set()
+        minHeap = [[grid[0][0], 0, 0]]
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        visit.add((0, 0))
+        while minHeap:
+            time, r, c = heapq.heappop(minHeap)
+            if r == (N - 1) and c == (N - 1):
+                return time
+            for dr, dc in directions:
+                nr, nc = r + dr, c + dc
+                if (nr, nc) in visit or min(nr, nc) < 0 or max(nr, nc) >= N:
+                    continue
+                visit.add((nr, nc))
+                heapq.heappush(minHeap, [max(time, grid[nr][nc]), nr, nc])
+#time complexity is O(N^2 log N) because we are using a min heap to get the minimum time to reach the next cell and we are exploring all the cells in the grid. The space complexity is O(N^2) because we are using a visited set to keep track of the cells we have already visited.
+#space complexity is O(N^2) because we are using a visited set to keep track of the cells we have already visited.
