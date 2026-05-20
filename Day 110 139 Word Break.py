@@ -60,3 +60,23 @@ class Solution:
         return dfs(0)
 #time O((n * 2^n) + m) where n is the length of s and m is the length of wordDict
 #space O(n + (m * t)) for the recursion stack
+
+
+#dp
+from typing import List
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        memo = {len(s): True}
+        def dfs(i):
+            if i in memo:
+                return memo[i]
+            for j in wordDict:
+                if ((i + len(j)) <= len(s) and s[i: i + len(j)] == j):
+                    if dfs(i + len(j)):
+                        memo[i] = True
+                        return True
+            memo[i] = False
+            return False
+        return dfs(0)
+#time O(n * m * t) where n is the length of s and m is the length of wordDict
+#space O(n)
