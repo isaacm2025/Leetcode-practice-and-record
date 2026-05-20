@@ -34,3 +34,22 @@ class Solution:
         return dfs(0, -1)
 #time complexity: O(2^n)
 #space complexity: O(n)
+
+#dp topdown
+from typing import List
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        memo = [-1] * n
+        def dfs(i):
+            if memo[i] != -1:
+                return memo[i]
+            LIS = 1
+            for j in range(i + 1, n):
+                if nums[i] < nums[j]:
+                    LIS = max(LIS, 1 + dfs(j))
+            memo[i] = LIS
+            return LIS
+        return max(dfs(i) for i in range(n))
+#time complexity: O(n^2)
+#space complexity: O(n)
