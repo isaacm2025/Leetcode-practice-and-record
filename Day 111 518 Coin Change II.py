@@ -46,4 +46,39 @@ class Solution:
 #time complexity: O(2^(max(n, target/m))))
 #space complexity: O(max(n, target/m))
 
-            
+#dp
+from typing import List
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        coins.sort()
+        def dfs(i, target):
+            if target == 0:
+                return 1
+            if i >= len(coins):
+                return 0
+            res = 0
+            if target >= coins[i]:
+                res = dfs(i + 1, target)
+                res += dfs(i, target - coins[i])
+            return res
+        return dfs(0, amount)
+#time complexity: O(2^(max(n, target/m))))
+#space complexity: O(max(n, target/m))
+
+#dp space optimized
+from typing import List
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)
+        dp[0] = 1
+        for i in range(len(coins) - 1, -1, -1):
+            nextDp = [0] * (amount + 1)
+            nextDp[0] = 1
+            for j in range(1, amount + 1):
+                nextDp[j] = dp[j]
+                if j >= coins[i]:
+                    nextDp[j] += nextDp[j - coins[i]]
+            dp = nextDp
+        return dp[amount]
+#time complexity: O(n * target)
+#space complexity: O(target)
