@@ -75,3 +75,19 @@ class Solution:
         return row[0]
 #time complexity: O(m*n)
 #space complexity: O(n)
+
+#math
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        if m == 1 or n == 1:
+            return 1
+        if m < n:
+            m, n = n, m
+        res = j = 1
+        for i in range(m - 1, m + n - 2):
+            res *= i
+            res //= j
+            j += 1
+        return res
+#time complexity: O(min(m,n))
+#space complexity: O(1)
