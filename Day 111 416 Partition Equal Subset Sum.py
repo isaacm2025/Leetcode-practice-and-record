@@ -73,7 +73,7 @@ class Solution:
             for j in range(target + 1):
                 if j >= nums[i]:
                     nextDp[j] = dp[j] or dp[j - nums[i]]
-                else;
+                else:
                     nextDp[j] = dp[j]
             dp, nextDp = nextDp, dp
         return dp[target]
