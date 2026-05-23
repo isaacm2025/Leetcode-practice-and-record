@@ -58,3 +58,20 @@ class Solution:
         return dfs(1, len(nums) - 2)
 #time complexity: O(n^3)
 #space complexity: O(n^2)
+
+#dp, bottom-up
+from ast import List
+class Solution:
+    def maxCoins(self, nums):
+        n = len(nums)
+        nums = [1] + nums + [1]
+        dp = [[0] * (n + 2) for _ in range(n + 2)]
+        for length in range(n, 0, -1):
+            for right in range(length, n + 1):
+                for i in range(length, right + 1):
+                    coins = nums[length - 1] * nums[i] * nums[right + 1]
+                    coins += dp[length][i - 1] + dp[i + 1][right]
+                    dp[length][right] = max(dp[length][right], coins)
+        return dp[1][n]
+#time complexity: O(n^3)
+#space complexity: O(n^2)
