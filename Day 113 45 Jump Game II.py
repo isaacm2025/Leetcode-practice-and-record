@@ -40,3 +40,25 @@ class Solution:
         return dfs(0)
 #time complexity: O(n!)
 #space complexity: O(n)
+
+#dp, top-down
+from ast import List
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        cache = {}
+        def dfs(i):
+            if i in cache:
+                return cache[i]
+            if i == len(nums) - 1:
+                return 0
+            if nums[i] == 0:
+                return 1000000
+            res = 1000000
+            end = min(len(nums), i + nums[i] + 1)
+            for j in range(i + 1, end):
+                res = min(res, dfs(j))
+            cache[i] = res
+            return res
+        return dfs(0)
+#time complexity: O(n^2)
+#space complexity: O(n)
