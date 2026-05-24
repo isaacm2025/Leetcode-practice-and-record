@@ -69,3 +69,7 @@ class Solution:
         return True
 #time O(nlogn)
 #space O(n)
+
+#hashmap
+from typing import Counter, List
+class Solution:
