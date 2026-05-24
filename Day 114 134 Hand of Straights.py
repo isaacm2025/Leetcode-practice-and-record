@@ -43,3 +43,29 @@ class Solution:
         return True
 #time O(nlogn)
 #space O(n)
+
+#heap
+from typing import Counter, List
+import heapq
+class Solution:
+    def isNstraightHand(self, hand: List[int], groupSize: int) -> bool:
+        if len(hand) % groupSize:
+            return False
+        count = {}
+        for num in hand:
+            count[num] = count.get(num, 0)
+        minHeap = list(count.keys())
+        heapq.heapify(minHeap)
+        while minHeap:
+            first = minHeap[0]
+            for i in range(first, first + groupSize):
+                if i not in count:
+                    return False
+                count[i] -= 1
+                if count[i] == 0:
+                    if i != minHeap[0]:
+                        return False
+                    heapq.heappop(minHeap)
+        return True
+#time O(nlogn)
+#space O(n)
