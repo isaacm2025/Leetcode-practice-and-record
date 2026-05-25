@@ -77,3 +77,20 @@ class Solution:
         return res
 #time complexity: O(n), where n is the number of intervals in the input list
 #space complexity: O(n), where n is the number of intervals in the input list, O(1) if we don't consider the space used for the output list.
+
+#greedy
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        res = []
+        for i in range(len(intervals)):
+            if newInterval[1] < intervals[i][0]:
+                res.append(newInterval)
+                return res + intervals[i:]
+            elif newInterval[0] > intervals[i][1]:
+                res.append(intervals[i])
+            else:
+                newInterval = [min(newInterval[0], intervals[i][0]), max(newInterval[1], intervals[i][1])]
+        res.append(newInterval)
+        return res
+#time complexity: O(n), where n is the number of intervals in the input list
+#space complexity: O(n), where n is the number of intervals in the input list, O(1) if we don't consider the space used for the output list.
