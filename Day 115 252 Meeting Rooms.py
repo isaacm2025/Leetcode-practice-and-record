@@ -41,3 +41,17 @@ class Solution:
         return True
 #time complexity: O(n^2), where n is the number of intervals in the input list, due to the nested loops.
 #space complexity: O(1)
+
+
+#sorting
+class Solution:
+    def canAttendMeetings(self, intervals: List[Interval]) -> bool:
+        intervals.sort(key = lambda i: i.start)
+        for i in range(1, len(intervals)):
+            i1 = intervals[i - 1]
+            i2 = intervals[i]
+            if i1.end > i2.start:
+                return False
+            return True
+#time complexity: O(nlogn), where n is the number of intervals in the input list, due to the sorting step. The checking step takes O(n) time, log(n) because we only need to check adjacent intervals after sorting.
+#space complexity: O(1)
