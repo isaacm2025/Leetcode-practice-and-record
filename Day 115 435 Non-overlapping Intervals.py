@@ -52,3 +52,30 @@ class Solution:
         return n - maxNonOverlap
 #time complexity: O(n^2), where n is the number of intervals in the input list, due to the nested loops. The sorting step takes O(nlogn) time.
 #space complexity: O(n), where n is the number of intervals in the input list, due to the space used for the dp array, O(1) if we don't consider the space used for the dp array.
+
+#dp with binary search
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda pair: pair[1])
+        n = len(intervals)
+        dp = [0] * n
+        dp[0] = 1
+
+        def bs(r, target):
+            left = 0
+            while left < r:
+                mid = (left + r) >> 1
+                if intervals[mid][1] <= target:
+                    left = mid + 1
+                else:
+                    r = mid
+            return left
+        for i in range(1, n):
+            idx = bs(i, intervals[i][0])
+            if idx == 0:
+                dp[i] = dp[i - 1]
+            else:
+                dp[i] = max(dp[i - 1], 1 + dp[idx - 1])
+        return n - dp[n - 1]
+#time complexity: O(nlogn), where n is the number of intervals in the input list, due to the sorting step and the binary search step. The dp filling step takes O(n) time.
+#space complexity: O(n), where n is the number of intervals in the input list, due to the space used for the dp array
