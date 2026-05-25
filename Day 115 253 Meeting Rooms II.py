@@ -29,7 +29,7 @@ class Interval(object):
     def __init__(self, start, end):
         self.start = start
         self.end = end
-        
+
 class Solution:
     def minMeetingRooms(self, intervals: List[Interval]) -> int:
         intervals.sort(key = lambda i: i.start)
@@ -41,3 +41,19 @@ class Solution:
         return len(minHeap)
 #time complexity: O(nlogn), where n is the number of intervals in the input list, due to the sorting step. The heap operations take O(logn) time, and we perform at most n heap operations, resulting in O(nlogn) time for the heap operations.
 #space complexity: O(n), where n is the number of intervals in the input list, due to the space used for the minHeap, O(1) if we don't consider the space used for the minHeap.
+
+#greedy
+class Solution:
+    def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        time = []
+        for i in intervals:
+            time.append((i.start, 1))
+            time.append((i.end, -1))
+        time.sort(key = lambda pair: (pair[0], pair[1]))
+        res = count = 0
+        for t in time:
+            count += t[1]
+            res = max(res, count)
+        return res
+#time complexity: O(nlogn), where n is the number of intervals in the input list, due to the sorting step. The counting step takes O(n) time.
+#space complexity: O(n), where n is the number of intervals in the input list, due to the space used for the time list, O(1) if we don't consider the space used for the time list.
