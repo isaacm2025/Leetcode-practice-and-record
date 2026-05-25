@@ -77,5 +77,21 @@ class Solution:
             else:
                 dp[i] = max(dp[i - 1], 1 + dp[idx - 1])
         return n - dp[n - 1]
-#time complexity: O(nlogn), where n is the number of intervals in the input list, due to the sorting step and the binary search step. The dp filling step takes O(n) time.
+#time complexity: O(nlogn), where n is the number of intervals in the input list, due to the sorting step and the binary search step. The dp filling step takes O(n) time, log(n) is the time complexity of the binary search step.
 #space complexity: O(n), where n is the number of intervals in the input list, due to the space used for the dp array
+
+#greedy
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        res = 0
+        prev = intervals[0][1]
+        for start, end in intervals[1:]:
+            if start >= prev:
+                prev = end
+            else:
+                res += 1
+                prev = min(prev, end)
+        return res
+#time complexity: O(nlogn), where n is the number of intervals in the input list, due to the sorting step. The merging step takes O(n) time.
+#space complexity: O(1), where n is the number of intervals in the input list, due to the space used for the variables, O(n) if we consider the space used for the output list.
