@@ -37,3 +37,28 @@ class Solution:
         return output
 #time complexity: O(nlogn), where n is the number of intervals in the input list, due to the sorting step. The merging step takes O(n) time.
 #space complexity: O(n), where n is the number of intervals in the input list, due to the space used for the output list, O(1) if we don't consider the space used for the output list.
+
+#greedy
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        maxEnd = max(interval[0] for interval in intervals)
+        mp = [0] * (maxEnd + 1)
+        for start, end in intervals:
+            mp[start] = max(end + 1, mp[start])
+        res = []
+        have = -1
+        interval_start = -1
+        for i in range(len(mp)):
+            if mp[i] !=0:
+                if interval_start == -1:
+                    interval_start = i
+                have = max(mp[i] - 1, have)
+            if have == i:
+                res.append([interval_start, have])
+                interval_start = -1
+                have = -1
+        if interval_start != -1:
+            res.append([interval_start, have])
+        return res
+#time complexity: O(n + m), where n is the number of intervals in the input list and m is the maximum end value among the intervals. The first loop takes O(n) time, and the second loop takes O(m) time.
+#space complexity: O(m), where m is the maximum end value among the intervals, due to the space used for the mp list.
