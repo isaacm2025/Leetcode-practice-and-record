@@ -50,4 +50,22 @@ class Solution:
             for j in range(n):
                 matrix[i][j] = rotated[i][j]
 #time complexity: O(n^2), where n is the number of rows (or columns) in the input matrix, due to the nested loops.
-#space complexity: O(n^2), where n is the number of rows (or columns) in the input matrix, due to the space used for the rotated matrix, O(1) if we don't consider the space used for the rotated matrix.
+#space complexity: O(n^2), where n is the number of rows (or columns) in the input matrix, due to the space used for the rotated matrix
+
+#rotated by four cells
+from typing import List
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        l, r = 0, len(matrix) - 1
+        while l < r:
+            for i in range(r - l):
+                top, bottom = l, r
+                topLeft = matrix[top][l + i]
+                matrix[top][l + i] = matrix[bottom - i][l]
+                matrix[bottom - i][l] = matrix[bottom][r - i]
+                matrix[bottom][r - i] = matrix[top + i][r]
+                matrix[top + i][r] = topLeft
+            r -= 1
+            l += 1
+#time complexity: O(n^2), where n is the number of rows (or columns) in the input matrix, due to the nested loops.
+#space complexity: O(1), since we are rotating the matrix in-place and not using any additional data structures that grow with the input size.
