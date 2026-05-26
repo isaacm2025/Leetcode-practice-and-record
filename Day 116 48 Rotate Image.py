@@ -69,3 +69,14 @@ class Solution:
             l += 1
 #time complexity: O(n^2), where n is the number of rows (or columns) in the input matrix, due to the nested loops.
 #space complexity: O(1), since we are rotating the matrix in-place and not using any additional data structures that grow with the input size.
+
+#reverse and transpose
+from typing import List
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        matrix.reverse()
+        for i in range(len(matrix)):
+            for j in range(i + 1, len(matrix)):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+#time complexity: O(n^2), where n is the number of rows (or columns) in the input matrix, due to the nested loops.
+#space complexity: O(1), since we are rotating the matrix in-place and not using any additional data structures that grow with the input size.
