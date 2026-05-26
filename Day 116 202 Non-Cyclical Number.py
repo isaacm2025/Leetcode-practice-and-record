@@ -54,3 +54,28 @@ class Solution:
         return res
 #time complexity: O(log n), where n is the input number, due to the number of digits in n and the operations performed on them.
 #space complexity: O(log n), where n is the input number, due to the space used for the hash set to store visited numbers, which can grow up to the number of unique sums of squares of digits encountered during the process.
+
+#fast and slow pointers
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        slow = n
+        fast = self.sumOfSquares(n)
+        power = lam = 1
+        while slow != fast:
+            if power == lam:
+                slow = fast
+                power *= 2
+                lam = 0
+            fast = self.sumOfSquares(fast)
+            lam += 1
+        return True if fast == 1 else False
+    def sumOfSquares(self, n: int) -> int:
+        res = 0
+        while n:
+            digit = n % 10
+            digit = digit ** 2
+            res += digit
+            n //= 10
+        return res
+#time complexity: O(log n), where n is the input number, due to the number of digits in n and the operations performed on them.
+#space complexity: O(1), as the algorithm uses a constant amount of space for the slow and fast pointers, as well as the variables used for calculating the sum of squares of digits.
