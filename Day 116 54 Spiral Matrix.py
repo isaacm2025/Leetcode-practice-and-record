@@ -62,3 +62,23 @@ class Solution:
         return res
 #time complexity: O(mn), where m is the number of rows and n is the number of columns in the input matrix, due to the loops and the recursive calls.
 #space complexity: O(mn), where m is the number of rows and n is the number of columns in the input matrix, due to the space used for the output list and the recursive call stack
+
+#optimal
+from typing import List
+class Solution:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        res = []
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        steps = [len(matrix[0]), len(matrix) - 1]
+        r, c, d= 0, -1, 0
+        while steps[d & 1]:
+            for i in range(steps[d & 1]):
+                r += directions[d][0]
+                c += directions[d][1]
+                res.append(matrix[r][c])
+            steps[d & 1] -= 1
+            d += 1
+            d %= 4
+        return res
+#time complexity: O(mn), where m is the number of rows and n is the number of columns in the input matrix, due to the loops and the recursive calls.
+#space complexity: O(mn), where m is the number of rows and n is the number of columns in the input matrix, due to the space used for the output list and the recursive call stack
