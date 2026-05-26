@@ -57,3 +57,21 @@ class Solution:
                 matrix[r][c] = mark[r][c]
 #time complexity: O((m* n) * (m +n)), where m is the number of rows and n is the number of columns in the input matrix, due to the nested loops and the additional loops for marking.
 #space complexity: O(m * n), where m is the number of rows and n is the number of columns in the input matrix, due to the space used for the mark matrix
+
+#iteration
+from typing import List
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        ROWS, COLS = len(matrix), len(matrix[0])
+        rows, cols = [False] * ROWS, [False] * COLS
+        for r in range(ROWS):
+            for c in range(COLS):
+                if matrix[r][c] == 0:
+                    rows[r] = True
+                    cols[c] = True
+            for r in range(ROWS):
+                for c in range(COLS):
+                    if rows[r] or cols[c]:
+                        matrix[r][c] = 0
+#time complexity: O(m * n), where m is the number of rows and n is the number of columns in the input matrix, due to the nested loops.
+#space complexity: O(m + n), where m is the number of rows and n is the number of columns in the input matrix, due to the space used for the rows and cols arrays
