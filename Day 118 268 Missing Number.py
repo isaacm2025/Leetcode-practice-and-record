@@ -43,3 +43,16 @@ class Solution:
                 return i
 #time complexity: O(n) due to creating the hash set and iterating through the range
 #space complexity: O(n) for the hash set
+
+#bitwise XOR
+from typing import List
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = n
+        for i in range(n):
+            res ^= i
+            res ^= nums[i]
+        return res
+#time complexity: O(n) due to iterating through the range and the input array
+#space complexity: O(1) since we are using a constant amount of space for the result
