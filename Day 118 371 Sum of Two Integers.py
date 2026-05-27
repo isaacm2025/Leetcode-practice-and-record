@@ -22,3 +22,21 @@ class Solution:
 #time complexity: O(1) since we are performing a constant number of operations
 #space complexity: O(1) since we are using a constant amount of space for the result
 
+#bit manipulation
+class Solution:
+    def getSum(self, a: int, b: int) -> int:
+        carry = 0
+        res = 0
+        mask = 0xFFFFFFFF
+        for i in range(32):
+            bitA = (a >> i) & 1
+            bitB = (b >> i) & 1
+            curBit = bitA ^ bitB ^ carry
+            carry = (bitA + bitB + carry) >=2
+            if curBit:
+                res |= (1 << i)
+        if res > 0x7FFFFFFF:
+            res = ~(res ^ mask)
+        return res
+#time complexity: O(1) since we are always iterating through 32 bits
+#space complexity: O(1) since we are using a constant amount of space for the result and the carry
