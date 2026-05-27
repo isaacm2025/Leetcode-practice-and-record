@@ -55,3 +55,16 @@ class Solution:
                 seen.add(num)
         return list(seen)[0]
 #time O(n) space O(n)
+
+#sorting
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        i = 0
+        while i < len(nums) - 1:
+            if nums[i] != nums[i + 1]:
+                i += 2
+            else:
+                return nums[i]
+        return nums[-1]
+#time O(nlogn) space O(1)
