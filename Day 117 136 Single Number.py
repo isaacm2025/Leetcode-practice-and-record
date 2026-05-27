@@ -43,3 +43,15 @@ class Solution:
             if flag:
                 return nums[i]
 #time O(n^2) space O(1)
+
+#hashset
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        seen = set()
+        for num in nums:
+            if num in seen:
+                seen.remove(num)
+            else:
+                seen.add(num)
+        return list(seen)[0]
+#time O(n) space O(n)
