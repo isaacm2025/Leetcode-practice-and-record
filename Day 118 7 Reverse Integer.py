@@ -38,3 +38,20 @@ class Solution:
 #time complexity: O(1)
 #space complexity: O(1)
 
+#recursion
+class Solution:
+    def reverse(self, x: int) -> int:
+        def rec(n: int, res: int) -> int:
+            if n == 0:
+                return res
+            res = res * 10 + n % 10
+            return rec(n // 10, res)
+        sign = -1 if x < 0 else 1
+        x = abs(x)
+        reversedNum = rec(x, 0)
+        reversedNum *= sign
+        if reversedNum < -(1 << 31) or reversedNum > (1 << 31) -1:
+            return 0
+        return reversedNum
+#time complexity: O(1)
+#space complexity: O(1)
