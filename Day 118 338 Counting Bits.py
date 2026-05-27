@@ -34,3 +34,15 @@ class Solution:
 #time complexity: O(nlogn) where n is the input number and logn is the number of bits in n
 #space complexity: O(n) for the output array
 
+#dp
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        dp = [0] * (n + 1)
+        offset = 1
+        for i in range(1, n + 1):
+            if offset * 2 == i:
+                offset = i
+            dp[i] = 1 + dp[i - offset]
+        return dp
+#time complexity: O(n) where n is the input number
+#space complexity: O(n) for the dp array
