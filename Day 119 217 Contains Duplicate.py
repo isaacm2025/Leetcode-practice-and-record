@@ -27,3 +27,14 @@ class Solution:
         return False
 #time complexity: O(n^2) because of the nested loops
 #space complexity: O(1) because we are not using any additional data structures
+
+#sorting
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        nums.sort() #sort the array first
+        for i in range(1, len(nums)):
+            if nums[i] == nums[i - 1]: #if the current element is the same as the previous element, then we have found a duplicate
+                return True
+        return False #otherswise, we have not found any duplicates
+#time complexity: O(n log n) because of the sorting step
+#space complexity: O(1) because we are sorting the array in place, O(n) if we consider the space used by the sorting algorithm
