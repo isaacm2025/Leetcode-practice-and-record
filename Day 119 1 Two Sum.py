@@ -41,3 +41,23 @@ class Solution:
         return []
 #time complexity: O(n^2) because of the nested loops
 #space complexity: O(1) because we are not using any additional data structures
+
+#sorting
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        A = []
+        for i, num in enumerate(nums): #we create a new list A to store the numbers and their indices, we use enumerate to get both the index and the number at the same time
+            A.append([num, i]) 
+        A.sort() #sort the list A based on the numbers, this will allow us to use the two pointer technique to find the pair of numbers that add up to the target
+        i, j = 0, len(nums) - 1 #we initialize two pointers, one at the beginning of the list and one at the end of the list
+        while i < j:
+            curSum = A[i][0] + A[j][0] #we calculate the sum of the numbers at the two pointers, we access the number using A[i][0] and A[j][0] because A is a list of lists where each inner list contains the number and its index
+            if curSum == target:
+                return [min(A[i][1], A[j][1]), max(A[i][1], A[j][1])] #if the sum is equal to the target, we return the indices of the two numbers, we use min and max to ensure that we return the smaller index first as required by the problem statement
+            elif curSum < target:
+                i += 1
+            else:
+                j -= 1
+        return []
+#time complexity: O(n log n) because of the sorting step
+#space complexity: O(n) because we are creating a new list A to store the numbers and their indices
