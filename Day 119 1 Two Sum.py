@@ -61,3 +61,16 @@ class Solution:
         return []
 #time complexity: O(n log n) because of the sorting step
 #space complexity: O(n) because we are creating a new list A to store the numbers and their indices
+
+#hashmap
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        prevMap = {} #create a hashmap to store the previously seen numbers and their indices, the key is the number and the value is its index
+        for i, n in enumerate(nums): #iterate through the array using enumerate to get both the index and the number at the same time
+            diff = target - n #calculate the difference between the target and the current number, this is the number we need to find in the hashmap to complete the pair that adds up to the target
+            if diff in prevMap: #if the difference is already in the hashmap, then we have found the pair of numbers that add up to the target, we return their indices
+                return [prevMap[diff], i]
+            prevMap[n] = i #otherwise, we add the current number and its index to the hashmap, this will allow us to find it later if we encounter a number that needs it to complete the pair
+        return []
+#time complexity: O(n) because we are iterating through the array once
+#space complexity: O(n) because in the worst case, we may have to store all the numbers in the hashmap if they are all unique
