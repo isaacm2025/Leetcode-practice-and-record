@@ -38,3 +38,15 @@ class Solution:
         return False #otherswise, we have not found any duplicates
 #time complexity: O(n log n) because of the sorting step
 #space complexity: O(1) because we are sorting the array in place, O(n) if we consider the space used by the sorting algorithm
+
+#hashset
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        seen = set() #create a hashset to store the seen numbers
+        for num in nums: #iterate through the array
+            if num in seen: #if the num is already in the hashset, then we have found a duplicate
+                return True
+            seen.add(num) #otherwise, we add the current number to the hashset, because we have not seen it before
+        return False #return false if we have not found any duplicates
+#time complexity: O(n) because we are iterating through the array once
+#space complexity: O(n) because in the worst case, we may have to store all the numbers in the hashset if they are all unique
