@@ -43,16 +43,16 @@ class Solution:
 from typing import List
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count = {}
-        freq = [[] for i in range(len(nums) + 1)]
+        count = {} #create dictionary to count the frequency of each element in nums
+        freq = [[] for i in range(len(nums) + 1)] #create a list of empty lists, where the index of the outer list represents the frequency of the elements, and the inner lists will store the elements with that frequency
         for num in nums:
-            count[num] = count.get(num, 0) + 1
-        for key, value in count.items():
+            count[num] = count.get(num, 0) + 1 #update the count of num in the dictionary, if num is not in the dictionary, get() will return 0 and we add 1 to it
+        for key, value in count.items(): #iterate through the key-value pairs of the count dictionary, where key is the element and value is its frequency, and append the key (the element) to the inner list of the freq list at the index of its frequency
             freq[value].append(key)
         res = []
-        for i in range(len(freq) -1, 0, -1):
+        for i in range(len(freq) -1, 0, -1): #iterate through the freq list in reverse order, starting from the last index (the highest frequency) to the first index (the lowest frequency), and append the elements in the inner lists to the res list until we have k elements in the res list
             for num in freq[i]:
-                res.append(num)
+                res.append(num) #append the elements in the inner list to the res list
                 if len(res) == k:
                     return res
 #time complexity: O(n)
