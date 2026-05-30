@@ -41,3 +41,16 @@ class MyHashSet:
         return key in self.data
 #time complexity: O(n) for add, remove, and contains because we are using a list to store the elements in the HashSet, which requires O(n) time to check for the presence of an element and to remove an element
 #space complexity: O(n) because we are using a list to store the elements in the HashSet, which can grow up to O(n)
+
+#using a boolean array
+class MyHashSet:
+    def __init__(self):
+        self.data = [False] * 1000001
+    def add(self, key: int) -> None:
+        self.data[key] = True
+    def remove(self, key: int) -> None:
+        self.data[key] = False
+    def contains(self, key: int) -> bool:
+        return self.data[key]
+#time complexity: O(1) for add, remove, and contains because we are using a boolean array to store the presence of elements in the HashSet, which allows us to access and modify the presence of an element in O(1) time
+#space complexity: O(n) because we are using a boolean array of size 1000001 to store the presence of elements in the HashSet, which can grow up to O(n) where n is the maximum key value of 1000000
