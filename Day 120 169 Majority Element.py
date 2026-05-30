@@ -29,3 +29,12 @@ class Solution:
                 return num
 #time complexity: O(n^2) because we are iterating through the input list nums and counting the occurrences of each element, which takes O(n) time for each element
 #space complexity: O(1) because we are using a constant amount of space to store the loop variables
+
+#sorting
+from typing import List
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        nums.sort()
+        return nums[len(nums) // 2]
+#time complexity: O(n log n) because we are sorting the input list nums, which takes O(n log n) time
+#space complexity: O(1) because we are sorting the input list nums in place and using a constant amount of space to store the return value
