@@ -44,4 +44,11 @@ class Solution:
 from typing import List
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        for i in range
+        for i in range(len(strs[0])):
+            for s in strs:
+                if i == len(s) or s[i] != strs[0][i]:
+                    return s[:i]
+        return strs[0]
+#time complexity: O(n*m) where n is the number of strings in the input list and m is the length of the longest common prefix
+#space complexity: O(1) because we are using a constant amount of space to store the loop variables and the return value
+                
