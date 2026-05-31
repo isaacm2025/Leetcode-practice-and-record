@@ -78,3 +78,5 @@ class Solution:
                         return False
                     seen.add(board[row][col])
         return True
+#time: O(n^2) because we have to check each cell in the board, where n is the number of rows or columns (in this case, n=9).
+#space: O(n^2) because we use a set to keep track of the seen numbers for each row, column, and square, which can contain at most n^2 elements in the worst case.
