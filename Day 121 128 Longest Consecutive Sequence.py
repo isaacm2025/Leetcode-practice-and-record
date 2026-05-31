@@ -61,3 +61,19 @@ class Solution:
 #time O(n log n) because we sort the input array, which takes O(n log n) time, and then we iterate through the sorted array once, which takes O(n) time, resulting in a total time complexity of O(n log n).
 #space O(1) if we ignore the space used by the sorting algorithm, which typically takes O(1) space for in-place sorting algorithms like Timsort (used in Python's built-in sort). 
 #However, if we consider the space used by the sorting algorithm, it can take O(n) space in the worst case due to the need for temporary storage during the sorting process.
+
+#hashset
+from ast import List
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        numSet = set(nums)
+        longest = 0
+        for num in numSet:
+            if (num - 1) not in numSet:
+                length = 1
+                while (num + length) in numSet:
+                    length += 1
+                longest = max(longest, length)
+        return longest
+#time O(n) because we iterate through the input array once to create the set, which takes O(n) time, and then we iterate through the set of unique numbers, which also takes O(n) time in the worst case, resulting in a total time complexity of O(n).
+#space O(n) because we use a set to store the unique numbers from the input array, which can contain at most n elements in the worst case.
