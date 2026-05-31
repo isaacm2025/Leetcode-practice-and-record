@@ -38,3 +38,26 @@ class Solution:
 #time O(n^2) because in the worst case, we might have to check each number in the array and for each number, we might have to check for the next consecutive numbers until we find a number that is not in the set.
 #space O(n) because we use a set to store the unique numbers from the input array, which can contain at most n elements in the worst case.
 
+#sorting
+from ast import List
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        res = 0
+        nums.sort()
+        current, streak = nums[0], 0
+        i = 0
+        while i < len(nums):
+            if current != nums[i]:
+                current = nums[i]
+                streak = 0
+            while i < len(nums) and nums[i] == current:
+                i += 1
+            streak += 1
+            current += 1
+            res = max(res, streak)
+        return res
+#time O(n log n) because we sort the input array, which takes O(n log n) time, and then we iterate through the sorted array once, which takes O(n) time, resulting in a total time complexity of O(n log n).
+#space O(1) if we ignore the space used by the sorting algorithm, which typically takes O(1) space for in-place sorting algorithms like Timsort (used in Python's built-in sort). 
+#However, if we consider the space used by the sorting algorithm, it can take O(n) space in the worst case due to the need for temporary storage during the sorting process.
