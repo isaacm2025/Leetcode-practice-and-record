@@ -36,3 +36,16 @@ class Solution:
         return res
 #time O(n^2) because we have two nested loops that iterate through the input array, where n is the length of the input array.
 #space O(1) because we are using a constant amount of extra space to store the maximum profit found so far and the variables used in the loops.
+
+#dp
+from ast import List
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        maxP = 0
+        minBuy = prices[0]
+        for sell in prices:
+            maxP = max(maxP, sell - minBuy)
+            minBuy = min(minBuy, sell)
+        return maxP
+#time O(n) because we have a single loop that iterates through the input array, where n is the length of the input array.
+#space O(1) because we are using a constant amount of extra space to store the maximum profit found so far, the minimum buy price, and the variables used in the loop.
