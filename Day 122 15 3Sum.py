@@ -34,6 +34,7 @@ Constraints:
 
 #bf
 from ast import List
+from collections import defaultdict
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         res = set()
@@ -47,3 +48,29 @@ class Solution:
         return [list(i) for i in res]
 #time O(n^3) because we have three nested loops that iterate through the input array, where n is the length of the input array.
 #space O(n) because we are using a set to store the unique triplets that sum up to zero, and in the worst case, we could have n/3 unique triplets, which would require O(n) space to store.
+
+#hashmap
+from ast import List
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        count = defaultdict(int)
+        for num in nums:
+            count[num] += 1
+        res = []
+        for i in range(len(nums)):
+            count[nums[i]] -= 1
+            if i and nums[i] == nums[i - 1]:
+                continue
+            for j in range(i + 1, len(nums)):
+                count[nums[j]] -= 1
+                if j - 1 > i and nums[j] == nums[j - 1]:
+                    continue
+                target = -nums[i] - nums[j]
+                if count[target] > 0:
+                    res.append([nums[i], nums[j], target])
+            for j in range(i + 1, len(nums)):
+                count[nums[j]] += 1
+        return res
+#time O(n^2) because we have two nested loops that iterate through the input array, where n is the length of the input array. The innermost operation of checking if the target number exists in the count dictionary takes O(1) time on average, so it does not contribute to the overall time complexity.
+#space O(n) because we are using a dictionary to store the count of each number in the input array, which in the worst case could require O(n) space if all numbers in the input array are unique. Additionally, we are using a list to store the resulting triplets, which could also require O(n) space in the worst case if there are many triplets that sum up to zero.
