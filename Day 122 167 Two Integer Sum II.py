@@ -37,3 +37,23 @@ class Solution:
         return []
 #time O(n^2) because we have two nested loops that iterate through the input array, where n is the length of the input array.
 #space O(1) because we are using a constant amount of extra space to store the indices of the two numbers that add up to the target.
+
+
+#bs
+from ast import List
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        for i in range(len(numbers)):
+            left, right = i + 1, len(numbers) - 1
+            tmp = target - numbers[i]
+            while left <= right:
+                mid = left + (right - left) // 2
+                if numbers[mid] == tmp:
+                    return [i + 1, mid + 1]
+                elif numbers[mid] < tmp:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+        return []
+#time O(n log n) because we have a loop that iterates through the input array and for each element, we perform a binary search on the remaining elements, which takes O(log n) time, where n is the length of the input array.
+#space O(1) because we are using a constant amount of extra space to store the indices of the two numbers that add up to the target and the variables used in the binary search.
