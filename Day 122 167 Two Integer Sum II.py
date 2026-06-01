@@ -72,3 +72,20 @@ class Solution:
         return []
 #time O(n) because we have a single loop that iterates through the input array, where n is the length of the input array. Each lookup and insertion operation in the hashmap takes O(1) time on average.
 #space O(n) because in the worst case, we might have to store all n elements of the input array in the hashmap, where n is the length of the input array. Each entry in the hashmap takes O(1) space, so the total space used by the hashmap can be O(n) in the worst case.
+
+#two pointers
+from ast import List
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        left, right = 0, len(numbers) - 1
+        while left < right:
+            currentSum = numbers[left] + numbers[right]
+            if currentSum > target:
+                right -= 1
+            elif currentSum < target:
+                left += 1
+            else:
+                return [left + 1, right + 1]
+        return []
+#time O(n) because we have a single loop that iterates through the input array with two pointers, where n is the length of the input array. Each iteration of the loop moves one of the pointers, so in the worst case, we might have to iterate through the entire array once.
+#space O(1) because we are using a constant amount of extra space to store the indices of the two numbers that add up to the target and the variables used for the two pointers and the current sum.
