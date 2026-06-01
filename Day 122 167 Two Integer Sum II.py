@@ -28,6 +28,7 @@ Constraints:
 
 #bf
 from ast import List
+from collections import defaultdict
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         for i in range(len(numbers)):
@@ -57,3 +58,17 @@ class Solution:
         return []
 #time O(n log n) because we have a loop that iterates through the input array and for each element, we perform a binary search on the remaining elements, which takes O(log n) time, where n is the length of the input array.
 #space O(1) because we are using a constant amount of extra space to store the indices of the two numbers that add up to the target and the variables used in the binary search.
+
+#hashmap
+from ast import List
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        hashmap = defaultdict(int)
+        for i in range(len(numbers)):
+            tmp = target - numbers[i]
+            if hashmap[tmp]:
+                return [hashmap[tmp], i + 1]
+            hashmap[numbers[i]] = i + 1
+        return []
+#time O(n) because we have a single loop that iterates through the input array, where n is the length of the input array. Each lookup and insertion operation in the hashmap takes O(1) time on average.
+#space O(n) because in the worst case, we might have to store all n elements of the input array in the hashmap, where n is the length of the input array. Each entry in the hashmap takes O(1) space, so the total space used by the hashmap can be O(n) in the worst case.
