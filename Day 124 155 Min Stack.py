@@ -55,3 +55,22 @@ class MinStack:
 #time O(n) because of the getMin function which traverses the stack to find the minimum element, O(1) for the other functions
 #space O(n) because of the stack and the temporary stack used in getMin, O(1) for the other functions
 
+#two stacks
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        val = min(val, self.minStack[-1] if self.minStack else val)
+        self.minStack.append(val)
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minStack.pop()
+    def top(self) -> int:
+        return self.stack[-1]
+    def getMin(self) -> int:
+        return self.minStack[-1]
+#time O(1) for all functions because we maintain a separate stack for the minimum values
+#space O(n) because in the worst case we could have all elements in the stack and all of them could be the minimum values in the minStack
+
