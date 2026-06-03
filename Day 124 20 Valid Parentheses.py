@@ -39,3 +39,19 @@ class Solution:
 #time O(n^2) because of the while loop and replace function
 #space O(n) because of the string manipulation
 
+#stack
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        closeToOpen = {')': '(', ']': '[', '}': '{'}
+        for char in s:
+            if char in closeToOpen:
+                if stack and stack[-1] == closeToOpen[char]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(char)
+        return True if not stack else False
+#time O(n) because we traverse the string once
+#space O(n) because in the worst case we could have all opening brackets in the stack
