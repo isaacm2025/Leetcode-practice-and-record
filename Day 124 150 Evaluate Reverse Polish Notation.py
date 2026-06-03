@@ -39,3 +39,27 @@ class Solution:
         return dfs()
 #time O(n) because we traverse the tokens list once
 #space O(n) because of the recursive call stack
+
+
+#stack
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        for char in tokens:
+            if char == "+":
+                stack.append(stack.pop() + stack.pop())
+            elif char == "-":
+                right = stack.pop()
+                left = stack.pop()
+                stack.append(left - right)
+            elif char == "*":
+                stack.append(stack.pop() * stack.pop())
+            elif char == "/":
+                right = stack.pop()
+                left = stack.pop()
+                stack.append(int(float(left) / right))
+            else:
+                stack.append(int(char))
+        return stack[0]
+#time O(n) because we traverse the tokens list once
+#space O(n) because in the worst case we could have all operands in the stack
