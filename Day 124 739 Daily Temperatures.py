@@ -36,3 +36,17 @@ class Solution:
         return res
 #time O(n^2) because of the nested while loop
 #space O(n) because of the result array
+
+#stack
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        res = [0] * len(temperatures)
+        stack = []
+        for i, temp in enumerate(temperatures):
+            while stack and temp > stack[-1][0]:
+                stackTemp, stackIndex = stack.pop()
+                res[stackIndex] = i - stackIndex
+            stack.append((temp, i))
+        return res
+#time O(n) because we traverse the temperatures list once and each element is pushed and popped at most once
+#space O(n) because of the stack and the result array
