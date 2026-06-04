@@ -38,3 +38,23 @@ class Solution:
         return speed
 #time O(max(piles) * n) because in the worst case, we have to try all speeds from 1 to max(piles), and for each speed, we have to calculate the total time to eat all the bananas, which takes O(n) time
 #space O(1) because we are not using any extra space
+
+
+#bs
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        l, r = 1, max(piles)
+        res = r
+        while l <= r:
+            k = (l + r) // 2
+            totalTime = 0
+            for pile in piles:
+                totalTime += (pile - 1) // k + 1
+            if totalTime <= h:
+                res = k
+                r = k - 1
+            else:
+                l = k + 1
+        return res
+#time O(n * log m) because we are performing a binary search on the range of possible speeds (from 1 to max(piles)), which takes O(log m) time, and for each speed, we calculate the total time to eat all the bananas, which takes O(n) time
+#space O(1) because we are not using any extra space
