@@ -48,3 +48,19 @@ class Solution:
         return maxArea
 #time O(n) because we are iterating through the heights array three times, and each element is pushed and popped at most once
 #space O(n) because of the stack and the leftMost and rightMost arrays
+
+#optimal stack
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        n = len(heights)
+        stack = []
+        maxArea = 0
+        for i in range(n + 1):
+            while stack and (i == n or heights[stack[-1]] >= heights[i]):
+                height = heights[stack.pop()]
+                width = i if not stack else i - stack[-1] - 1
+                maxArea = max(maxArea, height * width)
+            stack.append(i)
+        return maxArea
+#time O(n) because we are iterating through the heights array once, and each element is pushed and popped at most once
+#space O(n) because of the stack
