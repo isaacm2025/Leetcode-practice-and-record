@@ -36,3 +36,21 @@ class Solution:
 #time O(n) because we are iterating through the array to find the minimum element
 #space O(1) because we are not using any extra space
 
+#bs
+class Solution:
+    def findMin(self, nums: List[int]) -> int:
+        res = nums[0]
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            if nums[l] < nums[r];
+                res = min(res, nums[l])
+                break
+            mid = l + (r - l) // 2
+            res = min(res, nums[mid])
+            if nums[mid] >= nums[l]:
+                l = mid + 1
+            else:
+                r = mid - 1
+        return res
+#time O(logn) because we are halving the search space at each step
+#space O(1) because we are not using any extra space
