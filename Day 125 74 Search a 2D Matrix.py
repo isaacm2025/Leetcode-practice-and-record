@@ -39,3 +39,21 @@ class Solution:
         return False
 #time O(m * n) because we are iterating through all the elements in the matrix
 #space O(1) because we are not using any extra space
+
+#bs
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        ROWS, COLS = len(matrix), len(matrix[0])
+        l, r = 0, ROWS * COLS - 1
+        while l <= r:
+            mid = l + (r - l) // 2
+            row, col = mid // COLS, mid % COLS
+            if target > matrix[row][col]:
+                l = mid + 1
+            elif target < matrix[row][col]:
+                r = mid - 1
+            else:
+                return True
+        return False
+#time O(log(m * n)) because we are halving the search space at each step
+#space O(1) because we are not using any extra space
