@@ -46,3 +46,19 @@ class Solution:
         return self.BS(0, len(nums) - 1, nums, target)
 #time O(logn) because we are halving the search space at each step
 #space O(logn) because of the recursive call stack
+
+#iterative bs
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = l + (r - l) // 2
+            if nums[mid] > target:
+                r = mid - 1
+            elif nums[mid] < target:
+                l = mid + 1
+            else:
+                return mid
+        return -1
+#time O(logn) because we are halving the search space at each step
+#space O(1) because we are using constant space for the pointers and variables
