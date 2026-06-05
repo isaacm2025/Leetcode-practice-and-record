@@ -48,3 +48,20 @@ class Solution:
             return list2
 #time O(n + m) where n and m are the lengths of list1 and list2 respectively, because we are traversing both lists once
 #space O(n + m) because of the recursive call stack, in the worst case we could have n + m recursive calls if all nodes of one list are smaller than the other list
+
+#iterative
+class Solution:
+    def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:
+        dummy = node = ListNode()
+        while list1 and list2:
+            if list1.val < list2.val:
+                node.next = list1
+                list1 = list1.next
+            else:
+                node.next = list2
+                list2 = list2.next
+            node = node.next
+        node.next = list1 or list2
+        return dummy.next
+#time O(n + m) where n and m are the lengths of list1 and list2 respectively, because we are traversing both lists once
+#space O(1) because we are using only a constant amount of extra space for the dummy node and the node pointer
