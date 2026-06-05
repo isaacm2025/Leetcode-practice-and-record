@@ -46,3 +46,24 @@ class TimeMap:
         return ""
 #time O(log n) because we are using binary search to find the closest timestamp
 #space O(n *m) where n is the number of keys and m is the number of timestamps for each key
+
+
+#iteration
+from collections import defaultdict
+
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev, curr = None, head
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        return prev
+#time O(n) because we are visiting each node once
+#space O(1) because we are not using any extra space
