@@ -48,3 +48,20 @@ class Solution:
         return False
 #time O(n) because we are iterating through the linked list once, and each node is added to the set at most once
 #space O(n) because of the set that stores the nodes we have seen
+
+#fast and slow pointers
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+#time O(n) because in the worst case, we will traverse the linked list once with the fast pointer, and the slow pointer will traverse at most n/2 nodes
+#space O(1) because we are using only a constant amount of extra space for the slow and fast pointers
