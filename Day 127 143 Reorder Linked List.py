@@ -31,11 +31,14 @@ Constraints:
 
 #bf
 # Definition for singly-linked list.
+from typing import Optional
+
+
 class ListNode:
     def __init__(self, val = 0, next = None):
         self.val = val
         self.next = next
-class Solution;
+class Solution:
     def reorderList(self, head: ListNode) -> None:
         if not head:
             return
@@ -55,3 +58,31 @@ class Solution;
         nodes[left].next = None
 #time O(n) because we are iterating through the linked list once to store the nodes in an array, and then we are iterating through the array once to reorder the nodes
 #space O(n) because of the array that stores the nodes of the linked list
+
+#reverse and merge
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        second = slow.next
+        prev = slow.next = None
+        while second:
+            tmp = second.next
+            second.next = prev
+            prev = second
+            second = tmp
+        first, second = head, prev
+        while second:
+            tmp1, tmp2 = first.next, second.next
+            first.next = second
+            second.next = tmp1
+            first, second = tmp1, tmp2
+#time O(n) because we are iterating through the linked list three times, and each node is visited at most once
+#space O(1) because we are using a constant amount of space to store the pointers
