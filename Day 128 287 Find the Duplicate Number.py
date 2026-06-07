@@ -63,3 +63,19 @@ class Solution:
         return -1
 #time complexity: O(n)
 #space complexity: O(n)
+
+#bs
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        n = len(nums) - 1
+        low, high = 1, n - 1
+        while low < high:
+            mid = low + (high - low) // 2
+            lessOrEqual = sum(1 for num in nums if num <= mid)
+            if lessOrEqual <= mid:
+                low = mid + 1
+            else:
+                high = mid
+        return low
+#time complexity: O(nlogn)
+#space complexity: O(1)
