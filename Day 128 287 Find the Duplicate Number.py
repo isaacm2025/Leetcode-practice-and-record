@@ -39,3 +39,15 @@ class Solution:
         return -1
 #time complexity: O(nlogn)
 #space complexity: O(1)
+
+#hashset
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        seen = set()
+        for num in nums:
+            if num in seen:
+                return num
+            seen.add(num)
+        return -1
+#time complexity: O(n)
+#space complexity: O(n)
