@@ -47,3 +47,30 @@ class Solution:
         return res.next
 #time complexity: O(nlogn)
 #space complexity: O(n)
+
+#iteration
+from typing import List, Optional
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def mergeKLists(self, lists: list[Optional[ListNode]]) -> Optional[ListNode]:
+        res = ListNode(0)
+        curr = res
+        while True:
+            minNode = -1
+            for i in range(len(lists)):
+                if not lists[i]:
+                    continue
+                if minNode == -1 or lists[minNode].val > lists[i].val:
+                    minNode = i
+            if minNode == -1:
+                break
+            curr.next = lists[minNode]
+            lists[minNode] = lists[minNode].next
+            curr = curr.next
+        return res.next
+#time complexity: O(nk)
+#space complexity: O(1)
