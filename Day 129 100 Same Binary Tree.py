@@ -37,21 +37,15 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
-
 class Solution:
-    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        if not subRoot:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
             return True
-        if not root:
+        if p and q and p.val == q.val:
+            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        else:
             return False
-        if self.sameTree(root, subRoot):
-            return True
-        return (self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot))
-    def sameTree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        if not root and not subRoot:
-            return True
-        if root and subRoot and root.val == subRoot.val:
-            return (self.sameTree(root.left, subRoot.left) and self.sameTree(root.right, subRoot.right))
-        return False
-#time complexity: O(m*n) where m and n are the number of nodes in the two trees. In the worst case, we will compare each node of the first tree with each node of the second tree.
-#space complexity: O(m+n)
+#time complexity: O(n) where n is the number of nodes in the trees. We visit each node once.
+#space complexity: O(h) where h is the height of the trees. 
+# In the best case, the trees are balanced and the height is log(n), so the space complexity is O(log(n)). 
+# In the worst case, the space complexity is O(n) due to the recursive call stack.
