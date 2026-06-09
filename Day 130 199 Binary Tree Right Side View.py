@@ -53,3 +53,23 @@ class Solution:
         return res
 #time complexity: O(n)
 #space complexity: O(n) in worst case, O(log n) in best case
+
+#bfs
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        queue = deque([root])
+        while queue:
+            rightSide = None
+            qLen = len(queue)
+            for i in range(qLen):
+                node = queue.popleft()
+                if node:
+                    rightSide = node
+                    queue.append(node.left)
+                    queue.append(node.right)
+            if rightSide:
+                res.append(rightSide.val)
+        return res
+#time complexity: O(n)
+#space complexity: O(n) in worst case, O(log n) in best case
