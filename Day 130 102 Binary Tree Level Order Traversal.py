@@ -24,6 +24,7 @@ Constraints:
 
 #dfs
 from collections import deque
+import collections
 from typing import Optional, List
 
 class TreeNode:
@@ -47,3 +48,24 @@ class Solution:
         return res
 #time complexity: O(n)
 #space complexity: O(n) in worst case, O(log n) in best case
+
+#bfs
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        res = []
+        q = collections.deque()
+        q.append(root)
+        while q:
+            qLen = len(q)
+            level = []
+            for i in range(qLen):
+                node = q.popleft()
+                if node:
+                    level.append(node.val)
+                    q.append(node.left)
+                    q.append(node.right)
+            if level:
+                res.append(level)
+        return res
+#time complexity: O(n)
+#space complexity: O(n)
