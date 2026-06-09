@@ -39,12 +39,12 @@ class TreeNode:
         self.right = right
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        if not p and not q:
+        if not p and not q: #if both p and q are None, we will return True indicating that the trees are equivalent.
             return True
-        if p and q and p.val == q.val:
-            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        if p and q and p.val == q.val: #if both p and q are not None and the value of the current node in p is equal to the value of the current node in q, we will recursively call the isSameTree function on the left and right child of the current node in p and q to check if the left and right subtree are equivalent.
+            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right) #if the left and right subtree are equivalent, we will return True indicating that the trees are equivalent. Otherwise, we will return False.
         else:
-            return False
+            return False #if one of p and q is None or the value of the current node in p is not equal to the value of the current node in q, we will return False indicating that the trees are not equivalent.
 #time complexity: O(n) where n is the number of nodes in the trees. We visit each node once.
 #space complexity: O(h) where h is the height of the trees. 
 # In the best case, the trees are balanced and the height is log(n), so the space complexity is O(log(n)). 
