@@ -42,3 +42,22 @@ class Solution:
         return root
 #time complexity: O(n^2) in worst case, O(n log n) in best case
 #space complexity: O(n) in worst case, O(log n) in best case
+
+#hash map +dfs
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        indices = {val: idx for idx, val in enumerate(inorder)} #create a hash map to store the index of each value in inorder
+        self.preorder_index = 0 #initialize preorder index to 0
+        def dfs(left, right):
+            if left > right:
+                return None
+            root_val = preorder[self.preorder_index]
+            self.preorder_index += 1 #increment preorder index, because we have used the current root value
+            root = TreeNode(root_val)
+            mid = indices[root_val]
+            root.left = dfs(left, mid - 1) #build the left subtree using the left part of inorder
+            root.right = dfs(mid + 1, right) #build the right subtree using the right part of inorder
+            return root
+        return dfs(0, len(inorder) - 1) #start dfs traversal from the whole range of inorder
+#time complexity: O(n)
+#space complexity: O(n)
