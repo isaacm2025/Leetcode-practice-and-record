@@ -48,3 +48,20 @@ class Solution:
         return arr[k-1]
 #time complexity: O(n log n)
 #space complexity: O(n)
+
+#inorder traversal
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        arr = []
+        def dfs(node):
+            if not node: #base case, if node is None, return
+                return
+            dfs(node.left) #traverse left subtree
+            arr.append(node.val) #append current node value to arr
+            dfs(node.right) #traverse right subtree
+        dfs(root) #start dfs traversal from root
+        return arr[k-1] #return the k-1 th element in arr, which is the kth smallest element in the tree
+#time complexity: O(n)
+#space complexity: O(n) in worst case, O(log n) in best case
+
+
