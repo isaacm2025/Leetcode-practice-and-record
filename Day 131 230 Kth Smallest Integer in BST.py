@@ -65,3 +65,24 @@ class Solution:
 #space complexity: O(n) in worst case, O(log n) in best case
 
 
+#recursive dfs
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        count = k
+        res = root.val
+        def dfs(node):
+            nonlocal count, res
+            if not node:
+                return
+            dfs(node.left)
+            if count == 0:
+                return
+            count -= 1
+            if count == 0:
+                res = node.val
+                return
+            dfs(node.right)
+        dfs(root)
+        return res
+#time complexity: O(h + k) where h is the height of the tree
+#space complexity: O(h) where h is the height of the tree, worst case O(n) when the tree is skewed, best case O(log n) when the tree is balanced
