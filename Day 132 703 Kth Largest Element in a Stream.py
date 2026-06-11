@@ -31,10 +31,10 @@ There will always be at least k integers in the stream when you search for the k
 #sorting
 from typing import List
 class KthLargest:
-    def __init__(self, k: int, nums: List[int]):
+    def __init__(self, k: int, nums: List[int]): #initialize the class with the integer k and the stream of integers nums, and store them in instance variables for later use
         self.k = k
         self.arr = nums #store the stream of integers in an array
-    def add(self, val: int) -> int:
+    def add(self, val: int) -> int: #add the integer val to the stream of integers, and return the kth largest integer in the stream, which is the (len(arr) - k)th element in the sorted array
         self.arr.append(val)
         self.arr.sort()
         return self.arr[len(self.arr) - self.k] #return the kth largest integer in the stream, which is the (len(arr) - k)th element in the sorted array
