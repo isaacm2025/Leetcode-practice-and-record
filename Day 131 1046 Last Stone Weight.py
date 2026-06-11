@@ -45,16 +45,16 @@ class Solution:
 #bs
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
-        stones.sort()
-        n = len(stones)
+        stones.sort() #sort the array in non-decreasing order
+        n = len(stones) 
         while n > 1:
-            cur = stones.pop() - stones.pop()
+            cur = stones.pop() - stones.pop() #pop the two heaviest stones and calculate the new weight of the stone after smashing them together
             n -= 2
             if cur > 0:
                 left, right = 0, n
                 while left < right:
-                    mid = (left + right) // 2
-                    if stones[mid] < cur:
+                    mid = (left + right) // 2 #use binary search to find the correct position to insert the new stone in the sorted array
+                    if stones[mid] < cur: #if the middle element is less than the new stone, we need to search in the right half of the array
                         left = mid + 1
                     else:
                         right = mid
@@ -67,3 +67,19 @@ class Solution:
         return stones[0] if stones else 0
 #time complexity: O(n^2) for popping the two heaviest stones and inserting the new stone in the correct position, where n is the number of stones
 #space complexity: O(1) for sorting the array in place and inserting the new stone in the correct position
+
+#heap
+import heapq
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        stones = [-s for s in stones] #convert the weights to negative values to use a min heap as a max heap
+        heapq.heapify(stones) #heapify the array to create a min heap
+        while len(stones) > 1:
+            first = heapq.heappop(stones) #pop the two heaviest stones from the min heap
+            second = heapq.heappop(stones)
+            if second > first:
+                heapq.heappush(stones, first - second) #if the second stone is heavier than the first stone, we need to push the new stone with weight (second - first) back into the min heap
+        stones.append(0) #if there are no stones left, we need to return 0
+        return abs(stones[0]) #return the weight of the last remaining stone, which is the absolute value of the only element left in the min heap
+#time complexity: O(nlogn) for heapifying the array and popping the two heaviest stones, where n is the number of stones
+#space complexity: O(n) for storing the stones in the min heap
