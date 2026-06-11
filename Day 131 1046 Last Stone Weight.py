@@ -41,3 +41,29 @@ class Solution:
         return stones[0] if stones else 0
 #time complexity: O(n^2 * logn) for sorting the array, where n is the number of stones
 #space complexity: O(1) for sorting the array in place
+
+#bs
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        stones.sort()
+        n = len(stones)
+        while n > 1:
+            cur = stones.pop() - stones.pop()
+            n -= 2
+            if cur > 0:
+                left, right = 0, n
+                while left < right:
+                    mid = (left + right) // 2
+                    if stones[mid] < cur:
+                        left = mid + 1
+                    else:
+                        right = mid
+                pos = left
+                n += 1
+                stones.append(0)
+                for i in range(n - 1, pos, -1):
+                    stones[i] = stones[i - 1]
+                stones[pos] = cur
+        return stones[0] if stones else 0
+#time complexity: O(n^2) for popping the two heaviest stones and inserting the new stone in the correct position, where n is the number of stones
+#space complexity: O(1) for sorting the array in place and inserting the new stone in the correct position
