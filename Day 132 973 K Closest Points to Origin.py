@@ -35,3 +35,21 @@ class Solution:
         return points[: k]
 #time complexity: O(nlogn) for sorting the array, where n is the number of points
 #space complexity: O(1) for sorting the array in place
+
+#minHeap
+import heapq
+class Solution:
+    def KClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        minHeap = []
+        for x, y in points:
+            dist = (x ** 2) + (y ** 2) #calculate the distance of the point from the origin, which is calculated as x^2 + y^2, since we only need to compare the distances, we can ignore the square root and just compare the squares of the distances.
+            minHeap.append([dist, x, y]) #store the distance and the coordinates of the point in the min heap, so that we can easily retrieve the k closest points from the min heap
+        heapq.heapify(minHeap)
+        res = []
+        while k > 0:
+            dist, x, y = heapq.heappop(minHeap) #pop the point with the smallest distance from the min heap, which is the closest point to the origin, and add it to the result list
+            res.append([x, y])
+            k -= 1
+        return res
+#time complexity: O(n + klogn) for building the min heap and popping k elements from the min heap, where n is the number of points
+#space complexity: O(n) for storing the points in the min heap
