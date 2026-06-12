@@ -36,3 +36,12 @@ class Solution:
 #time: O(n * 2^n), 
 #space: O(n) for subset, O(n * 2^n) for res, because there are 2^n subsets and each subset can have at most n elements.
 
+#iteration
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = [[]]
+        for num in nums:
+            res += [subset + [num] for subset in res]
+        return res
+#time: O(n * 2^n), space: O(n * 2^n)
+
