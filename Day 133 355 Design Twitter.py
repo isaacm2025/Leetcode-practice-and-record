@@ -60,3 +60,7 @@ class Twitter:
 
     def unfollow(self, followerId: int, followeeId: int) -> None:
         self.followMap[followerId].discard(followeeId)
+#time complexity: O(nlogn) for getNewsFeed, because we need to sort the feed, where n is the total number of tweets from the user and their followees. 
+#For postTweet, follow and unfollow, the time complexity is O(1).
+#space complexity: O(n), where n is the total number of tweets posted by all users, because we need to store all the tweets in the tweetMap. 
+#The followMap can also take up to O(m) space, where m is the total number of follow relationships, but this is typically less than the number of tweets.
