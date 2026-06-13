@@ -41,9 +41,9 @@ class Solution:
             new_perms = []
             for perm in perms:
                 for i in range(len(perm) + 1): #for each perm, insert the current number in every possible position
-                    p_copy = perm.copy()
+                    p_copy = perm.copy() #make a copy of the current permutation
                     p_copy.insert(i, num)
-                    new_perms.append(p_copy)
+                    new_perms.append(p_copy) #add the new perm to the new perms list
             perms = new_perms #update perms to the new perms
         return perms
 #time complexity: O(n! * n^2) because we are generating n! permutations and for each permutation we are inserting the current number in n positions, which takes O(n) time, and we are doing this for each of the n! permutations, so the total time complexity is O(n! * n^2)
