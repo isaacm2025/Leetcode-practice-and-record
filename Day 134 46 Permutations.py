@@ -40,7 +40,7 @@ class Solution:
         for num in nums:
             new_perms = []
             for perm in perms:
-                for i in range(len(perm) + 1):
+                for i in range(len(perm) + 1): #for each perm, insert the current number in every possible position
                     p_copy = perm.copy()
                     p_copy.insert(i, num)
                     new_perms.append(p_copy)
@@ -48,3 +48,20 @@ class Solution:
         return perms
 #time complexity: O(n! * n^2) because we are generating n! permutations and for each permutation we are inserting the current number in n positions, which takes O(n) time, and we are doing this for each of the n! permutations, so the total time complexity is O(n! * n^2)
 #space complexity: O(n! * n) because we are generating n! permutations and each permutation takes O(n) space, so the total space complexity is O(n! * n)
+
+#backtracking
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        self.res = []
+        self.backtrack(nums, 0)
+        return self.res
+    def backtrack(self, nums: List[int], idx: int):
+        if idx == len(nums):
+            self.res.append(nums[:])
+            return
+        for i in range(idx, len(nums)):
+            nums[idx], nums[i] = nums[i], nums[idx]
+            self.backtrack(nums, idx + 1)
+            nums[idx], nums[i] = nums[i], nums[idx]
+#time complexity: O(n! * n) because we are generating n! permutations and for each permutation we are copying the list, which takes O(n) time, so the total time complexity is O(n! * n)
+#space complexity: O(n) because we are using O(n) space for the recursion stack and O(n) space for the current permutation, so the total space complexity is O(n)
