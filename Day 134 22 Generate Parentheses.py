@@ -39,3 +39,17 @@ class Solution:
         return res
 #time complexity: O(2^(2n) * n) because we are generating 2^(2n) strings and for each string we are checking if it is valid, which takes O(n) time, so the total time complexity is O(2^(2n) * n)
 #space complexity: O(2^(2n) * n) because we are generating 2^(2n) strings and each string takes O(n) space, so the total space complexity is O(2^(2n) * n)
+
+#dp
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = [[] for _ in range(n + 1)]
+        res[0] = ['']
+        for i in range(n + 1):
+            for j in range(i):
+                for left in res[j]:
+                    for right in res[i - 1 - j]:
+                        res[i].append('(' + left + ')' + right)
+        return res[n]
+#time complexity: O(4^n / sqrt(n)) because we are generating C(n, n) = 4^n / (n^(3/2) * sqrt(pi)) strings, which is the nth Catalan number, so the total time complexity is O(4^n / sqrt(n))
+#space complexity: O(4^n / sqrt(n)) because we are generating C(n, n) = 4^n / (n^(3/2) * sqrt(pi)) strings, which is the nth Catalan number, so the total space complexity is O(4^n / sqrt(n))
