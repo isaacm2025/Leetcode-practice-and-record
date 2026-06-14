@@ -42,3 +42,34 @@ class Solution:
         return max_area
 #time complexity: O(ROWS*COLS) where ROWS and COLS are the dimensions of the grid
 #space complexity: O(ROWS*COLS) in the worst case where the grid is filled with land and we have to visit all cells
+
+#bfs
+from collections import deque
+from typing import List
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+        ROWS, COLS = len(grid), len(grid[0])
+        area = 0
+        def bfs(r, c):
+            q = deque()
+            grid[r][c] = 0
+            q.append((r, c))
+            res = 1
+            while q:
+                row, col = q.popleft()
+                for dr, dc in directions:
+                    nr, nc = row + dr, col + dc
+                    if (nr < 0 or nr < 0 or nr >= ROWS or nc >= COLS or grid[nr][nc] == 0):
+                        continue
+                    grid[nr][nc] = 0
+                    q.append((nr, nc))
+                    res += 1
+            return res
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == 1:
+                    area = max(area, bfs(r, c))
+        return area
+#time complexity: O(ROWS*COLS) where ROWS and COLS are the dimensions of the grid
+#space complexity: O(ROWS*COLS) in the worst case where the grid is filled with land and we have to visit all cells
