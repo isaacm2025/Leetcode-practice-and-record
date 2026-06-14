@@ -71,4 +71,5 @@ class Solution:
                         flag = True
                         break
         return res
-            
+#time complexity: O(n*m*4^k) where n is the number of words, m is the average length of the words and k is the length of the longest word
+#space complexity: O(k) where k is the length of the longest word due to the recursion stack
