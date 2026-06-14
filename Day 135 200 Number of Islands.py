@@ -46,3 +46,32 @@ class Solution:
         return islands
 #time complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
 #space complexity O(m * n) where m is the number of rows and n is the number of columns in the grid in the worst case when the grid is filled with land
+
+#bfs
+from collections import deque
+from typing import List
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        direction = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+        ROWS, COLS = len(grid), len(grid[0])
+        islands = 0
+        def bfs(r, c):
+            queue = deque()
+            queue.append((r, c))
+            while queue:
+                row, col = queue.popleft()
+                for dr, dc in direction:
+                    nr, nc = row + dr, col + dc
+                    if (nr < 0 or nc < 0 or nr >= ROWS or nc >= COLS or grid[nr][nc] == '0'):
+                        continue
+                    grid[nr][nc] = '0'
+                    queue.append((nr, nc))
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == '1':
+                    grid[r][c] = '0'
+                    bfs(r, c)
+                    islands += 1
+        return islands
+#time complexity O(m * n) where m is the number of rows and n is the number of columns in the grid
+#space complexity O(min(m, n)) where m is the number of rows and n is the number of columns in the grid in the worst case when the grid is filled with land
