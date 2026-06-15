@@ -68,3 +68,22 @@ class Solution:
         return dfs(node) if node else None
 #time complexity: O(n + m) where n is the number of nodes and m is the number of edges in the graph
 #space complexity: O(n) where n is the number of nodes in the graph due to the recursion stack and the hashmap
+
+#bfs
+class Solution:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+        oldToNew = {}
+        oldToNew[node] = Node(node.val)
+        queue = deque([node])
+        while queue:
+            cur = queue.popleft()
+            for nei in cur.neighbors:
+                if nei not in oldToNew:
+                    oldToNew[nei] = Node(nei.val)
+                    queue.append(nei)
+                oldToNew[cur].neighbors.append(oldToNew[nei])
+        return oldToNew[node]
+#time complexity: O(n + m) where n is the number of nodes and m is the number of edges in the graph
+#space complexity: O(n) where n is the number of nodes in the graph due to the queue and the hashmap
