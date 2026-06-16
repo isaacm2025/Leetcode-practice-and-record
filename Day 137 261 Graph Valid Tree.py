@@ -49,3 +49,30 @@ class Solution:
         return dfs(0, -1) and len(visit) == n
 #time complexity: O(V + E) where V is the number of nodes and E is the number of edges
 #space complexity: O(V + E) where V is the number of nodes and E is the number of edges
+
+#bfs
+from collections import deque
+from typing import List
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) != n - 1:
+            return False
+        adj = [[] for i in range(n)]
+        for a, b in edges:
+            adj[a].append(b)
+            adj[b].append(a)
+        visit =set()
+        q = deque([(0, -1)])
+        visit.add(0)
+        while q:
+            node, par = q.popleft()
+            for nei in adj[node]:
+                if nei == par:
+                    continue
+                if nei in visit:
+                    return False
+                visit.add(nei)
+                q.append((nei, node))
+        return len(visit) == n
+#time complexity: O(V + E) where V is the number of nodes and E is the number of edges
+#space complexity: O(V + E) where V is the number of nodes and E is the number of edges
