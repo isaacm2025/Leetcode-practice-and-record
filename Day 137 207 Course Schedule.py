@@ -30,6 +30,7 @@ All prerequisite pairs are unique.
 '''
 
 #dfs
+from collections import deque
 from typing import List
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
@@ -53,5 +54,30 @@ class Solution:
             if not dfs(c):
                 return False
         return True
+#time complexity: O(V + E) where V is the number of courses and E is the number of prerequisites
+#space complexity: O(V + E) where V is the number of courses and E is the number of prerequisites
+
+#topological sort
+from typing import List
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        indegree = [0] * numCourses
+        adj = [[] for i in range(numCourses)]
+        for crs, pre in prerequisites:
+            indegree[pre] += 1
+            adj[crs].append(pre)
+        queue = deque()
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                queue.append(i)
+        count = 0
+        while queue:
+            course = queue.popleft()
+            count += 1
+            for pre in adj[course]:
+                indegree[pre] -= 1
+                if indegree[pre] == 0:
+                    queue.append(pre)
+        return count == numCourses
 #time complexity: O(V + E) where V is the number of courses and E is the number of prerequisites
 #space complexity: O(V + E) where V is the number of courses and E is the number of prerequisites
