@@ -1,2 +1,2 @@
 # Leetcode-study-and-practice
-Personal record of learning for leetcode since Jan 30. 2026
+Personal daily record of learning leetcode since Jan 30. 2026
