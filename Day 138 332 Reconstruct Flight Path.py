@@ -60,3 +60,22 @@ class Solution:
         return res
 #time complexity: O(E * V) where E is the number of edges and V is the number of vertices in the graph
 #space complexity: O(E + V) where E is the number of edges and V is the number of vertices in the graph due to the adjacency list and the recursion stack
+
+#hierholzer's algorithm
+from collections import defaultdict
+from typing import List
+class Solution:
+    def findIternary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets)[::-1]:
+            adj[src].append(dst)
+        res = []
+        def dfs(src):
+            while adj[src]:
+                dst = adj[src].pop()
+                dfs(dst)
+            res.append(src)
+        dfs("JFK")
+        return res[::-1]
+#time complexity: O(E * log(E)) where E is the number of edges in the graph due to the sorting of the tickets
+#space complexity: O(E) where E is the number of edges in the graph due to the adjacency list and the recursion stack
