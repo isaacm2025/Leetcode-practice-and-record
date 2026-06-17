@@ -44,3 +44,22 @@ class Solution:
         return res if res < float('inf') else -1
 #time complexity: O(n + e) where n is the number of nodes and e is the number of edges in the graph
 #space complexity: O(n + e) where n is the number of nodes and e is the number of edges in the graph due to the adjacency list and the dist dictionary
+
+#floyd-warshall
+from typing import List
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        inf = float('inf')
+        dist = [[inf] * n for _ in range(n)]
+        for u, v, w in times:
+            dist[u-1][v - 1] = w
+        for i in range(n):
+            dist[i][i] = 0
+        for mid in range(n):
+            for i in range(n):
+                for j in range(n):
+                    dist[i][j] = min(dist[i][j], dist[i][mid] + dist[mid][j])
+        res = max(dist[k - 1])
+        return res if res < inf else -1
+#time complexity: O(n^3) where n is the number of nodes in the graph
+#space complexity: O(n^2) where n is the number of nodes in the graph
