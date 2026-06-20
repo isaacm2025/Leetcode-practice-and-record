@@ -43,4 +43,16 @@ class Solution:
 #time O(n^2) because of the nested loops, 
 #space O(1) because we are using only a constant amount of space to store the result and the current product.
 
-
+#kadane's algorithm
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        res = nums[0]
+        curMin, curMax = 1, 1
+        for num in nums:
+            tmp = curMax * num
+            curMax = max(num * curMax, num * curMin, num)
+            curMin = min(tmp, num * curMin, num)
+            res = max(res, curMax)
+        return res
+#time O(n) because we are iterating through the array once,
+#space O(1) because we are using only a constant amount of space to store the result and the current minimum and maximum products.
