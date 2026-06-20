@@ -44,3 +44,19 @@ class Solution:
 #time O(t * m^n) where t is the number of words in the dictionary, m is the average length of the words, and n is the length of the input string s. 
 #This is because in the worst case, we may have to check each word in the dictionary for each character in the input string.
 #space O(n) because of the recursive call stack, where n is the length of the input string s.
+
+#hashset
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        wordSet = set(wordDict)
+        def dfs(i):
+            if i == len(s):
+                return True
+            for j in range(i + 1, len(s)):
+                if s[i:j + 1] in wordSet:
+                    if dfs(j + 1):
+                        return True
+            return False
+        return dfs(0)
+#time O(n^2) because of the nested loops, where n is the length of the input string s. 
+#space O(n) because of the recursive call stack, where n is the length of the input string s, and O(m) for the hash set where m is the number of words in the dictionary.
