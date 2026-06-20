@@ -60,3 +60,19 @@ class Solution:
         return dfs(0)
 #time O(n^2) because of the nested loops, where n is the length of the input string s. 
 #space O(n) because of the recursive call stack, where n is the length of the input string s, and O(m) for the hash set where m is the number of words in the dictionary.
+
+#dp
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
+        for i in range(len(s) - 1, -1, -1):
+            for w in wordDict:
+                if(i + len(w)) <= len(s) and s[i: i + len(w)] == w:
+                    dp[i] = dp[i + len(w)]
+                if dp[i]:
+                    break
+        return dp[0]
+#time O(n * m * k) where n is the length of the input string s, m is the number of words in the dictionary, and k is the average length of the words. 
+# This is because we have a nested loop where we iterate through the input string and for each character, we iterate through the words in the dictionary and check if they match the substring of s.
+# space O(n) because we are using a boolean array of size n + 1 to store the results of the subproblems, where n is the length of the input string s.
