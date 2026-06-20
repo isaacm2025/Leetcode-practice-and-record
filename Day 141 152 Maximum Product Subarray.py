@@ -56,3 +56,16 @@ class Solution:
         return res
 #time O(n) because we are iterating through the array once,
 #space O(1) because we are using only a constant amount of space to store the result and the current minimum and maximum products.
+
+#prefix and suffix products
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        n, res = len(nums), nums[0]
+        prefix, suffix = 0, 0
+        for i in range(n):
+            prefix = nums[i] * (prefix or 1)
+            suffix = nums[n - 1 - i] * (suffix or 1)
+            res = max(res, max(prefix,suffix))
+        return res
+#time O(n) because we are iterating through the array once,
+#space O(1) because we are using only a constant amount of space to store the result and the prefix and suffix products.
