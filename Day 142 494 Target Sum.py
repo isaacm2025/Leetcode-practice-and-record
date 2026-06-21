@@ -25,6 +25,7 @@ Constraints:
 '''
 
 #recursion
+from collections import defaultdict
 from typing import List
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
@@ -35,3 +36,19 @@ class Solution:
         return rec(0, 0)
 #time complexity: O(2^n)
 #space complexity: O(n)
+
+#dp space optimization
+from typing import List
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        dp = defaultdict(int)
+        dp[0] = 1
+        for num in nums:
+            nextDP = defaultdict(int)
+            for total, count in dp.items():
+                nextDP[total + num] += count
+                nextDP[total - num] += count
+            dp = nextDP
+        return dp[target]
+#time complexity: O(n* m), where m is the number of unique totals
+#space complexity: O(m), where m is the number of unique totals
