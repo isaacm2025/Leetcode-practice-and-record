@@ -65,3 +65,23 @@ class Solution:
         return dp[0][0]
 #time complexity: O(m*n) where m is the length of string s and n is the length of string t. We fill a 2D dp array of size (m+1) x (n+1), and each cell is computed in constant time.
 #space complexity: O(m*n) where m is the length of string s and n is the length of string t. We use a 2D dp array of size (m+1) x (n+1) to store the number of distinct subsequences for each substring of s and t.
+
+#dp optimized
+from typing import List
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        m, n = len(s), len(t)
+        dp = [0] * (n + 1)
+        dp[n] = 1
+        for i in range(m - 1, -1, -1):
+            prev = 1
+            for j in range(n - 1, -1, -1):
+                res = dp[j]
+                if s[i] == t[j]:
+                    res += prev
+                prev = dp[j]
+                dp[j] = res
+        return dp[0]
+#time complexity: O(m*n) where m is the length of string s and n is the length of string t. We fill a 1D dp array of size (n+1), and each cell is computed in constant time.
+#space complexity: O(n) where n is the length of string t. 
+# We use a 1D dp array of size (n+1) to store the number of distinct subsequences for each substring of t. The space complexity is reduced from O(m*n) to O(n) by only keeping track of the current and previous row of the dp array.
