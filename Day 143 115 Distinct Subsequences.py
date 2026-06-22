@@ -45,3 +45,23 @@ class Solution:
                 res += dfs(i + 1, j + 1)
             return res
         return dfs(0, 0)
+#time complexity: O(2^m) where m is the length of string s. In the worst case, the function explores all possible subsequences of s, which can lead to an exponential number of calls.
+#space complexity: O(m + n) where m is the length of string s and n is the length of string t. The maximum depth of the recursion can be m (when we explore all characters of s) and we also need space for the call stack, which can grow up to O(m) in the worst case. 
+#Additionally, we may have O(n) space for the call stack when we explore all characters of t. Therefore, the overall space complexity is O(m + n).
+
+#dp
+from typing import List
+class Solution:
+    def numDistinct(self, s: str, t: str) -> int:
+        m, n = len(s), len(t)
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+        for i in range(m + 1):
+            dp[i][0] = 1
+        for i in range(m - 1, -1, -1):
+            for j in range(n - 1, -1, -1):
+                dp[i][j] = dp[i+1][j]
+                if s[i] == t[j]:
+                    dp[i][j] += dp[i+1][j+1]
+        return dp[0][0]
+#time complexity: O(m*n) where m is the length of string s and n is the length of string t. We fill a 2D dp array of size (m+1) x (n+1), and each cell is computed in constant time.
+#space complexity: O(m*n) where m is the length of string s and n is the length of string t. We use a 2D dp array of size (m+1) x (n+1) to store the number of distinct subsequences for each substring of s and t.
