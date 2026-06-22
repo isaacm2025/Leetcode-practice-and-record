@@ -49,4 +49,7 @@ class Solution:
             for c in range(COLS):
                 dfs(r, c, -1)
         return max(dp.values())
-
+#time complexity: O(m*n) where m and n are the number of rows and columns in the matrix, respectively. 
+# Each cell is visited at most once during the DFS traversal, and the results are stored in the dp dictionary to avoid redundant calculations.
+#space complexity: O(m*n) in the worst case, where m and n are the number of rows and columns in the matrix, respectively. 
+# This is because in the worst case, all cells in the matrix could be part of the longest increasing path, and the dp dictionary would store a value for each cell. Additionally, the recursive call stack could also grow to O(m*n) in the worst case if the longest path is very long.
