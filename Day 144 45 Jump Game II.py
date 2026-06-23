@@ -55,3 +55,19 @@ class Solution:
         return dp[0]
 #time complexity: O(n^2) because for each index, we may have to check all the indices that can be reached from it.
 #space complexity: O(n) because of the dp array.
+
+#greedy
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        res = 0
+        l = r = 0
+        while r < len(nums) - 1:
+            farthest = 0
+            for i in range(l, r + 1):
+                farthest = max(farthest, i + nums[i])
+            l = r + 1
+            r = farthest
+            res += 1
+        return res
+#time complexity: O(n) because we are iterating through the array once.
+#space complexity: O(1) because we are using a constant amount of space.
