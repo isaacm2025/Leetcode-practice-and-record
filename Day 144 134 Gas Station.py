@@ -59,3 +59,18 @@ class Solution:
         return -1
 #time complexity: O(n^2) because for each station, we may have to check all the stations to see if we can complete the circuit.
 #space complexity: O(1)
+
+#greedy
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            return - 1
+        total, res = 0, 0
+        for i in range(len(gas)):
+            total += gas[i] - cost[i]
+            if total < 0:
+                res = i + 1
+                total = 0
+        return res
+#time complexity: O(n) because we only need to traverse the array once.
+#space complexity: O(1)
