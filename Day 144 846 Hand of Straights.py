@@ -42,3 +42,26 @@ class Solution:
         return True
 #time complexity: O(nlogn) because we sort the hand array.
 #space complexity: O(n) because of the count dictionary.
+
+#hashmap
+from typing import List
+from collections import Counter
+class Solution:
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+        if len(hand) % groupSize !=0:
+            return False
+        count = Counter(hand)
+        for num in hand:
+            start = num
+            while count[start - 1]:
+                start -= 1
+            while start <= num:
+                while count[start]:
+                    for i in range(start, start + groupSize):
+                        if not count[i]:
+                            return False
+                        count[i] -= 1
+                start += 1
+        return True
+#time complexity: O(n) because we traverse the hand array and for each number, we may have to check groupSize numbers.
+#space complexity: O(n) because of the count dictionary.
