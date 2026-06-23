@@ -50,3 +50,14 @@ class Solution:
         return dp[0]
 #time complexity: O(n^2) because for each index, we may have to check all the indices that can be reached from it.
 #space complexity: O(n) because of the dp array.
+
+#greedy
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        goal = len(nums) - 1
+        for i in range(len(nums) - 2, -1, -1):
+            if i + nums[i] >= goal:
+                goal = i
+        return goal == 0
+#time complexity: O(n) because we only need to traverse the array once.
+#space complexity: O(1) because we only use a constant amount of extra space.
