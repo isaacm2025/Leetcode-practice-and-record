@@ -41,3 +41,17 @@ class Solution:
         return dfs(0)
 #time complexity: O(n!) because in the worst case, we can jump to every index from the current index, and we have n indices to jump to.
 #space complexity: O(n) because of the recursion stack.
+
+#dp
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [1000000] * n
+        dp[-1] = 0
+        for i in range(n -2, -1, -1):
+            end = min(n, i + nums[i] + 1)
+            for j in range(i + 1, end):
+                dp[i] = min(dp[i], dp[j] + 1)
+        return dp[0]
+#time complexity: O(n^2) because for each index, we may have to check all the indices that can be reached from it.
+#space complexity: O(n) because of the dp array.
