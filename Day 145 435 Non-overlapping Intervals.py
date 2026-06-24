@@ -35,3 +35,19 @@ class Solution:
         return len(intervals) - dfs(0, -1)
 #time complexity: O(2^n) where n is the number of intervals
 #space complexity: O(n) where n is the number of intervals
+
+#dp 
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda x: x[1])
+        n = len(intervals)
+        dp = [0] * n
+        for i in range(n):
+            dp[i] = 1
+            for j in range(i):
+                if intervals[j][1] <= intervals[i][0]:
+                    dp[i] = max(dp[i], dp[j]+ 1)
+        maxNonOverlap = max(dp)
+        return n - maxNonOverlap
+#time complexity: O(n^2) where n is the number of intervals
+#space complexity: O(n) where n is the number of intervals
