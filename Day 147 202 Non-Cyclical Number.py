@@ -54,3 +54,23 @@ class Solution:
         return output
 #time complexity: O(logN)
 #space complexity: O(logN)
+
+#fast and slow pointer
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        slow, fast = n, self.sumOfSquares(n)
+        while slow != fast:
+            fast = self.sumOfSquares(fast) #move fast pointer one step because it is a fast pointer
+            fast = self.sumOfSquares(fast) # Move fast pointer two steps because it is a fast pointer
+            slow = self.sumOfSquares(slow) # Move slow pointer one step because it is a slow pointer
+        return True if fast == 1 else False
+    def sumOfSquares(self, n: int) -> int:
+        output = 0
+        while n:
+            digit = n % 10
+            digit = digit * digit
+            output += digit
+            n = n // 10
+        return output
+#time complexity: O(logN)
+#space complexity: O(1)
