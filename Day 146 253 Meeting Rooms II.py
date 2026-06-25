@@ -40,3 +40,24 @@ class Solution:
         return len(min_heap)
 #time complexity: O(nlogn)
 #space complexity: O(n)
+
+#greedy
+from typing import List
+class Interval:
+    def __init__(self, start: int, end: int):
+        self.start = start
+        self.end = end
+class Solution:
+    def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        time = []
+        for i in intervals:
+            time.append((i.start, 1))
+            time.append((i.end, -1))
+        time.sort(key = lambda x: (x[0], x[1]))
+        res = count = 0
+        for t in time:
+            count += t[1]
+            res = max(res, count)
+        return res
+#time complexity: O(nlogn)
+#space complexity: O(n)
