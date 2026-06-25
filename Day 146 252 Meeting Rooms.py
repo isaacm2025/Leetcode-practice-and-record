@@ -22,12 +22,13 @@ Constraints:
 0 <= intervals[i].start < intervals[i].end <= 1,000,000'''
 
 #bf
+from typing import List
 class Interval:
     def __init__(self, start: int, end: int):
         self.start = start
         self.end = end
 class Solution:
-    def canAttendMeetings(self, intervals: list[Interval]) -> bool:
+    def canAttendMeetings(self, intervals: List[Interval]) -> bool:
         n = len(intervals)
         for i in range(n):
             A = intervals[i]
@@ -37,4 +38,21 @@ class Solution:
                     return False
         return True
 #time complexity: O(n^2)
+#space complexity: O(1)
+
+#sorting
+class Interval:
+    def __init__(self, start: int, end: int):
+        self.start = start
+        self.end = end
+class Solution:
+    def canAttendMeetings(self, intervals: List[Interval]) -> bool:
+        intervals.sort(key = lambda x: x.start)
+        for i in range(1, len(intervals)):
+            i1 = intervals[i - 1]
+            i2 = intervals[i]
+            if i1.end > i2.start:
+                return False
+        return True
+#time complexity: O(nlogn)
 #space complexity: O(1)
