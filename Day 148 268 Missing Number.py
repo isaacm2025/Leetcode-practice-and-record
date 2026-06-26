@@ -30,3 +30,15 @@ class Solution:
         return n
 #time complexity: O(nlogn)
 #space complexity: O(1)
+
+#hashset
+from typing import List
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        num_set = set(nums)
+        for i in range(n + 1):
+            if i not in num_set:
+                return i
+#time complexity: O(n)
+#space complexity: O(n) because of the hashset
