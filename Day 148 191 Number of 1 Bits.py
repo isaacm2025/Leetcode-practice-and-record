@@ -24,3 +24,10 @@ class Solution:
         return count
 #time complexity: O(1)
 #space complexity: O(1)
+
+#built-in function
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        return bin(n).count('1')
+#time complexity: O(1)
+#space complexity: O(1)
