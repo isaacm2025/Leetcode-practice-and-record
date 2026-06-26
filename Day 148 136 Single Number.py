@@ -58,3 +58,14 @@ class Solution:
         return list(seen)[0]
 #time complexity: O(n)
 #space complexity: O(n) because of the hashset
+
+#bit manipulation
+from typing import List
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res = 0
+        for num in nums:
+            res = num ^ res # XOR operation
+        return res
+#time complexity: O(n)
+#space complexity: O(1)
