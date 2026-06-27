@@ -28,3 +28,14 @@ class Solution:
         return False
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#sorting
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        nums.sort()
+        for i in range(1, len(nums)):
+            if nums[i] == nums[i - 1]:
+                return True
+        return False
+#time complexity: O(nlogn) n because of sorting, logn because of the sort function, sorting function is O(nlogn) because it uses Timsort algorithm
+#space complexity: O(1)
