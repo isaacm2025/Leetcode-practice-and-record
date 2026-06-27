@@ -39,3 +39,15 @@ class Solution:
         return False
 #time complexity: O(nlogn) n because of sorting, logn because of the sort function, sorting function is O(nlogn) because it uses Timsort algorithm
 #space complexity: O(1)
+
+#hashset
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        seen = set() # create a set to store the seen numbers becausse set has O(1) time complexity for lookups
+        for num in nums:
+            if num in seen:
+                return True # if the number is already in the set, it means we have found a duplicate
+            seen.add(num) # add the number to the set
+        return False # if we have gone through the entire array and found no duplicates, return False
+#time complexity: O(n) because we are going through the entire array once
+#space complexity: O(n) because we are storing the seen numbers in a set, which can take up to O(n) space in the worst case if all numbers are unique
