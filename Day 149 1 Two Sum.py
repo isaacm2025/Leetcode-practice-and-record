@@ -47,7 +47,7 @@ from typing import List
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         A = []
-        for i, num in enumerate(nums):
+        for i, num in enumerate(nums): #enumerate gives us both the index and the number in the array
             A.append([num, i]) # create a list of lists where each inner list contains the number and its index
         A.sort() # sort the list of lists based on the numbers
         i, j = 0, len(nums) - 1 # initialize two pointers, one at the start and one at the end of the list
