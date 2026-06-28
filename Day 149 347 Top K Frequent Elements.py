@@ -38,3 +38,24 @@ class Solution:
         return res
 #time complexity: O(nlogn) where n is the number of distinct elements in nums
 #space complexity: O(n) because we are storing the frequency of each number in a dictionary
+
+#min heap
+from collections import Counter
+import heapq
+from typing import List
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = {}
+        for num in nums:
+            count[num] = count.get(num, 0) + 1 # count the frequency of each number in nums
+        heap = []
+        for num in count.keys():
+            heapq.heappush(heap, (count[num], num)) # push a tuple of (frequency, number) into the min heap, so that the heap is ordered by frequency
+            if len(heap) > k:
+                heapq.heappop(heap)
+        res = []
+        for i in range(k):
+            res.append(heapq.heappop(heap)[1]) # append the number with the highest frequency to the result list, we pop the smallest element from the heap k times to get the k most frequent elements
+        return res
+#time complexity: O(nlogk) where n is the number of distinct elements in nums
+#space complexity: O(n + k) because we are storing the frequency of each number in a dictionary and the heap can have at most k elements
