@@ -62,3 +62,16 @@ class Solution:
         return []
 #time complexity: O(nlogn) because we are sorting the list of lists, n because of sorting, logn because of the sort function, sorting function is O(nlogn) because it uses Timsort algorithm
 #space complexity: O(n) because we are creating a new list of lists to store the numbers and their indices
+
+#hashmap
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        seen = {}
+        for i, num in enumerate(nums):
+            diff = target - num
+            if diff in seen:
+                return [seen[diff], i] # if the difference is already in the dictionary, return the indices of the two numbers
+            seen[num] = i # add the current number and its index to the dictionary
+        return []
+#time complexity: O(n) because we are going through the entire array once
+#space complexity: O(n) because we are storing the seen numbers and their indices in a dictionary, which can take up to O(n) space in the worst case if all numbers are unique
