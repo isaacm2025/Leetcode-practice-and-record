@@ -37,3 +37,21 @@ class Solution:
         return []
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#bs
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        for i in range(len(numbers)):
+            left, right = i + 1, len(numbers) - 1
+            tmp = target - numbers[i]
+            while left <= right:
+                mid = left + (right - left) // 2
+                if numbers[mid] == tmp:
+                    return [i + 1, mid + 1]
+                elif numbers[mid] < tmp:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+        return []
+#time complexity: O(nlogn)
+#space complexity: O(1)
