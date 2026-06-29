@@ -43,3 +43,24 @@ class Solution:
 #space complexity: O(n) where n is the length of the input array, O(1) extra space is used for the product variable.s
 
 
+#division
+from typing import List
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        product, zeroCount = 1, 0
+        for num in nums:
+            if num:
+                product *= num
+            else:
+                zeroCount += 1
+        if zeroCount > 1:
+            return [0] * len(nums)
+        res = [0] * len(nums)
+        for i, c in enumerate(nums):
+            if zeroCount:
+                res[i] = 0 if c else product
+            else:
+                res[i] = product // c
+        return res
+#time complexity: O(n) where n is the length of the input array.
+#space complexity: O(n) where n is the length of the input array, O(1) extra space is used for the product and zeroCount variables.
