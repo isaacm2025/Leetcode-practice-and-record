@@ -34,3 +34,19 @@ class Solution:
 #time complexity: O(n * m), where n is the length of the string and m is the length of the longest substring without repeating characters. 
 # In the worst case, m can be equal to n, making the time complexity O(n^2).
 #space complexity: O(min(m, n)), where m is the length of the longest substring without repeating characters and n is the length of the string.
+
+#sliding window
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        charSet = set()
+        left = 0
+        res = 0
+        for right in range(len(s)):
+            while s[right] in charSet:
+                charSet.remove(s[left])
+                left += 1
+            charSet.add(s[right])
+            res = max(res, right- left + 1)
+        return res
+#time complexity: O(n), where n is the length of the string. Each character is processed at most twice, once when it is added to the set and once when it is removed.
+#space complexity: O(min(m, n)), where m is the length of the longest substring without repeating characters and n is the length of the string.
