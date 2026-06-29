@@ -36,3 +36,25 @@ class Solution:
         return res
 #time complexity: O(n^2)
 #space complexity: O(n)
+
+#sorting
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        res = 0
+        nums.sort()
+        curr, streak = nums[0], 0
+        i = 0 
+        while i < len(nums):
+            if curr != nums[i]:
+                curr = nums[i]
+                streak = 0
+            while i < len(nums) and nums[i] == curr:
+                i += 1
+            streak += 1
+            curr += 1
+            res = max(res, streak)
+        return res
+#time complexity: O(nlogn)
+#space complexity: O(1)
