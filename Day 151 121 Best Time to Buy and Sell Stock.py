@@ -53,3 +53,15 @@ class Solution:
         return maxProfit
 #time complexity: O(n)
 #space complexity: O(1)
+
+#dp
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        maxProfit = 0
+        minBuy = prices[0]
+        for sell in prices:
+            maxProfit = max(maxProfit, sell - minBuy)
+            minBuy = min(minBuy, sell)
+        return maxProfit
+#time complexity: O(n)
+#space complexity: O(1)
