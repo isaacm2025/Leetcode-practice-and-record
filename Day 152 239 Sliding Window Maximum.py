@@ -36,3 +36,21 @@ class Solution:
         return output
 #time complexity: O(n*k)
 #space complexity: O(n - k + 1) space for output, O(1) space for maximum
+
+
+#heap
+from typing import List
+import heapq
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        output = []
+        heap = []
+        for i in range(len(nums)):
+            heapq.heappush(heap, (-nums[i], i))
+            if i >= k - 1:
+                while heap[0][1] <= i - k:
+                    heapq.heappop(heap)
+                output.append(-heap[0][0])
+        return output
+#time complexity: O(nlogk)
+#space complexity: O(n)
