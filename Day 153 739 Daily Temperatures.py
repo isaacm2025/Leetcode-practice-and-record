@@ -38,3 +38,16 @@ class Solution:
 #time complexity: O(n^2)
 #space complexity: O(n)
                 
+#stack
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        res = [0] * len(temperatures)
+        stack = []
+        for i, t in enumerate(temperatures):
+            while stack and t > stack[-1][0]:
+                stackT, stackIndex = stack.pop()
+                res[stackIndex] = i - stackIndex
+            stack.append((t, i))
+        return res
+#time complexity: O(n)
+#space complexity: O(n)
