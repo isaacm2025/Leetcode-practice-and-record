@@ -35,3 +35,16 @@ class Solution:
         return newHead
 #time complexity: O(n)
 #space complexity: O(n) for recursive stack
+
+#iterative
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev, curr = None, head
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        return prev
+#time complexity: O(n)
+#space complexity: O(1)
