@@ -31,6 +31,9 @@ index is -1 or a valid index in the linked list.'''
 
 #hashset
 # Definition for singly-linked list.
+from typing import Optional
+
+
 class ListNode:
     def __init__(self, val = 0, next = None):
         self.val = val
@@ -47,3 +50,17 @@ class Solution:
         return False
 #time complexity: O(n)
 #space complexity: O(n)
+
+#fast and slow pointer
+
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+#time complexity: O(n)
+#space complexity: O(1)
