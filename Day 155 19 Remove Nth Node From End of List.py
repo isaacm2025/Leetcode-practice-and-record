@@ -44,7 +44,7 @@ class Solution:
 #time complexity: O(n)
 #space complexity: O(n)
 
-#two pointer
+#iteration
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         N = 0
