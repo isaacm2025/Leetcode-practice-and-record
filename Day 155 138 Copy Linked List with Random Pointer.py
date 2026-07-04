@@ -36,6 +36,7 @@ random is null or is pointing to some node in the linked list.'''
 
 # Definition for a Node.
 #recursion and hashmap
+import collections
 from typing import Optional
 
 class Node:
@@ -57,5 +58,21 @@ class Solution:
         copy.next = self.copyRandomList(head.next)
         copy.random = self.map.get(head.random)
         return copy
+#time complexity: O(n)
+#space complexity: O(n)
+
+
+#hashmap
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        oldToCopy = collections.defaultdict(lambda: Node(0))
+        oldToCopy[None] = None
+        cur = head
+        while cur:
+            oldToCopy[cur].val = cur.val
+            oldToCopy[cur].next = oldToCopy[cur.next]
+            oldToCopy[cur].random = oldToCopy[cur.random]
+            cur = cur.next
+        return oldToCopy[head]
 #time complexity: O(n)
 #space complexity: O(n)
