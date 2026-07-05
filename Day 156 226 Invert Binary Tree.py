@@ -49,3 +49,20 @@ class Solution:
         return root
 #time complexity O(n) where n is the number of nodes in the binary tree
 #space complexity O(n) where n is the number of nodes in the binary tree
+
+#dfs
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val =val
+        self.left = left
+        self.right = right
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root: # if there is no node, return None
+            return None
+        root.left, root.right = root.right, root.left # swap the left and right child of the current node because we want to invert the tree
+        self.invertTree(root.left) # recursively call the function on the left child of the current node to invert the left subtree
+        self.invertTree(root.right) # recursively call the function on the right child of the current node to invert the right subtree
+        return root
+#time complexity O(n) where n is the number of nodes in the binary tree
+#space complexity O(n) for recursion stack where n is the number of nodes in the binary tree
