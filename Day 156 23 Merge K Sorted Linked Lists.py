@@ -47,3 +47,25 @@ class Solution:
         return res.next
 #time complexity O(nlogn) where n is the total number of nodes in all linked lists
 #space complexity O(n) where n is the total number of nodes in all linked lists
+
+#iteration
+from typing import List, Optional
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        res = ListNode(0)
+        cur = res
+        while True:
+            minNode = -1
+            for i in range(len(lists)):
+                if not lists[i]:
+                    continue
+                if minNode == -1 or lists[i].val < lists[minNode].val:
+                    minNode = i
+            if minNode == -1:
+                break
+            cur.next = lists[minNode]
+            lists[minNode] = lists[minNode].next
+            cur = cur.next
+        return res.next
+#time complexity O(nk) where n is the total number of nodes in all linked lists
+#space complexity O(1)
