@@ -21,6 +21,7 @@ Constraints:
 '''
 
 #recursion
+from collections import deque
 from typing import Optional
 class TreeNode:
     def __init__(self, val = 0, left = None, right = None):
@@ -50,5 +51,24 @@ class Solution:
                 stack.append([node.left, depth + 1])
                 stack.append([node.right, depth + 1])
         return res
+#time complexity: O(n), where n is the number of nodes in the binary tree.
+#space complexity: O(n), where n is the number of nodes in the binary tree.
+
+#bfs
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        q = deque()
+        if root:
+            q.append(root)
+        depth = 0
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            depth += 1
+        return depth
 #time complexity: O(n), where n is the number of nodes in the binary tree.
 #space complexity: O(n), where n is the number of nodes in the binary tree.
