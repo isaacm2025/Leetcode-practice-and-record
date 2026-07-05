@@ -37,3 +37,18 @@ class Solution:
 #space complexity: O(h), where h is the height of the binary tree. The maximum space used by the recursion stack is equal to the height of the tree. 
 # In the worst case, the height of the tree can be equal to the number of nodes (n) in a skewed tree, resulting in O(n) space complexity. 
 # In a balanced tree, the height would be log(n), resulting in O(log(n)) space complexity.
+
+#stack
+class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        stack = [[root, 1]]
+        res = 0
+        while stack:
+            node, depth = stack.pop()
+            if node:
+                res = max(res, depth)
+                stack.append([node.left, depth + 1])
+                stack.append([node.right, depth + 1])
+        return res
+#time complexity: O(n), where n is the number of nodes in the binary tree.
+#space complexity: O(n), where n is the number of nodes in the binary tree.
