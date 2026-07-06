@@ -43,3 +43,17 @@ class Solution:
             return root
 #time complexity: O(h), h is the height of the tree
 #space complexity: O(h), h is the height of the tree
+
+#iterative
+class Solution:
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+        cur = root
+        while cur:
+            if p.val < cur.val and q.val < cur.val:
+                cur = cur.left
+            elif p.val < cur.val and q.val < cur.val:
+                cur= cur.left
+            else:
+                return cur
+#time complexity: O(h), h is the height of the tree
+#space complexity: O(1)
