@@ -52,3 +52,24 @@ class Solution:
         return res
 #time complexity: O(n)
 #space complexity: O(h), best case: O(logn), worst case: O(n)
+
+#bfs
+from collections import deque
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        res = [] # store the rightmost node of each level
+        q = deque([root]) # initialize the queue with the root node
+        while q:
+            rightSide = None # store the rightmost node of the current level
+            qLen = len(q) # get the number of nodes in the current level
+            for i in range(qLen):
+                node = q.popleft() # pop the first node in the queue
+                if node: 
+                    rightSide = node 
+                    q.append(node.left) # append the left child to the queue
+                    q.append(node.right) # append the right child to the queue
+            if rightSide:
+                res.append(rightSide.val) # append the rightmost node of the current level to the result list
+        return res
+#time complexity: O(n)
+#space complexity: O(n)
