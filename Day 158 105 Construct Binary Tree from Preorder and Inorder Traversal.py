@@ -63,3 +63,23 @@ class Solution:
         return dfs(0, len(inorder) - 1)
 #time complexity: O(n)
 #space complexity: O(n) for the recursion stack and hashmap
+
+#dfs
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        preIdx = inorderIdx = 0
+        def dfs(limit):
+            nonlocal preIdx, inorderIdx
+            if preIdx >= len(preorder):
+                return None
+            if inorder[inorderIdx] == limit:
+                inorderIdx += 1
+                return None
+            root = TreeNode(preorder[preIdx])
+            preIdx += 1
+            root.left = dfs(root.val)
+            root.right = dfs(limit)
+            return root
+        return dfs(float('inf'))
+#time complexity: O(n)
+#space complexity: O(n) for the recursion stack
