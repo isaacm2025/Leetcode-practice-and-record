@@ -44,3 +44,22 @@ class Solution:
         return root
 #time complexity: O(n^2) because of slicing
 #space complexity: O(n) for the recursion stack
+
+#hashmap + dfs
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        indices = {val: idx for idx, val in enumerate(inorder)}
+        self.pre_idx = 0
+        def dfs(left, right):
+            if left > right:
+                return None
+            root_val = preorder[self.pre_idx]
+            self.pre_idx += 1
+            root = TreeNode(root_val)
+            mid = indices[root_val]
+            root.left = dfs(left, mid - 1)
+            root.right = dfs(mid + 1, right)
+            return root
+        return dfs(0, len(inorder) - 1)
+#time complexity: O(n)
+#space complexity: O(n) for the recursion stack and hashmap
