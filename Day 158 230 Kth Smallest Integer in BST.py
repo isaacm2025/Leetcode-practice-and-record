@@ -25,6 +25,9 @@ Constraints:
 0 <= Node.val <= 1000'''
 
 #bf, sorting
+from typing import Optional
+
+
 class TreeNode:
     def __init__(self, val = 0, left = None, right = None):
         self.val = val
@@ -43,4 +46,19 @@ class Solution:
         res.sort()
         return res[k-1]
 #time complexity: O(nlogn) because of sorting
+#space complexity: O(n)
+
+#inorder traversal, which always gives the sorted order of the ascending elements in a BST, left, root, right
+class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        res = []
+        def dfs(node):
+            if not node:
+                return
+            dfs(node.left)
+            res.append(node.val)
+            dfs(node.right)
+        dfs(root)
+        return res[k - 1]
+#time complexity: O(n)
 #space complexity: O(n)
