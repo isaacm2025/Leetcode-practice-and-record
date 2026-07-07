@@ -23,6 +23,9 @@ Constraints:
 -100 <= Node.val <= 100'''
 
 #dfs
+from collections import deque
+
+
 class TreeNode:
     def __init__(self, val = 0, left = None, right = None):
         self.val = val
@@ -42,3 +45,22 @@ class Solution:
         return dfs(root, root.val)
 #time complexity: O(n) 
 #space complexity: O(h) where h is the height of the tree
+
+#bfs
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        res = 0
+        q = deque()
+        q.append((root, -float('inf')))
+        while q:
+            node, maxVal = q.popleft()
+            if node.val >= maxVal:
+                res += 1
+            if node.left:
+                q.append((node.left, max(maxVal, node.val)))
+            if node.right:
+                q.append((node.right, max(maxVal, node.val)))
+        return res
+#time complexity: O(n)
+#space complexity: O(n)
+        
