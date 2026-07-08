@@ -41,3 +41,29 @@ class Solution:
         return stones[0] if stones else 0
 #time complexity: O(n^2 * logn) for sorting the array each time we smash two stones
 #space complexity: O(n) for storing the stones in the array.
+
+#bs
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        stones.sort()
+        n = len(stones)
+        while len(stones) > 1:
+            current = stones.pop() - stones.pop()
+            n -= 2
+            if current > 0:
+                left, right = 0, n
+                while left < right:
+                    mid = (left + right) // 2
+                    if stones[mid] < current:
+                        left = mid + 1
+                    else:
+                        right= mid
+                pos = left
+                n += 1
+                stones.append(0)
+                for i in range(n - 1, pos, -1):
+                    stones[i] = stones[i - 1]
+                stones[pos] = current
+        return stones[0] if n > 0 else 0
+#time complexity: O(n^2) for inserting the new stone into the sorted array each time we smash two stones
+#space complexity: O(1) or O(n) depending on the implementation of the list in Python.
