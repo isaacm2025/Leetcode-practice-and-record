@@ -30,6 +30,7 @@ Constraints:
 1 <= stones[i] <= 100'''
 
 #sorting
+import heapq
 from typing import List
 class Solution:
     def lastStoneWeight(self, stones: List[int]) -> int:
@@ -67,3 +68,18 @@ class Solution:
         return stones[0] if n > 0 else 0
 #time complexity: O(n^2) for inserting the new stone into the sorted array each time we smash two stones
 #space complexity: O(1) or O(n) depending on the implementation of the list in Python.
+
+#heap
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        stones = [-s for s in stones]
+        heapq.heapify(stones)
+        while len(stones) > 1:
+            first = heapq.heappop(stones)
+            second = heapq.heappop(stones)
+            if second > first:
+                heapq.heappush(stones, first - second)
+        stones.append(0)
+        return abs(stones[0])   
+#time complexity: O(nlogn) for heapifying the array and popping the two largest stones each time we smash two stones
+#space complexity: O(n) for storing the stones in the heap.
