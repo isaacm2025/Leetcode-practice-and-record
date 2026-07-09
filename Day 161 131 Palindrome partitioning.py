@@ -39,3 +39,6 @@ class Solution:
                     path.pop()
         dfs(0)
         return res
+#time complexity: O(n * 2^n) where n is the length of the string. In the worst case, we might explore all possible partitions of the string.
+#space complexity: O(n^2) for the dp table and O(n) for the recursion stack.
+
