@@ -50,3 +50,21 @@ class Solution:
             nums[idx], nums[i] = nums[i], nums[idx]
 #time complexity: O(n*n!) where n is the length of the input array. The number of permutations of a set of size n is n!, and for each permutation, we may take O(n) time to copy it to the result list.
 #space complexity: O(n! * n) for the result list, where n is the length of the input array. The result list will take O(n! * n) space to store all permutations, but this is not counted towards the space complexity since it is part of the output. The recursion stack will take O(n) space, where n is the length of the input array.
+
+#Bit mask
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        self.res = []
+        self.backtrack([], nums, 0)
+        return self.res
+    def backtrack(self, perm: List[int], nums: List[int], mask: int):
+        if len(perm) == len(nums):
+            self.res.append(perm[:])
+            return
+        for i in range(len(nums)):
+            if not (mask & (1 << i)):
+                perm.append(nums[i])
+                self.backtrack(perm, nums, mask | (1 << i))
+                perm.pop()
+#time complexity: O(n*n!) where n is the length of the input array. The number of permutations of a set of size n is n!, and for each permutation, we may take O(n) time to copy it to the result list.
+#space complexity: O(n! * n) for the result list, where n is the length of the input array. The result list will take O(n! * n) space to store all permutations, but this is not counted towards the space complexity since it is part of the output. The recursion stack will take O(n) space, where n is the length of the input array. The mask variable takes O(1) space
