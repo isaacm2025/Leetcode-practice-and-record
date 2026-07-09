@@ -53,3 +53,20 @@ class Solution:
         return res
 #time complexity: O(n*2^n) where n is the length of the input array. The number of subsets of a set of size n is 2^n, and for each subset, we may take O(n) time to copy it to the result list.
 #space complexity: O(n) for the recursion stack and the subset list, where n is the length of the input array. The result list will take O(2^n) space to store all unique subsets, but this is not counted towards the space complexity since it is part of the output.
+
+#iteration
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = [[]]
+        prev_Idx = idx = 0
+        for i in range(len(nums)):
+            idx = prev_Idx if i >= 1 and nums[i] == nums[i - 1] else 0
+            prev_Idx = len(res)
+            for j in range(idx, prev_Idx):
+                tmp = res[j].copy()
+                tmp.append(nums[i])
+                res.append(tmp)
+        return res
+#time complexity: O(n*2^n) where n is the length of the input array. The number of subsets of a set of size n is 2^n, and for each subset, we may take O(n) time to copy it to the result list.
+#space complexity: O(2^n) for the result list, where n is the length of the input array. The result list will take O(2^n) space to store all unique subsets, but this is not counted towards the space complexity since it is part of the output.
