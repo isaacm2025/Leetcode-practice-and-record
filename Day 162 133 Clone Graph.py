@@ -48,6 +48,7 @@ There are no duplicate edges and no self-loops in the graph.'''
 
 #dfs
 from collections import deque
+from typing import Optional
 class Node:
     def __init__(self, val = 0, neighbors = None):
         self.val = val
@@ -66,3 +67,24 @@ class Solution:
         return dfs(node) if node else None
 #time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph. We visit each node and edge once during the DFS traversal.
 #space complexity: O(N) where N is the number of nodes in the graph. This is because we are storing a mapping of old nodes to new nodes in a dictionary, which takes up space proportional to the number of nodes in the graph.
+
+#bfs
+import collections
+class Solution:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+        oldToNew = {}
+        oldToNew[node] = Node(node.val)
+        queue = deque([node])
+        while queue:
+            cur = queue.popleft()
+            for neighbor in cur.neighbors:
+                if neighbor not in oldToNew:
+                    oldToNew[neighbor] = Node(neighbor.val)
+                    queue.append(neighbor)
+                oldToNew[cur].neighbors.append(oldToNew[neighbor])
+        return oldToNew[node]
+#time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph. We visit each node and edge once during the BFS traversal.
+#space complexity: O(N) where N is the number of nodes in the graph. This is because we are storing a mapping of old nodes to new nodes in a dictionary, which takes up space proportional to the number of nodes in the graph. 
+# Additionally, we are using a queue to store the nodes to be visited, which also takes up space proportional to the number of nodes in the graph.
