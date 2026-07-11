@@ -56,3 +56,30 @@ class Solution:
 # This is because we are performing a DFS on each course, and each course can have at most P prerequisites, so the total time complexity is O(N + P).
 #space complexity: O(N + P) where N is the number of courses and P is the number of prerequisites. 
 # This is because we are storing the prerequisites in a dictionary, which takes up space proportional to the number of courses and prerequisites, and we are also using a set to keep track of the courses that are currently being visited in the DFS, which can take up space proportional to the number of courses
+
+#topological sort
+from collections import defaultdict, deque
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        indegree = [0] * numCourses
+        adj = [[] for i in range(numCourses)]
+        for src, dst in prerequisites:
+            indegree[dst] += 1
+            adj[src].append(dst)
+
+        queue = deque()
+        for n in range(numCourses):
+            if indegree[n] == 0:
+                queue.append(n)
+        finish = 0
+        while queue:
+            node = queue.popleft()
+            finish += 1
+            for n in adj[node]:
+                indegree[n] -= 1
+                if indegree[n] == 0:
+                    queue.append(n)
+        return finish == numCourses
+#time complexity: O(N + P) where N is the number of courses and P is the number of prerequisites. This is because we are performing a topological sort on the graph, which takes O(N + P) time.
+#space complexity: O(N + P) where N is the number of courses and P is the number of prerequisites. 
+# This is because we are storing the graph in an adjacency list, which takes up space proportional to the number of courses and prerequisites, and we are also using a queue to keep track of the courses that have no prerequisites, which can take up space proportional to the number of courses.
