@@ -37,6 +37,7 @@ board[i][j] is 'X' or 'O'.
 '''
 
 #dfs
+from collections import deque
 from typing import List
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
@@ -67,3 +68,34 @@ class Solution:
                     board[r][c] = 'O'
 #time complexity: O(M * N) where M is the number of rows and N is the number of columns in the board. This is because we are performing a DFS from each cell in the board, and each cell can be visited at most once.
 #space complexity: O(M * N) where M is the number of rows and N is the number of columns in the board.
+
+
+#bfs
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        rows, cols = len(board), len(board[0])
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        def bfs(r, c):
+            queue = deque()
+            for r in range(rows):
+                for c in range(cols):
+                    if (r == 0 or r == rows - 1 or c == 0 or c == cols - 1) and board[r][c] == 'O':
+                        queue.append((r, c))
+            while queue:
+                r, c = queue.popleft()
+                if board[r][c] == 'O':
+                    board[r][c] = 'T'
+                    for dr, dc in directions:
+                        nr, nc = r + dr, c + dc
+                        if 0 <= nr < rows and 0 <= nc < cols:
+                            queue.append((nr, nc))
+        bfs(0, 0)
+        for r in range(rows):
+            for c in range(cols):
+                if board[r][c] == 'O':
+                    board[r][c] = 'X'
+                elif board[r][c] == 'T':
+                    board[r][c] = 'O'
+#time complexity: O(M * N) where M is the number of rows and N is the number of columns in the board. This is because we are performing a BFS from each cell in the board, and each cell can be visited at most once.
+#space complexity: O(M * N) where M is the number of rows and N is the number of columns in the board. 
+# This is because we are using a queue to keep track of the cells that need to be processed, and in the worst case, all cells can be added to the queue, so the space used by the queue can be proportional to the number of cells.
