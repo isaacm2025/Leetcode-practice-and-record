@@ -25,6 +25,7 @@ Constraints:
 0 <= edges.length <= n * (n - 1) / 2'''
 
 #dfs
+from collections import deque
 from typing import List
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
@@ -49,3 +50,28 @@ class Solution:
 #time complexity: O(V + E) where V is the number of vertices (nodes) and E is the number of edges. This is because we are performing a DFS on each node, and each node can have at most E edges, so the total time complexity is O(V + E).
 #space complexity: O(V + E) where V is the number of vertices (nodes)
                 
+
+#bfs
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) > n - 1:
+            return False
+        adj = [[] for _ in range(n)]
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        visited = set()
+        queue =deque([(0, -1)])
+        visited.add(0)
+        while queue:
+            node, parent = queue.popleft()
+            for nei in adj[node]:
+                if nei == parent:
+                    continue
+                if nei in visited:
+                    return False
+                visited.add(nei)
+                queue.append((nei, node))
+        return len(visited) == n
+#time complexity: O(V + E) where V is the number of vertices (nodes) and E is the number of edges. This is because we are performing a BFS on each node, and each node can have at most E edges, so the total time complexity is O(V + E).
+#space complexity: O(V + E) where V is the number of vertices (nodes)
