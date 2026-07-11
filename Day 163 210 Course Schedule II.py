@@ -55,3 +55,26 @@ class Solution:
 #time complexity: O(N + P) where N is the number of courses and P is the number of prerequisites.
 # This is because we are performing a DFS on each course, and each course can have at most P prerequisites, so the total time complexity is O(N + P).
 #space complexity: O(N + P) where N is the number of courses and P is the number of prerequisites.
+
+#topological sort
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        adj = [[] for i in range(numCourses)]
+        indegree = [0] * numCourses
+        for nxt, pre in prerequisites:
+            indegree[nxt] += 1
+            adj[pre].append(nxt)
+        output = []
+        def dfs(node):
+            output.append(node)
+            indegree[node] = -1
+            for nei in adj[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    dfs(nei)
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                dfs(i)
+        return output if len(output) == numCourses else []
+#time complexity: O(N + P) where N is the number of courses and P is the number of prerequisites. This is because we are performing a DFS on each course, and each course can have at most P prerequisites, so the total time complexity is O(N + P).
+#space complexity: O(N + P) where N is the number of courses and P is the number of prerequisites. This is because we are storing the prerequisites in a list, which takes up space proportional to the number of courses and prerequisites, and we are also using a list to keep track of the courses that are currently being visited in the DFS, which can take up space proportional to the number of courses
