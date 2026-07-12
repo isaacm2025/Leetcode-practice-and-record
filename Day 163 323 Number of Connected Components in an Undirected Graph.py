@@ -52,3 +52,31 @@ class Solution:
         return count
 #time complexity: O(V+E) where V is the number of vertices and E is the number of edges. We visit each vertex and edge once in the DFS traversal.
 #space complexity: O(V+E) for the adjacency list and O(V) for the visited array, resulting in a total space complexity of O(V+E).
+
+#bfs
+from collections import deque
+from typing import List
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        adj = [[] for _ in range(n)]
+        visited = [False] * n
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        def bfs(node):
+            queue = deque([node])
+            visited[node] = True
+            while queue:
+                curr = queue.popleft()
+                for nei in adj[curr]:
+                    if not visited[nei]:
+                        visited[nei] = True
+                        queue.append(nei)
+        count = 0
+        for node in range(n):
+            if not visited[node]:
+                bfs(node)
+                count += 1
+        return count
+#time complexity: O(V+E) where V is the number of vertices and E is the number of edges. We visit each vertex and edge once in the BFS traversal.
+#space complexity: O(V+E) for the adjacency list and O(V) for the visited array and the queue, resulting in a total space complexity of O(V+E).
