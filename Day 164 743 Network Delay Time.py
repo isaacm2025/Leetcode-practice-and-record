@@ -46,3 +46,18 @@ class Solution:
         return res if res < float('inf') else - 1
 #time complexity: O(E + V) where E is the number of edges and V is the number of vertices. We perform a DFS traversal of the graph, visiting each edge and vertex once.
 #space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to represent the graph, which takes O(V + E) space, and a distance dictionary of size V to keep track of the minimum time to reach each node. The recursion stack can also take up to O(V) space in the worst case.
+
+
+#bellman-ford
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        dist = [float('inf')] * n
+        dist[k - 1] = 0
+        for _ in range(n - 1):
+            for u, v, w in times:
+                if dist[u - 1] + w < dist[v - 1]:
+                    dist[v - 1] = dist[u - 1] + w
+        res = max(dist)
+        return res if res < float('inf') else - 1
+#time complexity: O(V * E) where V is the number of vertices and E is the number of edges. We perform V - 1 iterations, and in each iteration, we go through all the edges to update the distances.
+#space complexity: O(V) where V is the number of vertices. We use a distance array of size V to keep track of the minimum time to reach each node.
