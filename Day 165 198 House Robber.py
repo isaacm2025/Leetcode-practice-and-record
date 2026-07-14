@@ -39,3 +39,15 @@ class Solution:
         return dfs(0)
 #time complexity: O(n) where n is the length of the nums array. The algorithm computes the maximum amount of money that can be robbed starting from each house only once and stores it in the memoization array.
 #space complexity: O(n) where n is the length of the nums array. The algorithm uses a memoization array of size n to store the maximum amount of money that can be robbed starting from each house, and the recursion stack can go up to n in the worst case.
+
+#space optimized dp
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        rob1, rob2 = 0, 0
+        for n in nums:
+            temp = max(n + rob1, rob2)
+            rob1 = rob2
+            rob2 = temp
+        return rob2
+#time complexity: O(n) where n is the length of the nums array. The algorithm iterates through the nums array once, performing constant time operations for each house.
+#space complexity: O(1) since the algorithm uses only a fixed amount of extra space (two variables) regardless of the input size.
