@@ -27,6 +27,9 @@ Constraints:
 '''
 
 #recursion
+import math
+
+
 class Solution:
     def climbStairs(self, n: int) -> int:
         def dfs(i):
@@ -61,3 +64,15 @@ class Solution:
         return one
 #time complexity: O(n) where n is the number of steps. The algorithm iterates through the range from 0 to n - 1, performing constant time operations for each step.
 #space complexity: O(1) as the algorithm uses a constant amount of space to store the variables one and two, regardless of the input size n.
+
+#math
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        sqrt5 = math.sqrt(5)
+        phi = (1 + sqrt5) /2
+        psi = (1 - sqrt5) /2
+        n += 1
+        return round((phi ** n - psi ** n) / sqrt5)
+#time complexity: O(log n) as the algorithm performs a constant number of mathematical operations regardless of the input size n.
+#space complexity: O(1) as the algorithm uses a constant amount of space to store the variables sqrt5, phi, and psi, regardless of the input size n.
+        
