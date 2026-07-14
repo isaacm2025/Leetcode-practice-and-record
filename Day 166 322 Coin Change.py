@@ -33,6 +33,7 @@ Constraints:
 '''
 
 #dp
+from collections import deque
 from typing import List
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
@@ -45,3 +46,29 @@ class Solution:
         return dp[amount] if dp[amount] != amount + 1 else - 1
 #time complexity: O(n * t) where n is the length of coins and t is the amount
 #space complexity: O(n) where n is the length of coins
+
+#bfs
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0:
+            return 0
+        queue = deque([0])
+        seen = [False] * (amount + 1)
+        seen[0] = True
+        res = 0
+        while queue:
+            res += 1
+            for _ in range(len(queue)):
+                cur = queue.popleft()
+                for coin in coins:
+                    nxt = cur + coin
+                    if nxt == amount:
+                        return res
+                    if nxt > amount or seen[nxt]:
+                        continue
+                    seen[nxt] = True
+                    queue.append(nxt)
+        return -1
+#time complexity: O(n * t) where n is the length of coins and t is the amount
+#space complexity: O(t) where t is the amount
+        
