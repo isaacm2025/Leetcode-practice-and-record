@@ -43,3 +43,12 @@ class Solution:
         return min(dfs(0), dfs(1))
 #time complexity: O(n) where n is the length of the cost array. The algorithm computes the minimum cost for each index only once and stores it in the memoization array.
 #space complexity: O(n) where n is the length of the cost array. The algorithm uses a memoization array of size n to store the minimum cost for each index, and the recursion stack can go up to n in the worst case.
+
+#space optimized dp
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        for i in range(len(cost) -3, -1, -1):
+            cost[i] += min(cost[i + 1], cost[i + 2])
+        return min(cost[0], cost[1])
+#time complexity: O(n) where n is the length of the cost array. The algorithm iterates through the cost array once, performing constant time operations for each index.
+#space complexity: O(1) since the algorithm modifies the input cost array in place and does not use any additional data structures that scale with the input size.
