@@ -49,3 +49,15 @@ class Solution:
         return dp[n]
 #time complexity: O(n) where n is the number of steps. The algorithm iterates through the range from 3 to n, performing constant time operations for each step.
 #space complexity: O(n) where n is the number of steps. The algorithm uses an array of size n + 1 to store the number of distinct ways to reach each step.
+
+#dp optimized
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        one, two = 1, 1
+        for i in range(n - 1):
+            temp = one
+            one = one + two
+            two = temp
+        return one
+#time complexity: O(n) where n is the number of steps. The algorithm iterates through the range from 0 to n - 1, performing constant time operations for each step.
+#space complexity: O(1) as the algorithm uses a constant amount of space to store the variables one and two, regardless of the input size n.
