@@ -36,3 +36,16 @@ class Solution:
         return dfs(0)
 #time complexity: O(2^n) where n is the number of steps. The recursion tree has a branching factor of 2, leading to an exponential number of calls.
 #space complexity: O(n) where n is the number of steps. The maximum depth of the recursion tree is n, which corresponds to the maximum number of recursive calls on the call stack.
+
+#dp
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 2:
+            return n
+        dp = [0] * (n + 1)
+        dp[1], dp[2] = 1, 2
+        for i in range(3, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2]
+        return dp[n]
+#time complexity: O(n) where n is the number of steps. The algorithm iterates through the range from 3 to n, performing constant time operations for each step.
+#space complexity: O(n) where n is the number of steps. The algorithm uses an array of size n + 1 to store the number of distinct ways to reach each step.
