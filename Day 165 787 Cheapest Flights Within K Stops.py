@@ -20,7 +20,7 @@ The optimal path with at most 1 stop from airport 0 to 3 is shown in red, with t
 Note that the path [0 -> 1 -> 2 -> 3] costs only 400, and thus is cheaper, but it requires 2 stops, which is more than k.'''
 
 #bellman ford algorithm
-from collections import defaultdict
+from collections import defaultdict, deque
 from typing import List
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
@@ -37,3 +37,26 @@ class Solution:
         return -1 if prices[dst] == float('inf') else prices[dst]
 #time complexity: O(n + (m*k)) where n is the number of airports, m is the number of flights, and k is the maximum number of stops. The algorithm iterates through the flights k + 1 times, and for each iteration, it checks all flights to update the prices.
 #space complexity: O(n) where n is the number of airports. The algorithm uses an array of size n to store the minimum prices for each airport.
+
+#shortest path algorithm
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        prices = [float('inf')] * n
+        prices[src] = 0
+        adj = [[] for _ in range(n)]
+        for u, v, cst in flights:
+            adj[u].append([v, cst])
+        queue = deque([(0, src, 0)])
+        while queue:
+            cost, node, stops = queue.popleft()
+            if stops > k:
+                continue
+            for neighbor, w in adj[node]:
+                nextCost = cost + w
+                if nextCost < prices[neighbor]:
+                    prices[neighbor] = nextCost
+                    queue.append((nextCost, neighbor, stops + 1))
+        return prices[dst] if prices[dst] != float('inf') else -1
+#time complexity; O(n * k) where n is the number of airports and k is the maximum number of stops. The algorithm uses a queue to perform a breadth-first search, and in the worst case, it may visit each airport k times.
+#space complexity: O(n + m) where n is the number of airports and m is the number of flights. The algorithm uses an array of size n to store the minimum prices for each airport and a queue to store the airports to be processed.
+        
