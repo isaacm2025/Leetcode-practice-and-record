@@ -49,4 +49,19 @@ class Solution:
         return dp[n][target]
 #time complexity: O(n * m) where n is the length of nums and m is the range of possible sums
 #space complexity: O(n * m) where n is the length of nums and m is the range of possible sums
+
+#dp space optimized
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        dp = defaultdict(int)
+        dp[0] = 1
+        for num in nums:
+            nextDp = defaultdict(int)
+            for total, count in dp.items():
+                nextDp[total + num] += count
+                nextDp[total - num] += count
+            dp = nextDp
+        return dp[target]
+#time complexity: O(n * m) where n is the length of nums and m is the range of possible sums
+#space complexity: O(m) where m is the range of possible sums
         
