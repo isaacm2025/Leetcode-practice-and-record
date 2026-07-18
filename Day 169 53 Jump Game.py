@@ -37,3 +37,14 @@ class Solution:
         return dp[0]
 #time complexity: O(n^2) where n is the length of nums
 #space complexity: O(n) where n is the length of nums
+
+#greedy
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        goal = len(nums) - 1
+        for i in range(len(nums) - 2, -1, -1):
+            if i + nums[i] >= goal:
+                goal = i
+        return goal == 0
+#time complexity: O(n) where n is the length of nums
+#space complexity: O(1)
