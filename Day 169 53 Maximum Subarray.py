@@ -45,3 +45,16 @@ class Solution:
         return dp[0][0]
 #time complexity: O(n) where n is the length of nums
 #space complexity: O(n) where n is the length of nums
+
+#kadane's algorithm
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxSub, curSum = nums[0], 0
+        for num in nums:
+            if curSum < 0:
+                curSum = 0
+            curSum += num
+            maxSub = max(maxSub, curSum)
+        return maxSub
+#time complexity: O(n) where n is the length of nums
+#space complexity: O(1)
