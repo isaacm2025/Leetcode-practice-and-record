@@ -40,3 +40,19 @@ class Solution:
         return len(minHeap)
 #time complexity: O(nlogn) due to sorting and heap operations
 #space complexity: O(n) since we are using a heap to store the end times of meetings
+
+#greedy
+class Solution:
+    def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        time = []
+        for i in intervals:
+            time.append((i.start, 1))
+            time.append((i.end, -1))
+        time.sort(key = lambda x: (x[0], x[1]))
+        res = count = 0
+        for t in time:
+            count += t[1]
+            res = max(res, count)
+        return res
+#time complexity: O(nlogn) due to sorting
+#space complexity: O(n) since we are using a list to store the start and end times of meetings
