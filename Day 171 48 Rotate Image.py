@@ -51,3 +51,13 @@ class Solution:
                 matrix[i][j] = rotated[i][j]
 #time complexity: O(n^2) since we are iterating through the matrix
 #space complexity: O(n^2) since we are using an additional matrix to store the rotated values
+
+#reverse and transpose
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        matrix.reverse()
+        for i in range(len(matrix)):
+            for j in range(i + 1, len(matrix)):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+#time complexity: O(n^2) since we are iterating through the matrix
+#space complexity: O(1) since we are modifying the matrix in place
