@@ -39,3 +39,21 @@ class Solution:
         return res if n >0 else 1 / res
 #time complexity: O(n)
 #space complexity: O(1)
+
+#binary exponentiation
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if x == 0:
+            return 0
+        if n == 0:
+            return 1
+        res = 1
+        power = abs(n)
+        while power:
+            if power & 1:
+                res *= x
+            x *= x
+            power >>= 1 # >>= is a right shift operator that divides the number by 2, it is equivalent to power //= 2
+        return res if n > 0 else 1 / res
+#time complexity: O(logn)
+#space complexity: O(1)
