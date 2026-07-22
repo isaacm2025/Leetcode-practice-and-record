@@ -43,3 +43,14 @@ class Solution:
                 return i
 #time complexity: O(n)
 #space complexity: O(n)
+
+#math
+from typing import List
+class Solution:
+    def missingnumber(self, nums: List[int]) -> int:
+        res = len(nums)
+        for i in range(len(nums)):
+            res += i - nums[i]
+        return res
+#time complexity: O(n)
+#space complexity: O(1)
