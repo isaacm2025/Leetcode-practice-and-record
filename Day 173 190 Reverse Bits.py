@@ -25,3 +25,14 @@ class Solution:
         return res
 #time complexity: O(1)
 #space complexity: O(1)
+
+#bit manipulation
+class Solution:
+    def reverseBits(self, n: int) -> int:
+        res = 0
+        for i in range(32):
+            bit =  (n >> i) & 1 # get the ith bit of n, >> means right shift, so we are shifting n to the right by i bits, & 1 means we are checking if the last bit is 1
+            res += (bit << (31 - i)) # set the (31 - i)th bit of res to bit, << means left shift, so we are shifting bit to the left by (31 - i) bits, |= means we are setting the (31 - i)th bit of res to bit, += means we are adding the value of (bit << (31 - i)) to res
+        return res
+#time complexity: O(1)
+#space complexity: O(1)
