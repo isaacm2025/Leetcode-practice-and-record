@@ -40,3 +40,15 @@ class Solution:
         return False
 #time complexity: O(nlogn)
 #space complexity: O(1)
+
+#hashset
+class Solution:
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        seen = set()
+        for num in nums:
+            if num in seen:
+                return True
+            seen.add(num)
+        return False
+#time complexity: O(n)
+#space complexity: O(n)
