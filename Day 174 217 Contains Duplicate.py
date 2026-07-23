@@ -52,3 +52,12 @@ class Solution:
         return False
 #time complexity: O(n)
 #space complexity: O(n)
+
+
+#hashset length
+class Solution:
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        return len(set(nums)) < len(nums)
+#time complexity: O(n)
+#space complexity: O(n)
+    
