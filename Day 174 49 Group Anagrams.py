@@ -35,3 +35,18 @@ class Solution:
         return list(res.values())
 #time complexity: O(n * klogk) where n is the length of strs and k is the maximum length of a string in strs
 #space complexity: O(n * k)
+
+#hash table
+from collections import defaultdict
+from typing import List
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> list[List[str]]:
+        res = defaultdict(list)
+        for s in strs:
+            count = [0] * 26
+            for c in s:
+                count[ord(c) - ord('a')] += 1
+            res[tuple(count)].append(s)
+        return list(res.values())
+#time complexity: O(n * k) where n is the length of strs and k is the maximum length of a string in strs
+#space complexity: O(n * k)
