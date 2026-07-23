@@ -29,3 +29,14 @@ class Solution:
         return False
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#sorting
+class Solution:
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        nums.sort()
+        for i in range(1, len(nums)):
+            if nums[i] == nums[i - 1]:
+                return True
+        return False
+#time complexity: O(nlogn)
+#space complexity: O(1)
