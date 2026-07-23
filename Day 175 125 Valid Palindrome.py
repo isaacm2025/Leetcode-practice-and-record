@@ -33,3 +33,21 @@ class Solution:
         return newStr == newStr[::-1]
 #time complexity: O(n)
 #space complexity: O(n)
+
+#two pointer
+class Solution:
+    def isPlaindrome(self, s: str) -> bool:
+        left, right = 0, len(s) - 1
+        while left < right:
+            while left < right and not self.alphaNum(s[left]):
+                left += 1
+            while left < right and not self.alphaNum(s[right]):
+                right -= 1
+            if s[left].lower() != s[right].lower():
+                return False
+            left, right = left + 1, right - 1
+        return True
+    def alphaNum(self, char: str) -> bool:
+        return (ord('A') <= ord(char) <= ord('Z')) or (ord('a') <= ord(char) <= ord('z')) or (ord('0') <= ord(char) <= ord('9')) #this line means if the character is between A-Z or a-z or 0-9, then it is alphanumeric
+#time complexity: O(n)
+#space complexity: O(1)
