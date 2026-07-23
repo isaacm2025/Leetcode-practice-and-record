@@ -27,6 +27,7 @@ Constraints:
 '''
 
 #bf
+from collections import defaultdict
 from typing import List
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
@@ -37,3 +38,17 @@ class Solution:
         return []
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#hashmap
+from typing import List
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        mp = defaultdict(int)
+        for i in range(len(numbers)):
+            tmp = target - numbers[i]
+            if mp[tmp]:
+                return [mp[tmp], i + 1]
+            mp[numbers[i]] = i + 1
+        return []
+#time complexity: O(n)
+#space complexity: O(n)
