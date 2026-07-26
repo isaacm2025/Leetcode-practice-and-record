@@ -40,4 +40,19 @@ class Solution:
 #time complexity: O(n^2) where n is the length of string s
 #space complexity: O(n) where n is the length of string s
 
-        
+#stack
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        closeToOpen = {')': '(', '}': '{', ']': '['}
+        for c in s:
+            if c in closeToOpen:
+                if stack and stack[-1] == closeToOpen[c]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(c)
+        return True if not stack else False
+#time complexity: O(n) where n is the length of string s
+#space complexity: O(n) where n is the length of string s
