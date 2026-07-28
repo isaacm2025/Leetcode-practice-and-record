@@ -35,3 +35,24 @@ class Solution:
         return newHead
 #time complexity: O(n)
 #space complexity: O(n)
+
+
+#iteration
+from typing import Optional
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev, curr = None, head
+        while curr:
+            nextTemp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nextTemp
+        return prev
+#time complexity: O(n)
+#space complexity: O(1)
