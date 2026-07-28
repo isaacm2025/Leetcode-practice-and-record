@@ -48,3 +48,16 @@ class Solution:
         return False
 #time complexity: O(n)
 #space complexity: O(n)
+
+#two pointer
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+#time complexity: O(n)
+#space complexity: O(1)
