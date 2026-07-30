@@ -44,3 +44,21 @@ class Solution:
         return root
 #time complexity: O(N) where N is the number of nodes in the binary tree.
 #space complexity: O(H) where H is the height of the binary tree. In the worst case, the height of the binary tree can be N (when the tree is skewed), resulting in a space complexity of O(N).
+
+#bfs
+from collections import deque
+class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            node.left, node.right = node.right, node.left
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return root
+#time complexity: O(N) where N is the number of nodes in the binary tree.
+#space complexity: O(N) where N is the number of nodes in the binary tree.
