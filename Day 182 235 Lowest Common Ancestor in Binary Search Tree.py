@@ -45,3 +45,24 @@ class Solution:
             return root
 #time complexity: O(n) in worst case, O(log n) in best case
 #spacce complexity: O(n) in worst case, O(log n) in best case
+
+#iteration
+from typing import Optional
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def lowesttCommon(self, root: Optional[TreeNode], p: TreeNode, q: TreeNode) -> Optional[TreeNode]:
+        cur = root
+        while cur:
+            if p.val > cur.val and q.val > cur.val:
+                cur = cur.left
+            elif p.val < cur.val and q.val < cur.val:
+                cur = cur.left
+            else:
+                return cur
+        
+#time complexity: O(n) in worst case, O(log n) in best case
+#space complexity: O(1)
