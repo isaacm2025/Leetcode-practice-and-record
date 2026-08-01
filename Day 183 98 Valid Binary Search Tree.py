@@ -43,6 +43,8 @@ class Solution:
                 return False
             return valid(node.left, left, node.val) and valid(node.right, node.val, right)
         return valid(root, float('-inf'), float('inf'))
+#time complexity: O(n)
+#space complexity: O(n) in worst case, O(log n) in best case
 
 
 #bfs
@@ -62,3 +64,5 @@ class Solution:
             if node.right:
                 q.append((node.right, node.val, right))
         return True
+#time complexity: O(n)
+#space complexity: O(n) in worst case, O(log n) in best case
