@@ -38,3 +38,19 @@ class KthLargest:
         return self.arr[len(self.arr) - self.k]
 #time complexity: O(nlogn) for sorting the array each time add is called, where n is the number of elements in the stream.
 #space complexity: O(n) for storing the stream of integers in the array.
+
+#min heap
+import heapq
+class KthLargest:
+    def __init__(self, k: int, nums: list[int]):
+        self.minHeap, self.k = nums, k
+        heapq.heapify(self.minHeap)
+        while len(self.minHeap) > k:
+            heapq.heappop(self.minHeap)
+    def add(self, val: int) -> int:
+        heapq.heappush(self.minHeap, val)
+        if len(self.minHeap) > self.k:
+            heapq.heappop(self.minHeap)
+        return self.minHeap[0]
+#time complexity: O(logk) for adding an element to the min heap, where k is the size of the heap.
+#space complexity: O(k) for storing the k largest elements
