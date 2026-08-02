@@ -37,3 +37,21 @@ class Solution:
         return points[:k]
 #time complexity: O(n log n) because we sort the list of points
 #space complexity: O(n) because we store the points in a list
+
+#max Heap
+import heapq
+class Solution:
+    def KCloset(self, points: List[List[int]], k: int) -> List[List[int]]:
+        maxHeap = []
+        for x, y in points:
+            dist = -(x**2 + y**2)
+            heapq.heappush(maxHeap, [dist, x, y])
+            if len(maxHeap) > k:
+                heapq.heappop(maxHeap)
+        res = []
+        while maxHeap:
+            dist, x, y = heapq.heappop(maxHeap)
+            res.append([x, y])
+        return res
+#time complexity: O(n log k) because we use a heap to store the points
+#space complexity: O(k) because we store the points in a heap
