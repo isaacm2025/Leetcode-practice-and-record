@@ -27,3 +27,11 @@ class Solution:
         return nums[len(nums) - k]
 #time complexity: O(n log n) because we sort the list of numbers
 #space complexity: O(n) because we store the numbers in a list
+
+#minheap
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return heapq.nlargest(k, nums)[-1]
+#time complexity: O(n log k) because we use a heap to store the numbers
+#space complexity: O(k) because we store the numbers in a heap
