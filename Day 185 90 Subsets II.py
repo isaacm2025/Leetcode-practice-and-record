@@ -35,3 +35,21 @@ class Solution:
         return res
 #time complexity: O(n * 2^n) because we generate all possible subsets of the input list
 #space complexity: O(n * 2^n) because we store all possible subsets in the result list and the recursion stack can go up to n in depth
+
+#iteration
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = [[]]
+        prevIdx = idx = 0
+        for num in range(len(nums)):
+            idx = prevIdx if num >= 1 and nums[num] == nums[num - 1] else 0
+            prevIdx = len(res)
+            for j in range(idx, prevIdx):
+                tmp = res[j].copy()
+                tmp.append(nums[num])
+                res.append(tmp)
+        return res
+#time complexity: O(n * 2^n) because we generate all possible subsets of the input list
+#space complexity: O(n * 2^n) because we store all possible subsets in the result list
+            
