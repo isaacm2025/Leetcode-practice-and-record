@@ -27,4 +27,16 @@ class Solution:
         return res
 #time complexity: O(n * 2^n) because we generate all possible subsets of the input list
 #space complexity: O(n * 2^n) because we store all possible subsets in the result list
+
+#bit manipulation
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        res = []
+        for i in range(2 ** n):
+            subset = [nums[j] for j in range(n) if (i & (1 << j))]
+            res.append(subset)
+        return res
+#time complexity: O(n * 2^n) because we generate all possible subsets of the input list
+#space complexity: O(n * 2^n) because we store all possible subsets in the result list
         
