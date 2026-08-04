@@ -48,3 +48,28 @@ class Solution:
         return res
 #time complexity: O(N * 4^M) where N is the length of the digits string and M is the maximum number of letters that can be mapped to a digit (which is 4 for digit '7' and '9')
 #space complexity: O(N * 4^M) because we store all possible combinations in the result list and the recursion stack can go up to N in depth
+
+#iteration
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+        res = ['']
+        digitMap = {
+            '2': 'abc',
+            '3': 'def',
+            '4': 'ghi',
+            '5': 'jkl',
+            '6': 'mno',
+            '7': 'pqrs',
+            '8': 'tuv',
+            '9': 'wxyz'}
+        for digit in digits:
+            tmp = []
+            for path in res:
+                for c in digitMap[digit]:
+                    tmp.append(path + c)
+            res = tmp
+        return res
+#time complexity: O(N * 4^M) where N is the length of the digits string and M is the maximum number of letters that can be mapped to a digit (which is 4 for digit '7' and '9')
+#space complexity: O(N * 4^M) because we store all possible combinations in the result list
