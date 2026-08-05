@@ -43,3 +43,34 @@ class Solution:
         return area
 #time complexity: O(M * N) where M is the number of rows and N is the number of columns in the grid. We visit each cell once.
 #space complexity: O(M * N) in the worst case, where the grid is filled with land and the recursion stack goes as deep as the number of cells in the grid. Additionally, we use a set to keep track of visited cells, which can also take up to O(M * N) space in the worst case
+
+#bfs
+from typing import List
+from collections import deque
+class Solution:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
+        directions=[[1, 0], [-1, 0], [0, 1], [0, -1]]
+        ROWS, COLS = len(grid), len(grid[0])
+        area = 0
+        def bfs(r, c):
+            q = deque()
+            grid[r][c] = 0
+            q.append((r, c))
+            res = 1
+            while q:
+                row, col = q.popleft()
+                for dr, dc in directions:
+                    nr, nc = dr + row, dc + col
+                    if (nr < 0 or nc < 0 or nr >= ROWS or nc >= COLS or grid[nr][nc] == 0):
+                        continue
+                    grid[nr][nc] = 0
+                    q.append((nr, nc))
+                    res += 1
+            return res
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == 1:
+                    area = max(area, bfs(r, c))
+        return area
+#time complexity: O(M * N) where M is the number of rows and N is the number of columns in the grid. We visit each cell once.
+#space complexity: O(min(M, N)) where M is the number of rows and N is the number of columns in the grid. This is because the maximum size of the queue can be the minimum of the number of rows or columns in the grid, as we can only have one row or one column of land cells in the queue at a time.
