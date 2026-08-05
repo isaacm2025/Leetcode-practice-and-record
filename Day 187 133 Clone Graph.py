@@ -67,3 +67,28 @@ class Solution:
         return dfs(node) if node else None
 #time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph. We visit each node and edge once.
 #space complexity: O(N) where N is the number of nodes in the graph. We use a dictionary to store the mapping of original nodes to their copies, which can take up to O(N) space in the worst case. Additionally, the recursion stack can go as deep as the number of nodes in the graph
+
+#bfs
+from collections import deque
+from typing import Optional
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+class Solution:
+    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        if not node:
+            return None
+        oldToNew = {}
+        q= deque([node])
+        oldToNew[node] = Node(node.val)
+        while q:
+            cur = q.popleft()
+            for neighbor in cur.neighbors:
+                if neighbor not in oldToNew:
+                    oldToNew[neighbor] = Node(neighbor.val)
+                    q.append(neighbor)
+                oldToNew[cur].neighbors.append(oldToNew[neighbor])
+        return oldToNew[node]
+#time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph. We visit each node and edge once.
+#space complexity: O(N) where N is the number of nodes in the graph. We use a dictionary to store the mapping of original nodes to their copies, which can take up to O(N) space in the worst case. Additionally, the queue can hold up to O(N) nodes in the worst case.
