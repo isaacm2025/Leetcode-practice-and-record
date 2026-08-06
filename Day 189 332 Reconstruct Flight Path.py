@@ -77,4 +77,4 @@ class Solution:
         dfs('JFK')
         return res[::-1]
 #time complexity: O(E * log E) where E is the number of edges (tickets). We sort the tickets initially, which takes O(E * log E) time. The DFS traversal takes O(E) time, but the sorting dominates the overall time complexity.
-#space complexity: O(V + E) where V is the number of vertices (airports) and E is the number of edges (tickets). We use an adjacency list to represent the graph, which requires O(V + E) space. Additionally, we use a result list to store the reconstructed itinerary, which can hold up to V + 1 airports in the worst case. The recursion stack can also go up to O(V) in the worst case, contributing to the space complexity.
+#space complexity: O(E) where E is the number of edges (tickets). We use an adjacency list to represent the graph, which requires O(E) space. Additionally, we use a result list to store the reconstructed itinerary, which can hold up to E + 1 airports in the worst case.
