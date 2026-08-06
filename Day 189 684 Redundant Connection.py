@@ -32,6 +32,7 @@ There are no repeated edges and no self-loops in the input.
 '''
 
 #dfs
+from collections import deque
 from typing import List
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
@@ -56,3 +57,33 @@ class Solution:
         return []   
 #time complexity; O(E *(V + E)) where E is the number of edges and V is the number of vertices. In the worst case, we may have to traverse all edges for each edge added, leading to a time complexity of O(E * (V + E)).
 #space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to represent the graph, which requires O(V + E) space. Additionally, we use a visited array of size V to keep track of visited nodes during DFS, which also contributes to the space complexity.
+
+#topological sort
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        n = len(edges)
+        indegree = [0] * (n + 1)
+        adj = [[] for _ in range(n + 1)]
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+            indegree[u] += 1
+            indegree[v] += 1
+        queue = deque()
+        for i in range(1, n + 1):
+            if indegree[i] == 1:
+                queue.append(i)
+        while queue:
+            node = queue.popleft()
+            indegree[node] -= 1
+            for nei in adj[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 1:
+                    queue.append(nei)
+        for u, v in reversed(edges):
+            if indegree[u] == 2 and indegree[v]:
+                return [u, v]
+        return []
+#time complexity: O(V + E) where V is the number of vertices and E is the number of edges. We traverse all vertices and edges in the graph to build the adjacency list and calculate indegrees, and then we perform a topological sort which also takes O(V + E) time.
+#space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to represent the graph, which requires O(V + E) space. Additionally, we use an indegree array of size V to keep track of the indegree of each vertex, which also contributes to the space complexity.
+        
