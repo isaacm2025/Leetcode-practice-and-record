@@ -61,3 +61,20 @@ class Solution:
         return res
 #time complexity: O(E * V) where E is the number of edges (tickets) and V is the number of vertices (airports). In the worst case, we may have to explore all possible paths in the graph, leading to a time complexity of O(E * V).
 #space complexity: O(V + E) where V is the number of vertices (airports) and E is the number of edges (tickets). We use an adjacency list to represent the graph, which requires O(V + E) space. Additionally, we use a result list to store the reconstructed itinerary, which can hold up to V + 1 airports in the worst case.
+
+#recursion
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets):
+            adj[src].append(dst)
+        res = []
+        def dfs(src):
+            while adj[src]:
+                dst = adj[src].pop(0)
+                dfs(dst)
+            res.append(src)
+        dfs('JFK')
+        return res[::-1]
+#time complexity: O(E * log E) where E is the number of edges (tickets). We sort the tickets initially, which takes O(E * log E) time. The DFS traversal takes O(E) time, but the sorting dominates the overall time complexity.
+#space complexity: O(V + E) where V is the number of vertices (airports) and E is the number of edges (tickets). We use an adjacency list to represent the graph, which requires O(V + E) space. Additionally, we use a result list to store the reconstructed itinerary, which can hold up to V + 1 airports in the worst case. The recursion stack can also go up to O(V) in the worst case, contributing to the space complexity.
