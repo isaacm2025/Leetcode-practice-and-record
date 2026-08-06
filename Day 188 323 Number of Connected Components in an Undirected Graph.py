@@ -51,3 +51,31 @@ class Solution:
         return res  
 #time complexity: O(n + e), where n is the number of nodes and e is the number of edges. We visit each node and edge once.
 #space complexity: O(n + e), where n is the number of nodes and e is the number of edges. We store the adjacency list and the visited array.
+
+#bfs
+from typing import List
+from collections import deque
+class Solution:
+    def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        adj = [[] for _ in range(n)]
+        visit = [False] * n
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        def bfs(node):
+            queue = deque([node])
+            visit[node] = True
+            while queue:
+                cur = queue.popleft()
+                for nei in adj[cur]:
+                    if not visit[nei]:
+                        visit[nei] = True
+                        queue.append(nei)
+        res = 0
+        for node in range(n):
+            if not visit[node]:
+                res += 1
+                bfs(node)
+        return res
+#time complexity: O(n + e), where n is the number of nodes and e is the number of edges. We visit each node and edge once.
+#space complexity: O(n + e), where n is the number of nodes and e is the number of edges. We store the adjacency list and the visited array, and the queue can hold at most n nodes in the worst case
