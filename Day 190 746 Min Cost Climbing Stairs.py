@@ -51,3 +51,12 @@ class Solution:
         return dp[n]
 #time complexity: O(n) where n is the length of cost
 #space complexity: O(n) where n is the length of cost
+
+#dp space optimized
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        for i in range(len(cost) - 3, -1, -1):
+            cost[i] += min(cost[i + 1], cost[i + 2])
+        return min(cost[0], cost[1])
+#time complexity: O(n) where n is the length of cost
+#space complexity: O(1) where n is the length of cost
