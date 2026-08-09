@@ -43,3 +43,17 @@ class Solution:
         return res
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#prefix and suffix product
+from typing import List
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        res, n = nums[0], len(nums)
+        prefix, suffix = 0, 0
+        for i in range(n):
+            prefix = nums[i] * (prefix or 1)
+            suffix = nums[n - 1 - i] * (suffix or 1)
+            res = max(res, prefix, suffix)
+        return res
+#time complexity: O(n)
+#space complexity: O(1)
