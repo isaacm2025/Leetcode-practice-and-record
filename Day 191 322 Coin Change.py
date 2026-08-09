@@ -45,3 +45,30 @@ class Solution:
         return dp[amount] if dp[amount] != amount + 1 else -1
 #time complexity: O(n*m) where n is the amount and m is the number of coins
 #space complexity: O(n) where n is the amount
+
+#bfs
+from typing import List
+from collections import deque
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0:
+            return 0
+        queue = deque([0])
+        seen = [False] * (amount + 1)
+        seen[0] = True
+        res = 0
+        while queue:
+            res += 1
+            for _ in range(len(queue)):
+                cur = queue.popleft()
+                for c in coins:
+                    nxt = cur + c
+                    if nxt == amount:
+                        return res
+                    if next > amount or seen[nxt]:
+                        continue
+                    seen[nxt] = True
+                    queue.append(nxt)
+        return -1
+#time complexity: O(n*m) where n is the amount and m is the number of coins
+#space complexity: O(n) where n is the amount
