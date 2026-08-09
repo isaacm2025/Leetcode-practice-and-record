@@ -65,7 +65,7 @@ class Solution:
                     nxt = cur + c
                     if nxt == amount:
                         return res
-                    if next > amount or seen[nxt]:
+                    if nxt > amount or seen[nxt]:
                         continue
                     seen[nxt] = True
                     queue.append(nxt)
