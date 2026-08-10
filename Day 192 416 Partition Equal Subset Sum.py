@@ -34,3 +34,17 @@ class Solution:
         return dp[target]
 #time complexity: O(n * target)
 #space complexity: O(target)
+
+#bitmask
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        total = sum(nums)
+        if total % 2 != 0:
+            return False
+        target = total // 2
+        dp = 1 << 0  # << bitmask to represent the sum of 0
+        for num in nums:
+            dp |= dp << num # shift the bitmask to the left by num and OR it with the current bitmask
+        return (dp & (1 << target) != 0) # check if the bit at position target is set
+#time complexity: O(n * target)
+#space complexity: O(target)
