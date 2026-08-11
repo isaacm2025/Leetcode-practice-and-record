@@ -25,6 +25,7 @@ Constraints:
 '''
 
 #dp
+from collections import defaultdict
 from typing import List
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
@@ -39,3 +40,19 @@ class Solution:
         return backtrack(0, 0)
 #time complexity: O(n * sum(nums))
 #space complexity: O(n * sum(nums))
+
+#space optimized dp
+from typing import List
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        dp = defaultdict(int)
+        dp[0] = 1
+        for num in nums:
+            nextDp = defaultdict(int)
+            for total, count in dp.items():
+                nextDp[total + num] += count
+                nextDp[total - num] += count
+            dp = nextDp
+        return dp[target]
+#time complexity: O(n * m)
+#space complexity: O(m)
