@@ -37,3 +37,15 @@ class Solution:
         return res
 #time: O(n^2)
 #space: O(1)
+
+#dp
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        res = 0
+        minBuy = prices[0]
+        for sell in prices:
+            res = max(res, sell - minBuy)
+            minBuy = min(minBuy, sell)
+        return res
+#time: O(n)
+#space: O(1)
