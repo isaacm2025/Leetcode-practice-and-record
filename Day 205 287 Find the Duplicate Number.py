@@ -39,3 +39,16 @@ class Solution:
         return -1
 #time complexity: O(nlogn) for sorting the array
 #space complexity: O(1) if we ignore the space used by the sorting algorithm
+
+#hashset
+from typing import List
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        seen = set()
+        for num in nums:
+            if num in seen:
+                return num
+            seen.add(num)
+        return -1
+#time complexity: O(n) for iterating through the array
+#space complexity: O(n) for storing the seen numbers in a set
