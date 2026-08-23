@@ -35,6 +35,7 @@ Node values are not guaranteed to be unique.
 random is null or is pointing to some node in the linked list.'''
 
 #recursion
+from collections import defaultdict
 from typing import Optional
 class Node:
     def __init__(self, val = 0, next = None, random = None):
@@ -54,5 +55,25 @@ class Solution:
         copy.next = self.copyRandomList(head.next)
         copy.random = self.copyRandomList(head.random)
         return copy
+#time complexity: O(n) where n is the length of the linked list
+#space complexity: O(n) where n is the length of the linked list
+
+#hash map
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+class Solution:
+    def copyRandomList(self, head: Optional[Node]) -> Optional[Node]:
+        oldToCopy = defaultdict(lambda: Node(0))
+        oldToCopy[None] = None
+        cur = head
+        while cur:
+            oldToCopy[cur].val = cur.val
+            oldToCopy[cur].next = oldToCopy[cur.next]
+            oldToCopy[cur].random = oldToCopy[cur.random]
+            cur = cur.next
+        return oldToCopy[head]
 #time complexity: O(n) where n is the length of the linked list
 #space complexity: O(n) where n is the length of the linked list
