@@ -52,3 +52,19 @@ class Solution:
         return -1
 #time complexity: O(n) for iterating through the array
 #space complexity: O(n) for storing the seen numbers in a set
+
+#bs
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        n = len(nums)
+        l, h = 1, n - 1
+        while l < h:
+            mid = l + (h - l) // 2
+            lessOrEqual = sum(1 for num in nums if num <= mid)
+            if lessOrEqual <= mid:
+                l = mid + 1
+            else:
+                h = mid
+        return l
+#time complexity: O(nlogn) for iterating through the array and binary search
+#space complexity: O(1) for using constant space
