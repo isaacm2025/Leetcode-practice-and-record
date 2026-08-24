@@ -21,6 +21,9 @@ Constraints:
 
 # Definition for a binary tree node.
 #dfs
+from collections import deque
+
+
 class TreeNode:
     def __init__(self, val = 0, left = None, right = None):
         self.val = val
@@ -53,3 +56,27 @@ class Solution:
         return res
 #time complexity is O(n) where n is the number of nodes in the tree
 #space complexity is O(h) where h is the height of the tree
+
+#bfs
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        q = deque()
+        if root:
+            q.append(root)
+        level = 0
+        while q:
+            for i in range(len(q)):
+                node = q.popleft()
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            level += 1
+        return level
+#time complexity is O(n) where n is the number of nodes in the tree
+#space complexity is O(n) where n is the number of nodes in the tree
