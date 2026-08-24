@@ -47,3 +47,24 @@ class Solution:
         return res.next
 #time complexity: O(nlogn) where n is the total number of nodes in all the linked lists.
 #space complexity: O(n) where n is the total number of nodes in all the linked lists.
+
+#iteration
+class Solution:
+    def mergeKLists(self, lists: list[ListNode]) -> ListNode:
+        res = ListNode(0)
+        cur = res
+        while True:
+            minNode = -1
+            for i in range(len(lists)):
+                if not lists[i]:
+                    continue
+                if minNode == -1 or lists[minNode].val > lists[i].val:
+                    minNode = i
+            if minNode == -1:
+                break
+            cur.next = lists[minNode]
+            lists[minNode] = lists[minNode].next
+            cur = cur.next
+        return res.next
+#time complexity: O(nk) where n is the total number of nodes in all the linked lists and k is the number of linked lists.
+#space complexity: O(1) since we are not using any extra space except for the output linked list.
