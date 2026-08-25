@@ -51,3 +51,16 @@ class Solution:
         return 1 + max(self.height(root.left), self.height(root.right))
 #time complexity: O(n^2)
 #space complexity: O(n)
+
+#dfs
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        def dfs(root):
+            if not root:
+                return [True, 0]
+            left, right = dfs(root.left), dfs(root.right)
+            balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
+            return (balanced, 1 + max(left[1], right[1]))
+        return dfs(root)[0]
+#time complexity: O(n)
+#space complexity: worst case O(n), best case O(logn)
