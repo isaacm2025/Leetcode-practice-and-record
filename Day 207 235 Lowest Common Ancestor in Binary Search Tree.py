@@ -49,3 +49,17 @@ class Solution:
             return root
 #time complexity: O(n)
 #space complexity: O(n)
+
+#iteration
+class Solution:
+    def lowest(self, root: Optional[TreeNode], p: Optional[TreeNode], q: Optional[TreeNode]) -> Optional[TreeNode]:
+        cur = root
+        while cur:
+            if p.val > cur.val and q.val > cur.val:
+                cur = cur.right
+            elif p.val < cur.val and q.val < cur.val:
+                cur = cur.left
+            else:
+                return cur
+#time complexity: O(n)
+#space complexity: O(1)
