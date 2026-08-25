@@ -51,15 +51,19 @@ from collections import deque
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         res = []
-        def dfs(node, level):
-            if not node:
-                return None
-            if len(res) == level:
-                res.append([])
-            res[level].append(node.val)
-            dfs(node.left, level + 1)
-            dfs(node.right, level + 1)
-        dfs(root, 0)
+        q = deque()
+        q.append(root)
+        while q:
+            qLen = len(q)
+            level = []
+            for i in range(qLen):
+                node = q.popleft()
+                if node:
+                    level.append(node.val)
+                    q.append(node.left)
+                    q.append(node.right)
+            if level:
+                res.append(level)
         return res
 #time complexity: O(n)
 #space complexity: O(n)
