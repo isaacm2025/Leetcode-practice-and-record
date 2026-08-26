@@ -42,3 +42,22 @@ class Solution:
         return root
 #time complexity: O(n^2) because of the index() function
 #space complexity: O(n) for the recursion stack and the tree itself
+
+#hashmap + dfs
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        indices = {val: idx for idx, val in enumerate(inorder)}
+        self.preIdx = 0
+        def dfs(l, r):
+            if l > r:
+                return None
+            rootVal = preorder[self.preIdx]
+            self.preIdx += 1
+            root = TreeNode(rootVal)
+            mid = indices[rootVal]
+            root.left = dfs(l, mid - 1)
+            root.right = dfs(mid + 1, r)
+            return root
+        return dfs(0, len(inorder) - 1)
+#time complexity: O(n) because we are using a hashmap to store the indices of the inorder array
+#space complexity: O(n) for the recursion stack and the tree itself
