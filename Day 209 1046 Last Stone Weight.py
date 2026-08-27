@@ -68,3 +68,19 @@ class Solution:
         return stones[0] if n > 0 else 0
 #time com: O(n^2) where n is the length of the array
 #space com: O(1)
+
+#heap
+import heapq
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        stones = [-s for s in stones]
+        heapq.heapify(stones)
+        while len(stones) > 1:
+            first = heapq.heappop(stones)
+            second = heapq.heappop(stones)
+            if second > first:
+                heapq.heappush(stones, first - second)
+        stones.append(0)
+        return abs(stones[0])
+#time com: O(n log n) where n is the length of the array
+#space com: O(n) where n is the length of the array
