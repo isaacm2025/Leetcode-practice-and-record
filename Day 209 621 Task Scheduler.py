@@ -41,3 +41,19 @@ class Solution:
         return max(0, idleTime) + len(tasks)
 #time com: O(n) where n is the length of the array
 #space com: O(1) since the size of the count array is constant (26)
+
+#math
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        count = [0] * 26
+        for task in tasks:
+            count[ord(task) - ord('A')] += 1
+        maxCount = max(count)
+        maxCountTasks = 0
+        for i in count:
+            maxCountTasks += 1 if i == maxCount else 0
+        time = (maxCount - 1) * (n + 1) + maxCountTasks
+        return max(time, len(tasks))
+#time com: O(n) where n is the length of the array
+#space com: O(1) since the size of the count array is constant (26)
+        
