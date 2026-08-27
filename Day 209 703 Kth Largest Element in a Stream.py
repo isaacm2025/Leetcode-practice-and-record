@@ -40,3 +40,20 @@ class KthLargest:
         return self.arr[len(self.arr) - self.k]
 #time com: O(m * nlog n) where m is the number of calls to add and n is the length of the array.
 #space com: O(n) where n is the length of the array.
+
+#minHeap
+import heapq
+class KthLargest:
+    def __init__(self, k: int, nums: List[int]):
+        self.minHeap = nums
+        self.k = k
+        heapq.heapify(self.minHeap)
+        while len(self.minHeap) > k:
+            heapq.heappop(self.minHeap)
+    def add(self, val: int) -> int:
+        heapq.heappush(self.minHeap, val)
+        if len(self.minHeap) > self.k:
+            heapq.heappop(self.minHeap)
+        return self.minHeap[0]
+#time com: O(m * log k) where m is the number of calls to add
+#space com: O(k) where k is the size of the minHeap.
