@@ -48,3 +48,26 @@ class Solution:
         return [list(combination) for combination in res]
 #time complexity is O(n * 2^n) because we are generating all possible combinations and for each combination we are iterating through the candidates list
 #space complexity is O(n * 2^n) because we are storing all the combinations in a set
+
+#optimal
+from typing import List
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        candidates.sort()
+        def dfs(idx, path, cur):
+            if cur == target:
+                res.append(path)
+                return
+            for i in range(idx, len(candidates)):
+                if i > idx and candidates[i] == candidates[i - 1]:
+                    continue
+                if cur + candidates[i] > target:
+                    break
+                path.append(candidates[i])
+                dfs(i + 1, path.copy(), cur + candidates[i])
+                path.pop()
+        dfs(0, [], 0)
+        return res
+#time complexity is O(n * 2^n) because we are generating all possible combinations
+#space complexity is O(n) because we are storing all the combinations
