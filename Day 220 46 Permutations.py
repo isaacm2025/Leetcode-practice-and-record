@@ -1,0 +1,33 @@
+'''Given an array nums of unique integers, return all the possible permutations. You may return the answer in any order.
+
+Example 1:
+
+Input: nums = [1,2,3]
+
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+Example 2:
+
+Input: nums = [7]
+
+Output: [[7]]
+Constraints:
+
+1 <= nums.length <= 6
+-10 <= nums[i] <= 10
+'''
+#recursion
+from typing import List
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = [[]]
+        for num in nums:
+            newPerms = []
+            for p in res:
+                for i in range(len(p) + 1):
+                    pCopy = p.copy()
+                    pCopy.insert(i, num)
+                    newPerms.append(pCopy)
+            res = newPerms
+        return res
+#time complexity is O(n^2 * n!) because we are generating all possible permutations and for each permutation we are iterating through the nums list and inserting the number at all possible positions
+#space complexity is O(n * n!) because we are storing all the permutations in a list
