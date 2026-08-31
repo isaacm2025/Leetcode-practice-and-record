@@ -61,3 +61,20 @@ class Solution:
         return res
 #time complexity: O(E * V) where E is the number of edges and V is the number of vertices
 #space complexity: O(E + V) where E is the number of edges and V is the number of vertices
+
+#recursion
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets):
+            adj[src].append(dst)
+        res = []
+        def dfs(src):
+            while adj[src]:
+                dst = adj[src].pop(0)
+                dfs(dst)
+            res.append(src)
+        dfs("JFK")
+        return res[::-1]
+#time complexity: O(E * log(E)) where E is the number of edges
+#space complexity: O(E)
