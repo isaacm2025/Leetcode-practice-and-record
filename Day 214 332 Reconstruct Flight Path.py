@@ -78,3 +78,21 @@ class Solution:
         return res[::-1]
 #time complexity: O(E * log(E)) where E is the number of edges
 #space complexity: O(E)
+
+#iteration hierholzer's algorithm
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets):
+            adj[src].append(dst)
+        stack = ["JFK"]
+        res = []
+        while stack:
+            curr = stack[-1]
+            if not adj[curr]:
+                res.append(stack.pop())
+            else:
+                stack.append(adj[curr].pop(0))
+        return res[::-1]
+#time complexity: O(E * log(E)) where E is the number of edges
+#space complexity: O(E) where E is the number of edges
