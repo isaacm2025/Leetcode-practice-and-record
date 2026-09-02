@@ -56,3 +56,17 @@ class Solution:
         return dp[-1]
 #time complexity: O(n) where n is the length of the input array
 #space complexity: O(n) where n is the length of the input array
+
+#space op dp
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        return max(self.helper(nums[1:]), self.helper(nums[:-1]))
+    def helper(self, nums: List[int]) -> int:
+        rob1, rob2 = 0, 0
+        for num in nums:
+            newRob = max(rob2, rob1 + num)
+            rob1 = rob2
+            rob2 = newRob
+        return rob2
+#time complexity: O(n) where n is the length of the input array
+#space complexity: O(1)
