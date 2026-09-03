@@ -50,3 +50,21 @@ class Solution:
         return res
 #time complexity: O(n^2) where n is the length of the input string
 #space complexity: O(n^2) where n is the length of the input string
+
+#two pointer
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        res = 0
+        for i in range(len(s)):
+            res += self.countPali(s, i, i)
+            res += self.countPali(s, i, i + 1)
+        return res
+    def countPali(self, s: str, l: int, r: int):
+        res = 0
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            res += 1
+            l -= 1
+            r += 1
+        return res
+#time complexity: O(n^2) where n is the length of the input string
+#space complexity: O(1)
