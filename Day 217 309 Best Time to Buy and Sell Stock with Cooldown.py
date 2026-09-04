@@ -47,3 +47,18 @@ class Solution:
         return dfs(0, True)
 #time complexity: O(n) where n is the length of prices. This is because we are using memoization to store the results of previously computed states, and we only compute each state once
 #space complexity: O(n) where n is the length of prices. This is because we are using a dictionary to store the results of previously computed states, and in the worst case, we may need to store the results for all n states.
+
+#dp sp op
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        dp1_buy, dp1_sell = 0, 0
+        dp2_buy = 0
+        for i in range(n - 1, -1, -1):
+            dp_buy = max(dp1_sell - prices[i], dp1_buy)
+            dp_sell = max(dp2_buy + prices[i], dp1_sell)
+            dp2_buy = dp1_buy
+            dp1_buy, dp1_sell = dp_buy, dp_sell
+        return dp1_buy
+#time complexity: O(n) where n is the length of prices. This is because we are iterating through the prices array once.
+#space complexity: O(1) because we are using a constant amount of space to store the variables dp1_buy, dp1_sell, and dp2_buy, regardless of the size of the input array prices.
