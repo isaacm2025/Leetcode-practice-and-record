@@ -33,3 +33,20 @@ class Solution:
         return dfs(0, 0)
 #time complexity: O(2^(m+n)) where m is the number of rows and n is the number of columns. This is because for each cell, we have two choices: move right or move down, leading to a binary tree of possibilities.
 #space complexity: O(m+n) where m is the number of rows and n is the number of columns. This is because the maximum depth of the recursion tree can go up to m+n in the worst case.
+
+#dp
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [[-1] * n for _ in range(m)]
+        def dfs(i, j):
+            if i == m - 1 and j == n - 1:
+                return 1
+            if i >= m or j >= n:
+                return 0
+            if dp[i][j] != -1:
+                return dp[i][j]
+            dp[i][j] = dfs(i, j + 1) + dfs(i + 1, j)
+            return dp[i][j]
+        return dfs(0, 0)
+#time complexity: O(m*n) where m is the number of rows and n is the number of columns. This is because we are storing the results of subproblems in a 2D array, and each cell is computed only once.
+#space complexity: O(m*n) where m is the number of rows and n is the number of columns. This is because we are using a 2D array to store the results of subproblems.
