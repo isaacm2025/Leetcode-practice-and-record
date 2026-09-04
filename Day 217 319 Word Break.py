@@ -61,3 +61,19 @@ class Solution:
         return dfs(0)
 #time complexity: O((n * 2^n) + m) where n is the length of the string s and m is the number of words in the dictionary. This is because for each character in s, we may check all possible substrings and for each substring, we may check if it is in the wordSet.
 #space complexity: O(n + (mt)), where n is the length of the string s, m is the number of words in the dictionary, and t is the average length of the words. This is because we are using a recursive function that can go as deep as the length of s in the worst case and we are also storing the words in a set.
+
+#dp
+from typing import List
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
+        for i in range(len(s) - 1, -1, -1):
+            for w in wordDict:
+                if (i + len(w)) <= len(s) and s[i:i + len(w)] == w:
+                    dp[i] = dp[i + len(w)]
+                if dp[i]:
+                    break
+        return dp[0]
+#time complexity: O(n * m * k) where n is the length of the string s, m is the number of words in the dictionary, and k is the average length of the words. This is because for each character in s, we may check all words in wordDict and for each word, we may check if it matches the substring of s.
+#space complexity: O(n) where n is the length of the string s. This is because we are using a dp array of size n + 1 to store the results of subproblems.
