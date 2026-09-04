@@ -50,3 +50,16 @@ class Solution:
         return dfs(0, 0)
 #time complexity: O(m*n) where m is the number of rows and n is the number of columns. This is because we are storing the results of subproblems in a 2D array, and each cell is computed only once.
 #space complexity: O(m*n) where m is the number of rows and n is the number of columns. This is because we are using a 2D array to store the results of subproblems.
+
+#dp sp op
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        dp = [1] * n
+        for i in range(m - 1):
+            newRow = [1] * n
+            for j in range(n - 2, -1, -1):
+                newRow[j] = newRow[j + 1] + dp[j]
+            dp = newRow
+        return dp[0]
+#time complexity: O(m*n) where m is the number of rows and n is the number of columns. This is because we are iterating through each cell in the grid once.
+#space complexity: O(n) where n is the number of columns. This is because we are using a 1D array to store the results of the previous row, and we only need to keep track of the current row and the previous row at any given time.
