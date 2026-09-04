@@ -40,3 +40,22 @@ class Solution:
         return dfs(0, 0)
 #time complexity: O(2^(m+n)) where m is the length of text1 and n is the length of text2. This is because for each character in text1 and text2, we have two choices: either include it in the subsequence or not, leading to a binary tree of possibilities.
 #space complexity: O(m+n) where m is the length of text1 and n is the length of text2. This is because the maximum depth of the recursion tree can go up to m+n in the worst case.
+
+#space op dp
+class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        if len(text1) < len(text2):
+            text1, text2 = text2, text1
+        prev = [0] * (len(text2) + 1)
+        curr = [0] * (len(text2) + 1)
+        for i in range(len(text1) - 1, -1, -1):
+            for j in range(len(text2) - 1, -1, -1):
+                if text1[i] == text2[j]:
+                    curr[j] = 1 + prev[j + 1]
+                else:
+                    curr[j] = max(curr[j + 1], prev[j])
+            prev, curr = curr, prev
+        return prev[0]
+#time complexity: O(m*n) where m is the length of text1 and n is the length of text2. This is because we are iterating through each character in both strings once.
+#space complexity: O(min(m, n)) where m is the length of text1 and n is the length of text2. This is because we are using two 1D arrays to store the results of the previous and current rows, and we only need to keep track of the current row and the previous row at any given time.
+
