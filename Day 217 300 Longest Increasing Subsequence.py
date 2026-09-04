@@ -47,3 +47,22 @@ class Solution:
         return max(LIS)
 #time complexity: O(n^2) where n is the length of the input array
 #space complexity: O(n) where n is the length of the input array
+
+#dp + bs
+from typing import List
+import bisect
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = []
+        dp.append(nums[0])
+        LIS = 1
+        for i in range(1, len(nums)):
+            if dp[-1] < nums[i]:
+                dp.append(nums[i])
+                LIS += 1
+                continue
+            idx = bisect_left(dp, nums[i])
+            dp[idx] = nums[i]
+        return LIS
+#time complexity: O(nlogn) where n is the length of the input array
+#space complexity: O(n) where n is the length of the input array
