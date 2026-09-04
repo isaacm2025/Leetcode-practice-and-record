@@ -34,3 +34,24 @@ class Solution:
         return dfs(0, sum(nums) // 2)
 #time complexity: O(2^n) where n is the length of the input array
 #space complexity: O(n) where n is the length of the input array
+
+#dp sp op
+from typing import List
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2:
+            return False
+        target = sum(nums) // 2
+        dp = [False] * (target + 1)
+        nextDp = [False] * (target + 1)
+        dp[0] = True
+        for i in range(len(nums)):
+            for j in range(target + 1):
+                if j >= nums[i]:
+                    nextDp[j] = dp[j] or dp[j - nums[i]]
+                else:
+                    nextDp[j] = dp[j]
+            dp, nextDp = nextDp, dp
+        return dp[target]
+#time complexity: O(n * target) where n is the length of the input array and target is the sum of the elements in the array divided by 2
+#space complexity: O(target) where target is the sum of the elements in the array divided by 2
