@@ -34,3 +34,16 @@ class Solution:
         return dfs(0, -1)
 #time complexity: O(2^n) where n is the length of the input array
 #space complexity: O(n) where n is the length of the input array
+
+#dp
+from typing import List
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        LIS = [1] * len(nums)
+        for i in range(len(nums) - 1, -1, -1):
+            for j in range(i + 1, len(nums)):
+                if nums[i] < nums[j]:
+                    LIS[i] = max(LIS[i], 1 + LIS[j])
+        return max(LIS)
+#time complexity: O(n^2) where n is the length of the input array
+#space complexity: O(n) where n is the length of the input array
