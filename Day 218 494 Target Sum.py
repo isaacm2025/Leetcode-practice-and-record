@@ -24,6 +24,7 @@ Constraints:
 -1000 <= target <= 1000'''
 
 #recursion with memoization
+from collections import defaultdict
 from typing import List
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
@@ -49,3 +50,19 @@ class Solution:
         return backtrack(0, 0)
 #time complexity: O(n * sum), n is the length of nums, sum is the sum of nums
 #space complexity: O(n * sum), n is the length of nums, sum is the sum of nums
+
+#dp sp op
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        dp = defaultdict(int)
+        dp[0] = 1
+        for num in nums:
+            nextDp = defaultdict(int)
+            for total, count in dp.items():
+                nextDp[total + num] += count
+                nextDp[total - num] += count
+            dp = nextDp
+        return dp[target]
+#time complexity: O(n * sum), n is the length of nums, sum is the sum of nums
+#space complexity: O(sum), sum is the sum of nums
+            
