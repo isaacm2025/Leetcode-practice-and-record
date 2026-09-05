@@ -66,3 +66,15 @@ class Solution:
         return dp[amount]
 #time complexity: O(n * amount), n is the length of coins
 #space complexity: O(amount)
+
+#dp op
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        dp = [0] * (amount + 1)
+        dp[0] = 1
+        for i in range(len(coins) - 1, -1, -1):
+            for amount in range(1, amount + 1):
+                dp[amount] += dp[amount - coins[i]] if amount - coins[i] <= amount else 0
+        return dp[amount]
+#time complexity: O(n * amount), n is the length of coins
+#space complexity: O(amount)
