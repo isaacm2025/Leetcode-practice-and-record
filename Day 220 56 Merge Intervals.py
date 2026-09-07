@@ -36,3 +36,29 @@ class Solution:
         return res
 #time complexity: O(nlogn)
 #space complexity: O(n)
+
+#greedy
+from typing import List
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        maxVal = max(interval[0] for interval in intervals)
+        mp = [0] * (maxVal + 1)
+        for start, end in intervals:
+            mp[start] = max(end + 1, mp[start])
+        res = []
+        have = -1
+        intervalStart = -1
+        for i in range(len(mp)):
+            if mp[i] != 0:
+                if intervalStart == -1:
+                    intervalStart = i
+                have = max(mp[i] - 1, have)
+            if have == i:
+                res.append([intervalStart, have])
+                have = -1
+                intervalStart = -1
+        if intervalStart != -1:
+            res.append([intervalStart, have])
+        return res
+#time complexity: O(n + m) where m is the maximum value in the intervals
+#space complexity: O(m) where m is the maximum value in the intervals
