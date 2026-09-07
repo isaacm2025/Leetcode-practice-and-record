@@ -50,3 +50,23 @@ class Solution:
         return dfs(0, 0)
 #time complexity: O(n^2)
 #space complexity: O(n^2)
+
+#dp sp op
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        n = len(s)
+        dp = [False] * (n + 1)
+        dp[0] = True
+        for i in range(n -1, -1, -1):
+            newDp = [False] * (n + 1)
+            for open in range(n):
+                if s[i] == '*':
+                    newDp[open] = (dp[open + 1] or (open > 0 and dp[open - 1]) or dp[open])
+                elif s[i] == '(':
+                    newDp[open] = dp[open + 1]
+                elif open > 0:
+                    newDp[open] = dp[open - 1]
+            dp = newDp
+        return dp[0]
+#time complexity: O(n^2)
+#space complexity: O(n)
