@@ -37,3 +37,23 @@ class Solution:
                 if min(A.end, B.end) > max(A.start, B.start):
                     return False
         return True 
+#time complexity: O(n^2)
+#space complexity: O(1)
+
+#sorting
+from typing import List
+class Interval(object):
+    def __init__(self, s = 0, e = 0):
+        self.start = s
+        self.end = e
+class Solution:
+    def canAttendMeetings(self, intervals: List[Interval]) -> bool:
+        intervals.sort(key = lambda x: x.start)
+        for i in range(1, len(intervals)):
+            i1 = intervals[i - 1]
+            i2 = intervals[i]
+            if i1.end > i2.start:
+                return False
+        return True
+#time complexity: O(nlogn)
+#space complexity: O(1)
