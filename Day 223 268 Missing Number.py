@@ -30,3 +30,14 @@ class Solution:
         return n
 #time complexity: O(nlogn)
 #space complexity: O(1)
+
+#bitwise xor
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        res = n
+        for i in range(n):
+            res ^= i ^ nums[i]
+        return res
+#time complexity: O(n)
+#space complexity: O(1)
