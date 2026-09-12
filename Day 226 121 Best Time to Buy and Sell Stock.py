@@ -36,3 +36,16 @@ class Solution:
         return res
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#dp
+from typing import List
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        maxP = 0
+        minBuy = prices[0]
+        for sell in prices:
+            maxP = max(maxP, sell - minBuy)
+            minBuy = min(minBuy, sell)
+        return maxP
+#time complexity: O(n)
+#space complexity: O(1)
