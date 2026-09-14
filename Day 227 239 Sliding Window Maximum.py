@@ -35,3 +35,20 @@ class Solution:
         return res
 #time complexity: O(n*k) where n is the length of nums and k is the size of the sliding window
 #space complexity: O(n-k+1) where n is the length of nums and k is the size of the sliding window
+
+#heap
+from typing import List
+import heapq
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        heap = []
+        output = []
+        for i in range(len(nums)):
+            heapq.heappush(heap, (-nums[i], i))
+            if i >= k - 1:
+                while heap[0][1] <= i - k:
+                    heapq.heappop(heap)
+                output.append(-heap[0][0])
+        return output
+#time complexity: O(nlogk) where n is the length of nums and k is the size of the sliding window
+#space complexity: O(k) where k is the size of the sliding window
