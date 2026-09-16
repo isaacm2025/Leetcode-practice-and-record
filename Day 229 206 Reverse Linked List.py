@@ -33,3 +33,21 @@ class Solution:
         return newHead
 #time complexity: O(n) where n is the number of nodes in the linked list
 #space complexity: O(n) where n is the number of nodes in the linked list due to the recursion stack
+
+#iteration
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev, curr = None, head
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        return prev
+#time complexity: O(n) where n is the number of nodes in the linked list
+#space complexity: O(1)
