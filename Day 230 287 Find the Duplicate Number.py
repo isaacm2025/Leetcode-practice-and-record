@@ -51,3 +51,20 @@ class Solution:
         return -1
 #time complexity: O(n)
 #space complexity: O(n)
+
+#bs
+from typing import List
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        n = len(nums)
+        l, r = 1, n - 1
+        while l < r:
+            mid = l + (r - l) // 2
+            lessOrEqual = sum(1 for num in nums if num <= mid)
+            if lessOrEqual <= mid:
+                l = mid + 1
+            else:
+                r = mid
+        return l
+#time complexity: O(nlogn)
+#space complexity: O(1)
