@@ -53,3 +53,24 @@ class Solution:
         return res
 #time complexity: O(n)
 #space complexity: O(n)
+
+#bfs
+from collections import deque
+class Solution:
+    def rightSideView(self, root: TreeNode) -> List[int]:
+        res = []
+        q = deque([root])
+        while q:
+            rightSide = None
+            qLen = len(q)
+            for i in range(qLen):
+                node = q.popleft()
+                if node:
+                    rightSide = node
+                    q.append(node.left)
+                    q.append(node.right)
+            if rightSide:
+                res.append(rightSide.val)
+        return res
+#time complexity: O(n)
+#space complexity: O(n)
