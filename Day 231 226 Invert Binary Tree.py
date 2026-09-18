@@ -51,3 +51,20 @@ class Solution:
 #time complexity: O(n) where n is the number of nodes in the tree
 #space complexity: O(n) where n is the number of nodes in the tree
         
+
+#dfs
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return None
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+        return root
+#time complexity: O(n) where n is the number of nodes in the tree
+#space complexity: O(h) where h is the height of the tree
