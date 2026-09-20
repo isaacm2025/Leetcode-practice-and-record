@@ -47,3 +47,23 @@ class Solution:
         return arr[k - 1]
 #time complexity: O(nlogn)
 #space complexity: O(n)
+
+#inorder traversal
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        arr = []
+        def dfs(node):
+            if not node:
+                return 
+            dfs(node.left)
+            arr.append(node.val)
+            dfs(node.right)
+        dfs(root)
+        return arr[k - 1]
+#time complexity: O(n)
+#space complexity: O(n)
