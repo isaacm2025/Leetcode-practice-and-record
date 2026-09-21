@@ -21,7 +21,7 @@ Constraints:
 #backtracking
 from typing import List
 class Solution:
-    def subsetss(self, nums: List[int]) -> List[List[int]]:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
         res = []
         subset = []
         def dfs(i):
@@ -36,3 +36,14 @@ class Solution:
         return res
 #time complexity: O(n*2^n) where n is the length of nums. We have 2^n subsets and for each subset, we take O(n) time to copy it to the result.
 #space complexity: O(n) where n is the length of nums. The maximum depth of the recursion tree is n, and we use O(n) space to store the current subset.
+
+
+#iteration
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = [[]]
+        for num in nums:
+            res += [subset + [num] for subset in res]
+        return res
+#time complexity: O(n*2^n) where n is the length of nums.
+#space complexity: O(n*2^n) where n is the length of nums.
