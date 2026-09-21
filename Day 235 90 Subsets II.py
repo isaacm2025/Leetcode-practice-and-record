@@ -37,3 +37,20 @@ class Solution:
 #time complexity: O(n*2^n) where n is the length of nums.
 #space complexity: O(2^n) where n is the length of nums.
         
+
+#iteration
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = [[]]
+        prevIdx = idx = 0
+        for i in range(len(nums)):
+            idx = prevIdx if i >= 1 and nums[i] == nums[i - 1] else 0
+            prevIdx = len(res)
+            for j in range(idx, prevIdx):
+                tmp = res[j].copy()
+                tmp.append(nums[i])
+                res.append(tmp)
+        return res
+#time complexity: O(n*2^n) where n is the length of nums.
+#space complexity: O(n*2^n) where n is the length of nums.
