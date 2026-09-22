@@ -50,3 +50,29 @@ class Solution:
         return res
 #time complexity: O(n * 4^n) where n is the length of the digits. In the worst case, we might explore all 4 possible characters for each digit in the input string.
 #space complexity: O(n) where n is the length of the digits.
+
+#iteration
+class Solution:
+    def letterCom(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+        res = [""]
+        digitToChar = {
+            "2": "abc",
+            "3": "def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz"
+        }
+        for digit in digits:
+            tmp = []
+            for curStr in res:
+                for c in digitToChar[digit]:
+                    tmp.append(curStr + c)
+            res = tmp
+        return res
+#time complexity: O(n * 4^n) where n is the length of the digits. In the worst case, we might explore all 4 possible characters for each digit in the input string.
+#space complexity: O(n) where n is the length of the digits. The maximum number of combinations we can have is 4^n, which is the maximum number of strings
