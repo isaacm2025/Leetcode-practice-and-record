@@ -28,7 +28,7 @@ class Solution:
                     res.append(part.copy())
                 return
             if self.isPali(s, j, i):
-                part.append(s[j:1 + 1])
+                part.append(s[j:i + 1])
                 dfs(i + 1, i + 1)
                 part.pop()
             dfs(j, i + 1)
