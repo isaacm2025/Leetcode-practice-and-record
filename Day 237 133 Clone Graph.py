@@ -48,6 +48,9 @@ There are no duplicate edges and no self-loops in the graph.
 '''
 
 #dfs
+from collections import deque
+
+
 class Node:
     def __init__(self, val = 0, neighbors = None):
         self.val = val
@@ -66,3 +69,22 @@ class Solution:
         return dfs(node) if node else None
 #time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph. We visit each node and edge once.
 #space complexity: O(N) where N is the number of nodes in the graph. We use a dictionary to store the mapping from original nodes to their copies, which takes O(N) space. Additionally, the recursion stack can go as deep as the number of nodes in the graph, which also takes O(N)
+
+#bfs
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        oldToNew = {}
+        oldToNew[node] = Node(node.val)
+        q = deque([node])
+        while q:
+            cur = q.popleft()
+            for nei in cur.neighbors:
+                if nei not in oldToNew:
+                    oldToNew[nei] = Node(nei.val)
+                    q.append(nei)
+                oldToNew[cur].neighbors.append(oldToNew[nei])
+        return oldToNew[node]
+#time complexity: O(N + M) where N is the number of nodes and M is the number of edges in the graph. We visit each node and edge once.
+#space complexity: O(N) where N is the number of nodes in the graph. We use a dictionary to store the mapping from original nodes to their copies, which takes O(N) space. Additionally, the queue can hold up to N nodes in the worst case, which also takes O(N) space.
