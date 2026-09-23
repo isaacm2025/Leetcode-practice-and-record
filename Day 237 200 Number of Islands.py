@@ -27,6 +27,7 @@ grid[i][j] is '0' or '1'.
 '''
 
 #dfs
+from collections import deque
 from typing import List
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -47,3 +48,30 @@ class Solution:
         return islands
 #time complexity: O(M*N) where M is the number of rows and N is the number of columns in the grid. Each cell is visited once.
 #space complexity: O(M*N) in the worst case where the grid is filled with land, and the recursion stack will go as deep as M*N.
+
+#bfs
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+        ROWS, COLS =len(grid), len(grid[0])
+        islands = 0
+        def bfs(r, c):
+            q = deque()
+            grid[r][c] = '0'
+            q.append((r, c))
+            while q:
+                row, col = q.popleft()
+                for dr, dc in directions:
+                    nr, nc = row + dr, col + dc
+                    if (nr < 0 or nc < 0 or nr >= ROWS or nc >= COLS or grid[nr][nc] == '0'):
+                        continue
+                    q.append((nr, nc))
+                    grid[nr][nc] = '0'
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == '1':
+                    bfs(r, c)
+                    islands += 1
+        return islands
+#time complexity: O(M*N) where M is the number of rows and N is the number of columns in the grid. Each cell is visited once.
+#space complexity: O(min(M, N)) in the worst case where the grid is filled with land, and the queue will contain at most min(M, N) elements.
