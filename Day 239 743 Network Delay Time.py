@@ -59,3 +59,28 @@ class Solution:
         return maxDist if maxDist < float('inf') else - 1   
 #time complexity: O(V * E) where V is the number of vertices and E is the number of edges. In the worst case, we may have to relax all edges for each vertex, leading to a time complexity of O(V * E).
 #space complexity: O(V) where V is the number of vertices. We use a distance array of size V to keep track of the minimum time to reach each node, which requires O(V) space. Therefore, the overall space complexity is O(V).
+
+#dijkstra
+from collections import defaultdict
+import heapq
+from typing import List
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        edges = defaultdict(list)
+        for u, v, w in times:
+            edges[u].append((v, w))
+        minHeap = [(0, k)]
+        visit = set()
+        t = 0
+        while minHeap:
+            w1, n1 = heapq.heappop(minHeap)
+            if n1 in visit:
+                continue
+            visit.add(n1)
+            t = max(t, w1)
+            for n2, w2 in edges[n1]:
+                if n2 not in visit:
+                    heapq.heappush(minHeap, (w1 + w2, n2))
+        return t if len(visit) == n else -1
+#time complexity: O(E log V) where E is the number of edges and V is the number of vertices. In the worst case, we may have to process all edges in the graph, and for each edge, we perform a heap operation that takes O(log V) time. Therefore, the overall time complexity is O(E log V).
+#space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a min-heap to keep track of the nodes to be processed, which can contain at most V nodes in the worst case. Therefore, the overall space complexity is O(V + E).
