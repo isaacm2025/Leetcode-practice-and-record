@@ -54,3 +54,32 @@ class Solution:
         return output
 #time complexity: O(v + e) where v is the number of courses and e is the number of prerequisites. Each course and prerequisite is visited once.
 #space complexity: O(v + e) for the adjacency list and the recursion stack.
+
+#topological sort
+from typing import List
+from collections import deque
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        indegree = [0] * numCourses
+        adj = [[] for i in range(numCourses)]
+        for src, dst in prerequisites:
+            indegree[dst] += 1
+            adj[src].append(dst)
+        q = deque()
+        for n in range(numCourses):
+            if indegree[n] == 0:
+                q.append(n)
+        finish, output = 0, []
+        while q:
+            node = q.popleft()
+            finish += 1
+            output.append(node)
+            for n in adj[node]:
+                indegree[n] -= 1
+                if indegree[n] == 0:
+                    q.append(n)
+        if finish != numCourses:
+            return []
+        return output[::-1]
+#time complexity: O(v + e) where v is the number of courses and e is the number of prerequisites. Each course and prerequisite is visited once.
+#space complexity: O(v + e) for the adjacency list and the queue.
