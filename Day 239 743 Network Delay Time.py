@@ -45,3 +45,17 @@ class Solution:
 #time complexity: O(E + V) where E is the number of edges and V is the number of vertices. In the worst case, we may have to traverse all edges and vertices in the graph, leading to a time complexity of O(E + V).
 #space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a distance dictionary of size V to keep track of the minimum time to reach each node, which also requires O(V) space. Therefore, the overall space complexity is O(V + E).
 
+#bellman ford
+from typing import List
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        dist = [float('inf')] * (n)
+        dist[k - 1] = 0
+        for _ in range(n - 1):
+            for u, v, w in times:
+                if dist[u - 1] + w < dist[v - 1]:
+                    dist[v - 1] = dist[u - 1] + w
+        maxDist = max(dist)
+        return maxDist if maxDist < float('inf') else - 1   
+#time complexity: O(V * E) where V is the number of vertices and E is the number of edges. In the worst case, we may have to relax all edges for each vertex, leading to a time complexity of O(V * E).
+#space complexity: O(V) where V is the number of vertices. We use a distance array of size V to keep track of the minimum time to reach each node, which requires O(V) space. Therefore, the overall space complexity is O(V).
