@@ -56,3 +56,39 @@ class Solution:
         return []
 #time complexity: O(E * (V + E)) where E is the number of edges and V is the number of vertices. In the worst case, we may have to traverse all edges for each edge addition, leading to a time complexity of O(E * (V + E)).
 #space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a visited array of size V to keep track of visited nodes during DFS, which also requires O(V) space. Therefore, the overall space complexity is O(V + E).
+
+#dfs optimized
+from typing import List
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        n = len(edges)
+        adj = [[] for _ in range(n + 1)]
+        for a, b in edges:
+            adj[a].append(b)
+            adj[b].append(a)
+        visit = [False] * (n + 1)
+        cycle = set()
+        cycleStart = -1
+        def dfs(node, par):
+            nonlocal cycleStart
+            if visit[node]:
+                cycleStart = node
+                return True
+            visit[node] = True
+            for nei in adj[node]:
+                if nei == par:
+                    continue
+                if dfs(nei, node):
+                    if cycleStart != -1:
+                        cycle.add(node)
+                    if node == cycleStart:
+                        cycleStart = -1
+                    return True
+            return False
+        dfs(1, -1)
+        for a, b in reversed(edges):
+            if a in cycle and b in cycle:
+                return [a, b]
+        return []
+#time complexity: O(V + E) where V is the number of vertices and E is the number of edges. We perform a single DFS traversal of the graph, which takes O(V + E) time. After that, we iterate through the edges in reverse order, which takes O(E) time. Therefore, the overall time complexity is O(V + E).
+#space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a visited array of size V to keep track of visited nodes during DFS, which also requires O(V) space. We also use a set to store the nodes in the cycle, which can take up to O(V) space in the worst case. Therefore, the overall space complexity is O(V + E).
