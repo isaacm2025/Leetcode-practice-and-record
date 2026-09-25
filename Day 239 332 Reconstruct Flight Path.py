@@ -61,3 +61,23 @@ class Solution:
         return res
 #time complexity: O(E * V) where E is the number of edges (tickets) and V is the number of vertices (airports). In the worst case, we may have to explore all edges for each vertex, leading to a time complexity of O(E * V).
 #space complexity: O(V + E) where V is the number of vertices (airports) and E is the number of edges (tickets). We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a result list to store the itinerary, which requires O(V) space. Therefore, the overall space complexity is O(V + E).
+
+#iterative dfs
+from collections import defaultdict
+from typing import List
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets)[::-1]:
+            adj[src].append(dst)
+        stack = ["JFK"]
+        res = []
+        while stack:
+            curr = stack[-1]
+            if not adj[curr]:
+                res.append(stack.pop())
+            else:
+                stack.append(adj[curr].pop())
+        return res[::-1]
+#time complexity: O(E * log E) where E is the number of edges (tickets). We sort the tickets initially, which takes O(E * log E) time. In the worst case, we may have to explore all edges in the graph, leading to a time complexity of O(E * log E).
+#space complexity: O(E)
