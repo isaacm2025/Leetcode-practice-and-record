@@ -77,3 +77,5 @@ class Solution:
                     prices[nei] = nextCost
                     q.append((nextCost, nei, stops + 1))
         return prices[dst] if prices[dst] != float('inf') else -1
+#time com: O(n * k)
+#space: O(n + E) where E is the number of edges in the graph
