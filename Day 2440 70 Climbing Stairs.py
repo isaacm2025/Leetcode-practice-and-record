@@ -48,3 +48,15 @@ class Solution:
         return dp[n]
 #time complexity: O(n)
 #space complexity: O(n)
+
+#dp sp op
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        one, two = 1, 2
+        for i in range(n - 1):
+            temp = one
+            one = one + two
+            two = temp
+        return one
+#time complexity: O(n)
+#space complexity: O(1)
