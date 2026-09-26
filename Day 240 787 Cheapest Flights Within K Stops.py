@@ -40,6 +40,7 @@ fromi != toi
 '''
 
 #bellman-ford
+from collections import deque
 from typing import List
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
@@ -56,3 +57,23 @@ class Solution:
         return -1 if prices[dst] == float('inf') else prices[dst]
 #time complexity: O(n + (k * E)) where E is the number of edges in the graph
 #space complexity: O(n) where n is the number of airports
+
+#shortest path with at most k stops
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        prices = [float('inf')] * n
+        prices[src] = 0
+        adj = [[] for _ in range(n)]
+        for u, v, cst in flights:
+            adj[u].append([v, cst])
+        q = deque([(0, src, 0)])
+        while q:
+            cst, node, stops = q.popleft()
+            if stops > k:
+                continue
+            for nei, price in adj[node]:
+                nextCost = cst + price
+                if nextCost < prices[nei]:
+                    prices[nei] = nextCost
+                    q.append((nextCost, nei, stops + 1))
+        return prices[dst] if prices[dst] != float('inf') else -1
