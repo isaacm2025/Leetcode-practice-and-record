@@ -24,6 +24,7 @@ Constraints:
 -1000 <= target <= 1000'''
 
 #recursion
+from collections import defaultdict
 from typing import List
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
@@ -32,3 +33,17 @@ class Solution:
                 return total == target
             return backtrack(i + 1, total + nums[i]) + backtrack(i + 1, total - nums[i])
         return backtrack(0, 0)
+
+#dp
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        dp = [defaultdict(int) for _ in range(n + 1)]
+        dp[0][0] = 1
+        for i in range(1, n + 1):
+            for total, count in dp[i].items():
+                dp[i + 1][total + nums[i]] += count
+                dp[i + 1][total - nums[i]] += count
+        return dp[n][target]
+#time complexity: O(n * m), where n is the length of nums and m is the range of possible sums (from -sum(nums) to sum(nums))
+#space complexity: O(n * m) for the dp array
