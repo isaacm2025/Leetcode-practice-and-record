@@ -50,3 +50,28 @@ class Solution:
         return dp[0][0]
 #time complexity: O(n * m), where n is the length of s1 and m is the length of s2
 #space complexity: O(n * m) for the dp array
+
+#dp sp op
+class Solution:
+    def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
+        m, n = len(s1), len(s2)
+        if m + n != len(s3):
+            return False
+        if n < m:
+            s1, s2 = s2, s1
+            m, n = n, m
+        dp = [False for _ in range(n + 1)]
+        dp[n] = True
+        for i in range(m, -1, -1):
+            nextDp = [False for _ in range(n + 1)]
+            if i == m:
+                nextDp[n] = True
+            for j in range(n, -1, -1):
+                if i < m and s1[i] == s3[i + j] and dp[j]:
+                    nextDp[j] = True
+                if j < n and s2[j] == s3[i + j] and nextDp[j + 1]:
+                    nextDp[j] = True
+            dp = nextDp
+        return dp[0]
+#time complexity: O(n * m), where n is the length of s1 and m is the length of s2
+#space complexity: O(n) for the dp array
