@@ -41,3 +41,21 @@ class Solution:
         return True
 #time complexity: O(n^2), where n is the number of intervals. The nested loops result in a quadratic time complexity as we compare each interval with every other interval.
 #space complexity: O(1), as we are using a constant amount of extra space for variables (A and B) regardless of the input size.
+
+#sorting
+from typing import List
+class Interval:
+    def __init__(self, start: int, end: int):
+        self.start = start
+        self.end = end
+class Solution:
+    def canAttendMeetings(self, intervals: List[Interval]) -> bool:
+        intervals.sort(key=lambda x: x.start)
+        for i in range(1, len(intervals)):
+            i1 = intervals[i - 1]
+            i2 = intervals[i]
+            if i1.end > i2.start:
+                return False
+        return True
+#time complexity: O(n log n), where n is the number of intervals. The sorting step takes O(n log n) time, and the subsequent loop to check for overlaps takes O(n) time.
+#space complexity: O(1), as we are using a constant amount of extra space for variables (i1 and i2) regardless of the input size. The sorting is done in-place, so no additional space is used for storing the sorted intervals.
