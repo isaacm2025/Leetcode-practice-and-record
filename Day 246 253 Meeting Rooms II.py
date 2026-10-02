@@ -40,3 +40,24 @@ class Solution:
         return len(minHeap)
 #time complexity: O(n log n), where n is the number of intervals. The sorting step takes O(n log n) time, and the heap operations (push and pop) take O(log n) time for each of the n intervals, resulting in a total of O(n log n) time complexity.
 #space complexity: O(n), where n is the number of intervals. In the worst case, all intervals could overlap, and we would need to store all of them in the minHeap, resulting in a space complexity of O(n).
+
+#greedy
+from typing import List
+class Interval:
+    def __init__(self, start: int, end: int):
+        self.start = start
+        self.end = end
+class Solution:
+    def minMeetingRooms(self, intervals: List[Interval]) -> int:
+        time = []
+        for i in intervals:
+            time.append((i.start, 1))
+            time.append((i.end, -1))
+        time.sort(key=lambda x: (x[0], x[1]))
+        res = count = 0
+        for t in time:
+            count += t[1]
+            res = max(res, count)
+        return res
+#time complexity: O(n log n), where n is the number of intervals. The sorting step takes O(n log n) time, and the subsequent loop to count the number of overlapping intervals takes O(n) time, resulting in a total of O(n log n) time complexity.
+#space complexity: O(n), where n is the number of intervals. In the worst case, we could have all intervals overlapping, and we would need to store all of them in the time list, resulting in a space complexity of O(n).
