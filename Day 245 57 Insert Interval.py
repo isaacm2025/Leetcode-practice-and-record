@@ -49,3 +49,21 @@ class Solution:
         return res
 #time complexity: O(n), where n is the number of intervals. We iterate through the intervals list once to find the correct position for the new interval and merge any overlapping intervals.
 #space complexity: O(n), as we create a new list res to store the resulting intervals, which in the worst case can contain all the original intervals plus the new interval.
+
+#greedy
+from typing import List
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        res = []
+        for i in range(len(intervals)):
+            if newInterval[1] < intervals[i][0]:
+                res.append(newInterval)
+                return res + intervals[i:]
+            elif newInterval[0] > intervals[i][1]:
+                res.append(intervals[i])
+            else:
+                newInterval = [min(newInterval[0], intervals[i][0]), max(newInterval[1], intervals[i][1])]
+        res.append(newInterval)
+        return res
+#time complexity: O(n), where n is the number of intervals. We iterate through the intervals list once to find the correct position for the new interval and merge any overlapping intervals.
+#space complexity: O(n), as we create a new list res to store the resulting intervals, which in the worst case can contain all the original intervals plus the new interval.
