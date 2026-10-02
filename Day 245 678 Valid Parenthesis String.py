@@ -49,3 +49,22 @@ class Solution:
         return not left
 #time complexity: O(n), where n is the length of the string s. We iterate through the string once to process the characters and then potentially iterate through the left and star stacks.
 #space complexity: O(n), as we use two stacks (left and star) to store the indices of the '(' and '*' characters, which in the worst case can both contain up to n/2 elements each.
+
+#greedy
+class Solution:
+    def checkValidString(self, s: str) -> bool:
+        leftMin , leftMax = 0, 0
+        for c in s:
+            if c == '(':
+                leftMin, leftMax = leftMin + 1, leftMax + 1
+            elif c == ')':
+                leftMin, leftMax = leftMin - 1, leftMax - 1
+            else:
+                leftMin, leftMax = leftMin - 1, leftMax + 1
+            if leftMax < 0:
+                return False
+            if leftMin < 0:
+                leftMin = 0
+        return leftMin == 0
+#time complexity: O(n), where n is the length of the string s. We iterate through the string once, performing constant time operations for each character.
+#space complexity: O(1), as we use a fixed amount of extra space regardless of the input size. We only maintain two integer variables (leftMin and leftMax) to track the range of possible unmatched left parentheses.
