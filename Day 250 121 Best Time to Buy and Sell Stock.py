@@ -37,3 +37,20 @@ class Solution:
         return res
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+#two pointer
+from typing import List
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        l, r = 0, 1
+        maxP = 0
+        while r < len(prices):
+            if prices[l] < prices[r]:
+                profit = prices[r] - prices[l]
+                maxP = max(maxP, profit)
+            else:
+                l = r
+            r += 1
+        return maxP
+#time complexity: O(n)
+#space complexity: O(1)
