@@ -38,3 +38,20 @@ class Solution:
         return res
 #time complexity: O(n * m), m is the total number of unique characters in the string
 #space complexity: O(n)
+
+#sw op
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        count = {}
+        res = l = 0
+        maxf = 0
+        for r in range(len(s)):
+            count[s[r]] = 1 + count.get(s[r], 0)
+            maxf = max(maxf, count[s[r]])
+            while (r - l + 1) - maxf > k:
+                count[s[l]] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+#time complexity: O(n)
+#space complexity: O(n)
