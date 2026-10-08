@@ -31,3 +31,21 @@ class Solution:
         return res
 #time complexity: O(n) where n is the length of the input array temperatures. Each element is pushed and popped from the stack at most once.
 #space complexity: O(n) where n is the length of the input array temperatures. In the worst case, all elements could be pushed onto the stack if the temperatures are in decreasing order.
+
+#dp
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        res = [0] * n
+        for i in range(n - 2, -1, -1):
+            j = i + 1
+            while j < n and temperatures[j] <= temperatures[i]:
+                if res[j] > 0:
+                    j += res[j]
+                else:
+                    j = n
+            if j < n:
+                res[i] = j - i
+        return res  
+#time complexity: O(n) where n is the length of the input array temperatures. Each element is processed at most once.
+#space complexity: O(n) where n is the length of the input array temperatures. The result array is used to store the number of days until a warmer temperature for each day.
