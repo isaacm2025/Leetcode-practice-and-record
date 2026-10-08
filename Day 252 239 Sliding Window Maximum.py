@@ -24,6 +24,7 @@ Constraints:
 '''
 
 #bf
+from collections import deque
 import heapq
 from typing import List
 class Solution:
@@ -52,3 +53,24 @@ class Solution:
         return output
 #time complexity: O(n log k) where n is the length of the input array nums and k is the size of the sliding window. We iterate through the array and for each element, we perform a heap push and pop operation which takes O(log k) time.
 #space complexity: O(k) where k is the size of the sliding window. We use a heap to store the elements in the current window, which can contain at most k elements.
+
+#deque
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        output = []
+        q = deque()
+        l = r = 0
+        while r < len(nums):
+            while q and nums[q[-1]] < nums[r]:
+                q.pop()
+            q.append(r)
+            if l > q[0]:
+                q.popleft()
+            if (r + 1) >= k:
+                output.append(nums[q[0]])
+                l += 1
+            r += 1
+        return output
+#time complexity: O(n) where n is the length of the input array nums. We iterate through the array once, and each element is added and removed from the deque at most once.
+#space complexity: O(k) where k is the size of the sliding window. We use a deque to store the indices of the elements in the current window, which can contain at most k elements.
