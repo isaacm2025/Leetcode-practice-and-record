@@ -36,3 +36,20 @@ class Solution:
         return s == ""
 #time complexity: O(n^2) where n is the length of the input string s
 #space complexity: O(n) where n is the length of the input string s. We use a new string to store the modified version of s after each replacement.
+
+#stack
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        mapping = {")": "(", "}": "{", "]": "["}
+        for c in s:
+            if c in mapping:
+                if stack and stack[-1] == mapping[c]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(c)
+        return True if not stack else False
+#time complexity: O(n) where n is the length of the input string s. We iterate through the string once, and each character is pushed and popped from the stack at most once.
+#space complexity: O(n) where n is the length of the input string s. In the worst case, we may need to store all the characters in the stack if they are all opening brackets.
