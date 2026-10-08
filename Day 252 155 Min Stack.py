@@ -61,3 +61,22 @@ class MinStack:
         return mini
 #time complexity: O(n) where n is the number of elements in the stack. The getMin function iterates through the entire stack to find the minimum element.
 #space complexity: O(n) where n is the number of elements in the stack. We use an additional stack to store the elements while finding the minimum element.
+
+#two stacks
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        val = min(val, self.minStack[-1] if self.minStack else val)
+        self.minStack.append(val)
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minStack.pop()
+    def top(self) -> int:
+        return self.stack[-1]
+    def getMin(self) -> int:
+        return self.minStack[-1]
+#time complexity: O(1) for all operations. Each operation (push, pop, top, getMin) takes constant time.
+#space complexity: O(n) where n is the number of elements in the stack. We use an additional stack to store the minimum elements, which can contain at most n elements in the worst case.
