@@ -34,7 +34,7 @@ class Solution:
     def search(self, nums: List[int], target: int) -> int:
         l, r = 0, len(nums) - 1
         while l <= r:
-            m = l + ((r - l) // 2)
+            m = l + ((r - l) // 2) #//2 because of integer division, ensures we get the middle index, l + ((r - l) // 2) is used to avoid potential overflow issues that can occur with (l + r) // 2 in some programming languages.
             if nums[m] > target:
                 r = m - 1
             elif nums[m] < target:
