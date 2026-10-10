@@ -46,3 +46,24 @@ class Solution:
             return list2
 #time complexity: O(n+m)
 #space complexity: O(n+m)
+
+#iteration
+class ListNode:
+    def __init__(self, val = 0, next = None):
+        self.val = val
+        self.next = next
+class Solution:
+    def mergeTwoLists(self, list1: ListNode, list2: ListNode) -> ListNode:
+        dummy = node = ListNode() #create a dummy node to serve as the starting point of the merged list. This simplifies the logic for adding nodes to the merged list, as we always have a non-null node to work with.
+        while list1 and list2: #while both lists have nodes to process, we compare
+            if list1.val < list2.val:
+                node.next = list1 #link the smaller node to the merged list, effectively adding it to the end of the merged list.
+                list1 = list1.next #move the pointer of list1 to the next node, effectively removing the node we just added to the merged list from list1.
+            else:
+                node.next = list2 #link the smaller node to the merged list, effectively adding it to the end of the merged list.
+                list2 = list2.next
+            node = node.next #move the pointer of the merged list to the next node, effectively
+        node.next = list1 or list2
+        return dummy.next #return the next node of the dummy, which is the head of the merged list.
+#time complexity: O(n+m)
+#space complexity: O(1)
