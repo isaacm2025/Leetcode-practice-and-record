@@ -33,3 +33,16 @@ class Solution:
         return newHead
 #time complexity: O(n)
 #space complexity: O(n)
+
+#iteration  
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        prev, curr = None, head
+        while curr:
+            tmp = curr.next #store the next node
+            curr.next = prev #reverse the link, why? because we want to point the current node to the previous node, effectively reversing the direction of the list.
+            prev = curr #move prev to current
+            curr = tmp #move curr to next node
+        return prev
+#time complexity: O(n)
+#space complexity: O(1)
