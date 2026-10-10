@@ -35,14 +35,28 @@ class ListNode:
         self.next = next
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
-        seen = set()
-        cur = head
+        seen = set() #create a set to keep track of the nodes we have already visited. This allows us to efficiently check for cycles in the linked list.
+        cur = head #initialize a pointer cur to traverse the linked list starting from the head node.
         while cur:
             if cur in seen:
                 return True
-            seen.add(cur)
+            seen.add(cur) #add the current node to the set of visited nodes.
             cur = cur.next
-        return False
+        return False 
 #time complexity: O(n)
 #space complexity: O(n)
 
+
+
+#two pointer
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        slow, fast = head, head
+        while fast and fast.next: #the loop continues as long as fast and fast.next are not None. This ensures that we don't encounter a NoneType error when trying to access fast.next.next.
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast: #if the slow and fast pointers meet, it indicates that there is a cycle in the linked list. This is because the fast pointer moves at twice the speed of the slow pointer, so if there is a cycle, they will eventually meet at some point within the cycle.
+                return True
+        return False
+#time complexity: O(n)
+#space complexity: O(1)
