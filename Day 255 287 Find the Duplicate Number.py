@@ -47,7 +47,21 @@ class Solution:
         for num in nums:
             if num in seen:
                 return num
-            seen.add(num)
+            seen.add(num) # add the number to the set
+        return -1 #return -1 if no duplicate is found
+#time complexity: O(n)
+#space complexity: O(n)
+
+
+#array
+from typing import List
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        seen = [0] * len(nums) # create an array of size n + 1, initialized with 0
+        for num in nums:
+            if seen[num - 1]:
+                return num
+            seen[num - 1] = 1
         return -1
 #time complexity: O(n)
 #space complexity: O(n)
