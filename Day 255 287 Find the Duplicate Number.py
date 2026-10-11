@@ -72,15 +72,15 @@ class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         slow, fast = 0, 0
         while True:
-            slow = nums[slow]
-            fast = nums[nums[fast]]
+            slow = nums[slow] #move slow pointer by one step, why need to use nums[slow]? because the value of the element at index slow is the next index to move to, why dont use slow.next? because the input is an array, not a linked list
+            fast = nums[nums[fast]] #move fast pointer by two steps
             if slow == fast:
                 break
-        slow2 = 0
+        slow2 = 0 #initialize a new pointer slow2 to the start of the array
         while True:
             slow = nums[slow]
             slow2 = nums[slow2]
             if slow == slow2:
-                return slow
+                return slow #return the value of the duplicate number
 #time complexity: O(n)
 #space complexity: O(1)
