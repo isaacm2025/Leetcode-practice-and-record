@@ -30,21 +30,21 @@ class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
-        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
+        return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right)) #return the maximum depth of the left and right subtrees, plus 1 for the current node
 #time complexity: O(n)
 #space complexity: O(n)
 
 #stack
 class Solution:
     def maxDepth(self, root: TreeNode) -> int:
-        stack = [[root, 1]]
+        stack = [[root, 1]] #initialize a stack with the root node and its depth (1)
         res = 0
         while stack:
-            node, depth = stack.pop()
+            node, depth = stack.pop() #pop a node and its depth from the stack
             if node:
-                res = max(res, depth)
-                stack.append([node.left, depth + 1])
-                stack.append([node.right, depth + 1])
+                res = max(res, depth) #update the maximum depth if the current depth is greater
+                stack.append([node.left, depth + 1]) #push the left child and its depth (current depth + 1) onto the stack
+                stack.append([node.right, depth + 1]) #push the right child and its depth (current depth + 1) onto the stack
         return res
 #time complexity: O(n)
 #space complexity: O(n)
