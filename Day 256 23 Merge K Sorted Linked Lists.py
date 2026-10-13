@@ -58,7 +58,7 @@ class Solution:
             for i in range(len(lists)):
                 if not lists[i]:
                     continue
-                if minNode == -1 or lists[minNode].val > lists[i].val:
+                if minNode == -1 or lists[minNode].val > lists[i].val: # if minNode is -1, it means we haven't found any non-empty list yet, so we set minNode to the current index i. If minNode is not -1, we compare the values of the current list and the list at minNode to find the smallest value.
                     minNode = i
             if minNode == -1:
                 break

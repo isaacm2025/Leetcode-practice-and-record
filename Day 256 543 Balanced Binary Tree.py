@@ -37,11 +37,11 @@ class TreeNode:
 class Solution:
     def isBalanced(self, root: TreeNode) -> bool:
         def dfs(root):
-            if not root:
-                return [True, 0]
-            left, right = dfs(root.left), dfs(root.right)
-            balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1
-            return [balanced, 1 + max(left[1], right[1])]
-        return dfs(root)[0]
+            if not root: # if the current node is None, it is balanced and has height 0
+                return [True, 0] # return a list with two elements: [is_balanced, height]
+            left, right = dfs(root.left), dfs(root.right) # recursively check the left and right subtrees
+            balanced = left[0] and right[0] and abs(left[1] - right[1]) <= 1 # the current node is balanced if both subtrees are balanced and their heights differ by at most 1
+            return [balanced, 1 + max(left[1], right[1])] # return a list with two elements: [is_balanced, height], where height is 1 plus the maximum height of the left and right subtrees
+        return dfs(root)[0] # return the first element of the list returned by dfs, which indicates whether the tree is balanced or not
 #time complexity: O(n)
 #space complexity: O(n)
