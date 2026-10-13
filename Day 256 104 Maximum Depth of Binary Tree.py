@@ -33,3 +33,18 @@ class Solution:
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 #time complexity: O(n)
 #space complexity: O(n)
+
+#stack
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        stack = [[root, 1]]
+        res = 0
+        while stack:
+            node, depth = stack.pop()
+            if node:
+                res = max(res, depth)
+                stack.append([node.left, depth + 1])
+                stack.append([node.right, depth + 1])
+        return res
+#time complexity: O(n)
+#space complexity: O(n)
