@@ -48,3 +48,18 @@ class Solution:
         return res[k - 1]
 #time complexity: O(nlogn)
 #space complexity: O(n)
+
+#inorder
+class Solution:
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        res = []
+        def dfs(node):
+            if not node:
+                return
+            dfs(node.left)
+            res.append(node.val)
+            dfs(node.right)
+        dfs(root)
+        return res[k - 1]
+#time complexity: O(n)
+#space complexity: O(n)
