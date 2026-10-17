@@ -42,3 +42,19 @@ class Solution:
         return stones[0] if stones else 0
 #time complexity: O(n^2 * logn), n^2 for sorting and n for popping
 #space complexity: O(1)
+
+#heap
+import heapq
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        stones = [-s for s in stones]
+        heapq.heapify(stones)
+        while len(stones) > 1:
+            first = heapq.heappop(stones)
+            second = heapq.heappop(stones)
+            if second > first:
+                heapq.heappush(stones, first - second)
+        stones.append(0)
+        return abs(stones[0])
+#time complexity: O(nlogn), n for heapify and logn for popping and pushing
+#space complexity: O(n)
