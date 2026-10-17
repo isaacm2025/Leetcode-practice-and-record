@@ -31,3 +31,20 @@ class Solution:
         return perms
 #time complexity: O(n^2 *n!), where n is the length of nums
 #space complexity: O(n^2 *n!), where n is the length of nums
+
+#backtracking op
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        self.res = []
+        self.backtrack(nums, 0)
+        return self.res
+    def backtrack(self, nums: List[int], idx: int):
+        if idx == len(nums):
+            self.res.append(nums[:])
+            return
+        for i in range(idx, len(nums)):
+            nums[idx], nums[i] = nums[i], nums[idx]
+            self.backtrack(nums, idx + 1)
+            nums[idx], nums[i] = nums[i], nums[idx]
+#time complexity: O(n! * n), where n is the length of nums
+#space complexity: O(n * n!), where n is the length of nums
