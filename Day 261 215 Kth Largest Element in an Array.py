@@ -28,3 +28,11 @@ class Solution:
         return nums[-k]
 #time complexity: O(nlogn), n for sorting
 #space complexity: O(1)
+
+#min heap
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return heapq.nlargest(k, nums)[-1]
+#time complexity: O(nlogk), n for iterating through nums and logk for pushing and popping from heap
+#space complexity: O(k), for storing k largest elements in heap
