@@ -66,3 +66,27 @@ class Solution:
         return dfs(node) if node else None
 #time complexity is O(N) where N is number of nodes in the graph
 #space complexity is O(N) where N is number of nodes in the graph
+
+#bfs
+from collections import deque
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return None
+        oldToNew = {}
+        oldToNew[node] = Node(node.val)
+        q = deque([node])
+        while q:
+            cur = q.popleft()
+            for nei in cur.neighbors:
+                if nei not in oldToNew:
+                    oldToNew[nei] = Node(nei.val)
+                    q.append(nei)
+                oldToNew[cur].neighbors.append(oldToNew[nei])
+        return oldToNew[node]
+#time complexity is O(N) where N is number of nodes in the graph
+#space complexity is O(N) where N is number of nodes in the graph
