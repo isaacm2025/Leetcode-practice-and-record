@@ -55,3 +55,29 @@ class Solution:
         return dfs(0, -1) and len(visited) == n
 #time complexity: O(V + E) where V is the number of nodes and E is the number of edges. We visit each node and each edge once.
 #space complexity: O(V + E) for the adjacency list and the visited set.
+
+#bfs
+from collections import deque
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) > n - 1:
+            return False
+        adj = [[] for _ in range(n)]
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        visit = set()
+        q = deque([(0, -1)])
+        visit.add(0)
+        while q:
+            node, parent = q.popleft()
+            for nei in adj[node]:
+                if nei == parent:
+                    continue
+                if nei in visit:
+                    return False
+                visit.add(nei)
+                q.append((nei, node))
+        return len(visit) == n
+#time complexity: O(V + E) where V is the number of nodes and E is the number of edges. We visit each node and each edge once.
+#space complexity: O(V + E) for the adjacency list, the visited set, and the queue.
