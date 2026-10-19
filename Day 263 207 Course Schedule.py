@@ -58,3 +58,29 @@ class Solution:
         return finish == numCourses
 #time complexity: O(V + E) where V is the number of courses and E is the number of prerequisites. We visit each course and each prerequisite once.
 #space complexity: O(V + E) for the adjacency list and the indegree array.
+
+#dfs
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        preMap = {i: [] for i in range(numCourses)}
+        for crs, pre in prerequisites:
+            preMap[crs].append(pre)
+        visiting = set()
+        def dfs(crs):
+            if crs in visiting:
+                return False
+            if preMap[crs] == []:
+                return True
+            visiting.add(crs)
+            for pre in preMap[crs]:
+                if not dfs(pre):
+                    return False
+            visiting.remove(crs)
+            preMap[crs] = []
+            return True
+        for crs in range(numCourses):
+            if not dfs(crs):
+                return False
+        return True
+#time complexity: O(V + E) where V is the number of courses and E is the number of prerequisites. We visit each course and each prerequisite once.
+#space complexity: O(V + E) for the adjacency list and the recursion stack in the worst case.
