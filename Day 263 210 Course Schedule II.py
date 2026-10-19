@@ -55,3 +55,26 @@ class Solution:
         return output
 #time complexity: O(V + E) where V is the number of courses and E is the number of prerequisites. We visit each course and each prerequisite once.
 #space complexity: O(V + E) for the adjacency list and the recursion stack in the worst case.
+
+#topological sort
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        adj = [[] for i in range(numCourses)]
+        indegree = [0] * numCourses
+        for nxt, pre in prerequisites:
+            adj[pre].append(nxt)
+            indegree[nxt] += 1
+        output = []
+        def dfs(node):
+            output.append(node)
+            indegree[node] -= 1
+            for nei in adj[node]:
+                indegree[nei] -= 1
+                if indegree[nei] == 0:
+                    dfs(nei)
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                dfs(i)
+        return output if len(output) == numCourses else []
+#time complexity: O(V + E) where V is the number of courses and E is the number of prerequisites. We visit each course and each prerequisite once.
+#space complexity: O(V + E) for the adjacency list and the indegree array.
