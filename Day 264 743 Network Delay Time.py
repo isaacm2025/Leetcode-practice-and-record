@@ -27,6 +27,7 @@ Constraints:
 
 #dfs
 from collections import defaultdict
+import heapq
 from typing import List
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
@@ -85,3 +86,29 @@ class Solution:
         return res if res < float('inf') else -1
 #time complexity: O(E + V) where E is the number of edges and V is the number of vertices. In the worst case, we may visit all edges and vertices during the SPFA traversal, leading to a time complexity of O(E + V).
 #space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a distance dictionary of size V to keep track of the minimum time to reach each node, which also requires O(V) space. Therefore, the overall space complexity is O(V + E).
+
+
+#dijkstra
+from collections import defaultdict
+from heapq import heappop, heappush
+from typing import List
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        edges = defaultdict(list)
+        for u, v, w in times:
+            edges[u].append((v, w))
+        minHeap = [(0, k)]
+        visit = set()
+        t = 0
+        while minHeap:
+            time, node = heapq.heappop(minHeap)
+            if node in visit:
+                continue
+            visit.add(node)
+            t = time
+            for v, w in edges[node]:
+                if v not in visit:
+                    heapq.heappush(minHeap, (time + w, v))
+        return t if len(visit) == n else -1
+#time complexity: O(E log V) where E is the number of edges and V is the number of vertices. In the worst case, we may have to process all edges and vertices in the priority queue, leading to a time complexity of O(E log V).
+#space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a priority queue to keep track of the nodes to be processed, which requires O(V) space in the worst case. Therefore, the overall space complexity is O(V + E).
