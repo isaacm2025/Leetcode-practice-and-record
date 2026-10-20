@@ -61,3 +61,27 @@ class Solution:
         return maxDist if maxDist < float('inf') else -1
 #time complexity: O(V * E) where V is the number of vertices and E is the number of edges. In the worst case, we may have to relax all edges for each vertex, leading to a time complexity of O(V * E).
 #space complexity: O(V) where V is the number of vertices. We use a distance array of size V to keep track of the minimum time to reach each node, which requires O(V) space. Therefore, the overall space complexity is O(V).
+
+#shortest path faster algorithm (SPFA)
+from collections import defaultdict, deque
+from typing import List
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        adj = defaultdict(list)
+        for u, v, w in times:
+            adj[u].append((v, w))
+        dist = {node: float('inf') for node in range(1, n + 1)}
+        q = deque([(k, 0)])
+        dist[k] = 0
+        while q:
+            node, time = q.popleft()
+            if time > dist[node]:
+                continue
+            for nei, w in adj[node]:
+                if time + w < dist[nei]:
+                    dist[nei] = time + w
+                    q.append((nei, time + w))
+        res = max(dist.values())
+        return res if res < float('inf') else -1
+#time complexity: O(E + V) where E is the number of edges and V is the number of vertices. In the worst case, we may visit all edges and vertices during the SPFA traversal, leading to a time complexity of O(E + V).
+#space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a distance dictionary of size V to keep track of the minimum time to reach each node, which also requires O(V) space. Therefore, the overall space complexity is O(V + E).
