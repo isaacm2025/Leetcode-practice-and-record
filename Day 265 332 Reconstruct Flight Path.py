@@ -61,4 +61,21 @@ class Solution:
         return res
 #time complexity: O(E + V) where E is the number of edges and V is the number of vertices. In the worst case, we may visit all edges and vertices during the DFS traversal, leading to a time complexity of O(E + V).   
 #space complexity: O(V + E) where V is the number of vertices and E is the number of edges. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a result list of size V to keep track of the flight path, which also requires O(V) space. Therefore, the overall space complexity is O(V + E).
-                
+
+
+#recursion
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets)[::-1]:
+            adj[src].append(dst)
+        res = []
+        def dfs(src):
+            while adj[src]:
+                dst = adj[src].pop()
+                dfs(dst)
+            res.append(src)
+        dfs("JFK")
+        return res[::-1]
+#time complexity: O(ElogE) where E is the number of edges. Sorting the tickets takes O(E log E) time, and the DFS traversal takes O(E) time. Therefore, the overall time complexity is O(E log E).
+#space complexity: O(E) 
