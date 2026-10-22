@@ -48,3 +48,21 @@ class Solution:
         return -1
 #time complexity: O(E * log(V)) where E is the number of flights and V is the number of airports. In the worst case, we may visit all edges in the graph, and for each edge, we perform a heap operation that takes O(log(V)) time.
 #space complexity: O(V + E) where V is the number of airports and E is the number of flights. We use an adjacency list to store the graph, which requires O(V + E) space. Additionally, we use a distance array of size V * (k + 5) to keep track of the minimum costs, which also requires O(V * (k + 5)) space.
+
+
+#bellman-ford
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        prices = [float('inf')] * n
+        prices[src] = 0
+        for i in range(k + 1):
+            tmpPrices = prices.copy()
+            for s, d, p in flights:
+                if prices[s] == float('inf'):
+                    continue
+                if prices[s] + p < tmpPrices[d]:
+                    tmpPrices[d] = prices[s] + p
+            prices = tmpPrices
+        return -1 if prices[dst] == float('inf') else prices[dst]
+#time complexity: O(n + m * k) where n is the number of airports, m is the number of flights, and k is the maximum number of stops. We iterate through the flights k + 1 times, leading to a time complexity of O(m * k).
+#space complexity: O(n) for the prices array, where n is the number of airports
