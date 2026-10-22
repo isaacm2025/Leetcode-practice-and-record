@@ -35,4 +35,18 @@ class Solution:
             return dfs(i + 1) + dfs(i + 2)
         return dfs(0)
 #time complexity: O(2^n) where n is the number of steps. In the worst case, we may explore all possible combinations of steps, leading to an exponential time complexity.
-#space complexity: O(n) where n is the number of steps. The maximum depth of
+#space complexity: O(n) where n is the number of steps. The maximum depth of the recursion stack can go up to n in the worst case, leading to a space complexity of O(n).
+
+#dynamic programming
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        if n <= 2:
+            return n
+        dp = [0] * (n + 1)
+        dp[1] = 1
+        dp[2] = 2
+        for i in range(3, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2]
+        return dp[n]
+#time complexity: O(n) where n is the number of steps. We iterate through the range from 3 to n, performing constant time operations for each step, leading to a linear time complexity.
+#space complexity: O(n) where n is the number of steps. We use an array dp of size n + 1 to store the number of distinct ways to reach each step, leading to a space complexity of O(n).
