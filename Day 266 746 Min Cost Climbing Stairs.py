@@ -56,3 +56,12 @@ class Solution:
         return min(dfs(0), dfs(1))
 #time complexity: O(n)
 #space complexity: O(n)
+
+#sp op
+class Solution:
+    def minCostClimbing(self, cost: List[int]) -> int:
+        for i in range(len(cost) - 3, -1, -1):
+            cost[i] += min(cost[i + 1], cost[i + 2])
+        return min(cost[0], cost[1])
+#time complexity: O(n)
+#space complexity: O(1)
