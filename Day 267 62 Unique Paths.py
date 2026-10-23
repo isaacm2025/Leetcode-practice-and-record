@@ -33,3 +33,19 @@ class Solution:
         return dp[0]
 #time complexity: O(m*n) where m is the number of rows and n is the number of columns
 #space complexity: O(n) where n is the number of columns
+
+#math
+class Solution:
+    def unique(self, m: int, n: int) -> int:
+        if m == 1 or n == 1:
+            return 1
+        if m < n:
+            m, n = n, m
+        res = j = 1
+        for i in range(m, m + n - 1):
+            res *= i
+            res //= j
+            j += 1
+        return res
+#time complexity: O(m) where m is the number of rows
+#space complexity: O(1)
