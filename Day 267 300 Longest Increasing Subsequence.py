@@ -34,3 +34,15 @@ class Solution:
         return dfs(0, -1)
 #time complexity: O(2^n) where n is the length of nums
 #space complexity: O(n) where n is the length of nums
+
+#dp
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = [1] * len(nums)
+        for i in range(len(nums) - 1, -1, -1):
+            for j in range(i + 1, len(nums)):
+                if nums[i] < nums[j]:
+                    dp[i] = max(dp[i], 1 + dp[j])
+        return max(dp)
+#time complexity: O(n^2) where n is the length of nums
+#space complexity: O(n) where n is the length of nums
