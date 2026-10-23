@@ -40,3 +40,23 @@ class Solution:
         return False
 #time complexity: O(n*target) where n is the length of nums and target is the sum of nums divided by 2
 #space complexity: O(target) where target is the sum of nums divided by 2
+
+#sp op
+class Solution:
+    def canPart(self, nums: List[int]) -> bool:
+        if sum(nums) % 2:
+            return False
+        target = sum(nums) // 2
+        dp = [False] * (target + 1)
+        nextDp = [False] * (target + 1)
+        dp[0] = True
+        for i in range(len(nums)):
+            for t in range(1, target + 1):
+                if t >= nums[i]:
+                    nextDp[t] = dp[t] or dp[t - nums[i]]
+                else:
+                    nextDp[t] = dp[t]
+            dp, nextDp = nextDp, dp
+        return dp[target]
+#time complexity: O(n*target) where n is the length of nums and target is the sum of nums divided by 2
+#space complexity: O(target) where target is the sum of nums divided by 2
