@@ -39,3 +39,17 @@ class Solution:
         return dfs(0, 0)
 #time complexity: O(2^(m+n)) where m and n are the lengths of text1 and text2 respectively. In the worst case, we have two choices at each step, leading to an exponential number of recursive calls.
 #space complexity: O(m+n) for the recursion stack, where m and n are the lengths of text1 and text2 respectively. In the worst case, the maximum depth of the recursion tree can be m+n.
+
+#dp
+class Solution:
+    def longest(self, text1: str, text2: str) -> int:
+        dp = [[0 for j in range(len(text2) + 1)] for i in range(len(text1) + 1)]
+        for i in range(len(text1) - 1, -1, -1):
+            for j in range(len(text2) - 1, -1, -1):
+                if text1[i] == text2[j]:
+                    dp[i][j] = 1 + dp[i + 1][j + 1]
+                else:
+                    dp[i][j] = max(dp[i][j + 1], dp[i + 1][j])
+        return dp[0][0]
+#time complexity: O(m*n) where m and n are the lengths of text1 and text2 respectively. We fill a 2D array of size m*n, and each cell takes constant time to compute.
+#space complexity: O(m*n) for the 2D array dp
