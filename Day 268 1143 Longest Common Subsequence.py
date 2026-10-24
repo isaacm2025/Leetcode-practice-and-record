@@ -53,3 +53,21 @@ class Solution:
         return dp[0][0]
 #time complexity: O(m*n) where m and n are the lengths of text1 and text2 respectively. We fill a 2D array of size m*n, and each cell takes constant time to compute.
 #space complexity: O(m*n) for the 2D array dp
+
+#sp op
+class Solution:
+    def longest(self, text1: str, text2: str) -> int:
+        if len(text1) < len(text2):
+            text1, text2 = text2, text1
+        prev = [0] * (len(text2) + 1)
+        curr = [0] * (len(text2) + 1)
+        for i in range(len(text1) -1, -1, -1):
+            for j in range(len(text2) - 1, -1, -1):
+                if text1[i] == text2[j]:
+                    curr[j] = 1 + prev[j + 1]
+                else:
+                    curr[j] = max(curr[j + 1], prev[j])
+            prev, curr= curr, prev
+        return prev[0]
+#time complexity: O(m*n) where m and n are the lengths of text1 and text2 respectively. We fill a 2D array of size m*n, and each cell takes constant time to compute.
+#space complexity: O(n) where n is the length of the shorter string. We only need to store two rows of the DP table at any time, so we can reduce the space complexity to O(n) by using two 1D arrays instead of a 2D array.
