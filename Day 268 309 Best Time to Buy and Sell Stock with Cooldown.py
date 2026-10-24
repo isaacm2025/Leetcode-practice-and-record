@@ -63,3 +63,17 @@ class Solution:
         return dfs(0, True)
 #time complexity: O(n) where n is the length of prices. Each state (i, buying) is computed at most once and stored in the dp dictionary.
 #space complexity: O(n) for the dp dictionary and the recursion stack, where n is the length of prices. In the worst case, the maximum depth of the recursion tree can be n.
+
+#sp op
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        dp1Buy, dp1Sell, dp2Buy = 0, 0, 0
+        for i in range(n - 1, -1, -1):
+            dpBuy = max(dp1Sell - prices[i], dp1Buy)
+            dpSell = max(dp2Buy + prices[i], dp1Sell)
+            dp2Buy = dp1Buy
+            dp1Buy, dp1Sell = dpBuy, dpSell
+        return dp1Buy
+#time complexity: O(n) where n is the length of prices. We iterate through the prices array once, performing constant time operations for each element.
+#space complexity: O(1)
