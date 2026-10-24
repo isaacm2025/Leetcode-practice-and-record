@@ -42,3 +42,24 @@ class Solution:
         return dfs(0, True)
 #time complexity: O(2^n) where n is the length of prices. In the worst case, we have two choices at each step, leading to an exponential number of recursive calls.
 #space complexity: O(n) for the recursion stack, where n is the length of prices
+
+#dp
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        dp = {}
+        def dfs(i, buying):
+            if i >= len(prices):
+                return 0
+            if (i, buying) in dp:
+                return dp[(i, buying)]
+            cooldown = dfs(i + 1, buying)
+            if buying:
+                buy = dfs(i + 1, not buying) - prices[i]
+                dp[(i, buying)] = max(buy, cooldown)
+            else:
+                sell = dfs(i + 2, not buying) + prices[i]
+                dp[(i, buying)] = max(sell, cooldown)
+            return dp[(i, buying)]
+        return dfs(0, True)
+#time complexity: O(n) where n is the length of prices. Each state (i, buying) is computed at most once and stored in the dp dictionary.
+#space complexity: O(n) for the dp dictionary and the recursion stack, where n is the length of prices. In the worst case, the maximum depth of the recursion tree can be n.
