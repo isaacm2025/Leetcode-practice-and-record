@@ -24,6 +24,7 @@ Constraints:
 -1000 <= target <= 1000'''
 
 #recursive
+from collections import defaultdict
 from typing import List
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
@@ -34,3 +35,17 @@ class Solution:
         return dfs(0, 0)
 #time complexity: O(2^n) where n is the length of nums. In the worst case, we have two choices (add or subtract) for each number, leading to an exponential number of recursive calls.
 #space complexity: O(n) for the recursion stack, where n is the length of nums. In the worst case, the maximum depth of the recursion tree can be
+
+#dp
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        dp = [defaultdict(int) for _ in range(n + 1)]
+        dp[0][0] = 1
+        for i in range(1, n + 1):
+            for total, count in dp[i].items():
+                dp[i + 1][total + nums[i]] += count
+                dp[i + 1][total - nums[i]] += count
+        return dp[n][target]
+#time complexity: O(n * sum) where n is the length of nums and sum is the range of possible sums. We fill a 2D array of size n * sum, and each cell takes constant time to compute.
+#space complexity: O(n * sum) for the 2D array dp. We store the number of ways to achieve each total sum for each index
