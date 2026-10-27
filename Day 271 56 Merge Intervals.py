@@ -59,5 +59,5 @@ class Solution:
         if intervalStart != -1:
             res.append([intervalStart, have])
         return res
-#time complexity: O(n)
+#time complexity: O(n + m) where m is the maximum value in the intervals
 #space complexity: O(n)
