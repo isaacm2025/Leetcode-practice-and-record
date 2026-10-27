@@ -36,3 +36,22 @@ class Solution:
         return len(intervals) - dfs(0, -1)
 #time complexity: O(2^n)
 #space complexity: O(n)
+
+#dp
+class Solution:
+    def erase(self, intervals: List[List[int]]) -> int:
+        intervals.sort(key = lambda x: x[0])
+        n = len(intervals)
+        memo = {}
+        def dfs(i):
+            if i in memo:
+                return memo[i]
+            res = 1
+            for j in range(i + 1, n):
+                if intervals[i][1] <= intervals[j][0]:
+                    res = max(res, 1 + dfs(j))
+            memo[i] = res
+            return res
+        return n - dfs(0)
+#time complexity: O(n^2)
+#space complexity: O(n)
