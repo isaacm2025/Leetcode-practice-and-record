@@ -43,3 +43,18 @@ class Solution:
                 return nums[i]
 #time complexity: O(n^2)
 #space complexity: O(1)
+
+
+#hashset
+from typing import List
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        seen = set() # create a set to store the numbers we have seen
+        for num in nums:
+            if num in seen:
+                seen.remove(num) # remove the number if it is already in the set
+            else:
+                seen.add(num) # add the number to the set if it is not in the set
+        return list(seen)[0] #return the only number left in the set
+#time complexity: O(n)
+#space complexity: O(n)
