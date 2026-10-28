@@ -37,9 +37,20 @@ from typing import List
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
         n = len(nums)
-        numSet = set(nums) # create a set of the numbers in nums
+        numSet = set(nums) # create a set of the numbers in nums, use set because it has O(1) average time complexity for lookups
         for i in range(n + 1):
             if i not in numSet:
                 return i
 #time complexity: O(n)
 #space complexity: O(n)
+
+#math
+from typing import List
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        res = len(nums) # initialize res to the length of nums
+        for i in range(len(nums)):
+            res += i - nums[i] # add the index and subtract the number at that index
+        return res
+#time complexity: O(n)
+#space complexity: O(1)
