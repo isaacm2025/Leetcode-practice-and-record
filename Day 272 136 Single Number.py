@@ -58,3 +58,18 @@ class Solution:
         return list(seen)[0] #return the only number left in the set
 #time complexity: O(n)
 #space complexity: O(n)
+
+#sorting
+from typing import List
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        nums.sort()
+        i = 0
+        while i < len(nums) - 1:
+            if nums[i] == nums[i + 1]:
+                i += 2 # skip the next number since it is a duplicate
+            else:
+                return nums[i] # return the number that is not a duplicate
+        return nums[-1] # return the last number if it is not a duplicate
+#time complexity: O(nlogn)
+#space complexity: O(1)
