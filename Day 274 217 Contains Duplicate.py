@@ -38,3 +38,15 @@ class Solution:
         return False
 #time complexity is O(nlogn) where n is the length of nums.
 #space complexity is O(1) as we are not using any extra space.
+
+#hash set
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        seen = set()
+        for num in nums:
+            if num in seen:
+                return True
+            seen.add(num)
+        return False
+#time complexity is O(n) where n is the length of nums.
+#space complexity is O(n) where n is the length of nums.
