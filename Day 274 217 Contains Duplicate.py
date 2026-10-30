@@ -27,3 +27,14 @@ class Solution:
         return False
 #time complexity is O(n^2) where n is the length of nums.
 #space complexity is O(1) as we are not using any extra space.
+
+#sorting
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        nums.sort()
+        for i in range(len(nums) - 1):
+            if nums[i] == nums[i + 1]:
+                return True
+        return False
+#time complexity is O(nlogn) where n is the length of nums.
+#space complexity is O(1) as we are not using any extra space.
