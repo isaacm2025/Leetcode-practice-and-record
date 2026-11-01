@@ -37,3 +37,27 @@ class Solution:
         return res
 #time complexity is O(n^2) where n is the length of nums.
 #space complexity is O(n) where n is the length of nums.
+
+#sorting
+from typing import List
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        res = 0
+        nums.sort()
+        curr, streak = nums[0], 0
+        i = 0
+        while i < len(nums):
+            if curr != nums[i]:
+                curr = nums[i]
+                streak = 0
+            while i < len(nums) and nums[i] == curr:
+                i += 1
+            streak += 1
+            curr += 1
+            res = max(res, streak)
+        return res
+#time complexity is O(nlogn) where n is the length of nums.
+#space complexity is O(1) where n is the length of nums.
+
