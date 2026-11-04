@@ -36,3 +36,25 @@ class Solution:
         return -1
 #time complexity: O(n) where n is the length of nums. We need to iterate through the entire array to find the target element.
 #space complexity: O(1) since we are using a constant amount of extra space.
+
+#bs
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            m = (l + r) // 2
+            if target == nums[m]:
+                return m
+            if nums[l] <= nums[m]:
+                if target > nums[m] or target < nums[l]:
+                    l = m + 1
+                else:
+                    r = m - 1
+            else:
+                if target < nums[m] or target > nums[r]:
+                    r = m - 1
+                else:
+                    l = m + 1
+        return -1
+#time complexity: O(log n) where n is the length of nums. The binary search takes log n time, and for each iteration, we are performing constant time operations.
+#space complexity: O(1) since we are using a constant amount of extra space.
