@@ -56,3 +56,5 @@ class Solution:
             oldToCopy[cur].random = oldToCopy[cur.random]
             cur = cur.next
         return oldToCopy[head]
+#time complexity: O(n) where n is the number of nodes in the linked list
+#space complexity: O(n) where n is the number of nodes in the linked list
