@@ -52,11 +52,12 @@ class Solution:
         dummy = node = ListNode()
         while list1 and list2:
             if list1.val < list2.val:
-                node.next = list1
-                list1 = list1.next
+                node.next = list1 # If the value of the current node in list1 is less than the value of the current node in list2, we set the next pointer of the current node in the merged list to point to the current node in list1. This effectively adds the current node from list1 to the merged list.
+                list1 = list1.next # We then move the pointer in list1 to the next node, so that we can continue comparing the next nodes in the next iteration of the loop.
             else:
                 node.next = list2
                 list2 = list2.next
             node = node.next
         node.next = list1 or list2 # If one of the lists is not empty, we can simply append the remaining nodes to the merged list. This is because both lists are already sorted
         return dummy.next
+#O(n + m) time complexity, O(1) space complexity
