@@ -37,3 +37,20 @@ class Solution:
         return s == ''
 #time complexity: O(n^2) where n is the length of the string s
 #space complexity: O(n) where n is the length of the string s
+
+#stack
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        Close = {')': '(', ']': '[', '}': '{'}
+        for c in s:
+            if c in Close:
+                if stack and stack[-1] == Close[c]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(c)
+        return not stack
+#time complexity: O(n) where n is the length of the string s
+#space complexity: O(n) where n is the length of the string s
