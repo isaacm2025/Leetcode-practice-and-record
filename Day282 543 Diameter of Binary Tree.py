@@ -45,3 +45,43 @@ class Solution:
         return res
 #time complexity: O(n)
 #space complexity: O(log(n)) in average case, O(n) in worst case
+
+#bfs
+from collections import deque
+class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+
+        parent = {root: None}
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            for child in (node.left, node.right):
+                if child:
+                    parent[child] = node
+                    queue.append(child)
+
+        def farthest(start):
+            queue = deque([(start, 0)])
+            visited = {start}
+            farthest_node, distance = start, 0
+
+            while queue:
+                node, depth = queue.popleft()
+                if depth > distance:
+                    farthest_node, distance = node, depth
+
+                neighbors = [node.left, node.right, parent[node]]
+                for neighbor in neighbors:
+                    if neighbor and neighbor not in visited:
+                        visited.add(neighbor)
+                        queue.append((neighbor, depth + 1))
+
+            return farthest_node, distance
+
+        endpoint, _ = farthest(root)
+        _, diameter = farthest(endpoint)
+        return diameter
+#time complexity: O(n)
+#space complexity: O(n)
