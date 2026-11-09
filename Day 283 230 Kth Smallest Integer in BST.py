@@ -49,3 +49,27 @@ class Solution:
         return res[k-1]
 #time complexity: O(nlogn)
 #space complexity: O(n)
+
+#op dp
+from typing import List
+class TreeNode:
+    def __init__(self, val = 0, left = None, right = None):
+        self.val = val
+        self.left = left
+        self.right = right
+class Solution:
+    def KthSmallest(self, root: TreeNode, k: int) -> int:
+        res = []
+        curr = root
+        while res or curr:
+            while curr:
+                res.append(curr)
+                curr = curr.left
+            curr = res.pop()
+            k -= 1
+            if k == 0:
+                return curr.val
+            curr = curr.right
+#time complexity: O(n)
+#space complexity: O(h) where h is the height of the tree
+            
