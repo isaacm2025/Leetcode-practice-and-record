@@ -36,3 +36,13 @@ class Solution:
         return res
 #time complexity: O(n*2^n) where n is the length of nums. We have 2^n subsets and for each subset, we need to copy it to the result list which takes O(n) time.
 #space complexity: O(n) where n is the length of nums. The maximum depth of the recursion tree is n, and we are using a list to store the current subset which can have at most n elements.
+
+#iteration
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = [[]]
+        for num in nums:
+            res += [subset + [num] for subset in res]
+        return res
+#time complexity: O(n*2^n) where n is the length of nums.
+#space complexity: O(n*2^n) where n is the length of nums.
