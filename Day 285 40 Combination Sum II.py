@@ -51,3 +51,23 @@ class Solution:
         return res
 #time complexity: O(2^n) where n is the length of candidates. In the worst case, we have to explore all possible combinations of candidates.
 #space complexity: O(n) where n is the length of candidates. The maximum depth of the recursion tree is n, and we are using a list to store the current combination which can have at most n elements.
+
+#bf
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = set()
+        candidates.sort()
+        def backtrack(i, cur, total):
+            if total == target:
+                res.add(tuple(cur))
+                return
+            if total > target or i == len(candidates):
+                return
+            cur.append(candidates[i])
+            backtrack(i + 1, cur, total + candidates[i])
+            cur.pop()
+            backtrack(i + 1, cur, total)
+        backtrack(0, [], 0)
+        return [list(combination) for combination in res]
+#time complexity: O(n * 2^n) where n is the length of candidates. In the worst case, we have to explore all possible combinations of candidates.
+#space complexity: O(n* 2^n) where n is the length of candidates. The maximum depth of the recursion tree is n, and we are using a list to store the current combination which can have at most n elements.
