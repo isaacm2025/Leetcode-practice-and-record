@@ -33,3 +33,18 @@ class Solution:
 #time complexity: O(n*n!) where n is the length of nums. We have n! permutations and for each permutation, we need to copy it to the result list which takes O(n) time.
 #space complexity: O(n*n!) where n is the length of nums. We are storing n! permutations and each permutation can have at most n elements.
         
+#iteration
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        perms = [[]]
+        for num in nums:
+            newPerms = []
+            for p in perms:
+                for i in range(len(p) + 1):
+                    p_copy = p.copy()
+                    p_copy.insert(i, num)
+                    newPerms.append(p_copy)
+            perms = newPerms
+        return perms
+#time complexity: O(n*n!) where n is the length of nums. We have n! permutations and for each permutation, we need to copy it to the result list which takes O(n) time.
+#space complexity: O(n*n!) where n is the length of nums. We are storing n! permutations and each permutation can have at most n elements.
