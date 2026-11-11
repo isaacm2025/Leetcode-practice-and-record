@@ -35,3 +35,21 @@ class Solution:
         return [list(s) for s in res]
 #time complexity: O(2^n) where n is the length of nums. In the worst case, we have to explore all possible subsets of nums.
 #space complexity: O(n) where n is the length of nums. The maximum depth of the recursion tree is n, and we are using a list to store the current subset which can have at most n elements.
+
+#backtracking
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+        def backtrack(i, subset):
+            res.append(subset[::])
+            for j in range(i, len(nums)):
+                if j > i and nums[j] == nums[j - 1]:
+                    continue
+                subset.append(nums[j])
+                backtrack(j + 1, subset)
+                subset.pop()
+        backtrack(0, [])
+        return res
+#time complexity: O(2^n) where n is the length of nums. In the worst case, we have to explore all possible subsets of nums.
+#space complexity: O(n) where n is the length of nums. The maximum depth of the recursion tree is n, and we are using a list to store the current subset which can have at most n elements.
