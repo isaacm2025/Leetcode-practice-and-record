@@ -40,3 +40,18 @@ class Solution:
         return res
 #time complexity: O(4^n/sqrt(n))  Catalan number
 #space complexity: O(n)  for the recursion stack and the result list
+
+
+#dp
+class Solution:
+    def genParenthesis(self, n: int) -> List[str]:
+        res = [[] for _ in range(n + 1)]
+        res[0] = [""]
+        for k in range(n + 1):
+            for i in range(k):
+                for left in res[i]:
+                    for right in res[k - i - 1]:
+                        res[k].append("(" + left + ")" + right)
+        return res[-1]
+#time complexity: O(4^n/sqrt(n))  Catalan number
+#space complexity: O(n)  for the result list
