@@ -29,3 +29,11 @@ class Solution:
 #time complexity: O(nlogn) for sorting the array, where n is the number of elements in the array.
 #space complexity: O(1) for using the same array to store the elements.
 
+
+#minHeap
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return heapq.nlargest(k, nums)[-1]
+#time complexity: O(nlogk) for adding each element to the min heap, where n is the number of elements in the array and k is the number of largest elements to return.
+#space complexity: O(k) for storing the k largest elements in the min heap.
