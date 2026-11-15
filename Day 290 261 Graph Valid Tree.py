@@ -47,3 +47,29 @@ class Solution:
         return len(visit) == n
 #time complexity: O(V+E) where V is the number of nodes and E is the number of edges
 #space complexity: O(V+E) for the graph representation and the recursion stack
+
+#bfs
+from collections import deque
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if len(edges) > (n - 1):
+            return False
+        adj = [[] for i in range(n)]
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        visit = set()
+        q = deque([(0, -1)])
+        visit.add(0)
+        while q:
+            node, par = q.popleft()
+            for nei in adj[node]:
+                if nei == par:
+                    continue
+                if nei in visit:
+                    return False
+                visit.add(nei)
+                q.append((nei, node))
+        return len(visit) == n
+#time complexity: O(V+E) where V is the number of nodes and E is the number of edges
+#space complexity: O(V+E) for the graph representation and the queue
