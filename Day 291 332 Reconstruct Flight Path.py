@@ -62,3 +62,21 @@ class Solution:
         return res
 #time complexity: O(E + V) where E is the number of edges and V is the number of vertices
 #space complexity: O(V + E) where V is the number of vertices
+
+#iteration
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        adj = defaultdict(list)
+        for src, dst in sorted(tickets)[::-1]:
+            adj[src].append(dst)
+        res = []
+        stack = ["JFK"]
+        while stack: 
+            curr = stack[-1]
+            if not adj[curr]:
+                res.append(stack.pop())
+            else:
+                stack.append(adj[curr].pop())
+        return res[::-1]
+#time complexity: O(ElogE) where E is the number of edges
+#space complexity: O(E) where E is the number of edges
