@@ -24,6 +24,7 @@ Constraints:
 -1000 <= target <= 1000
 '''
 #recursion
+from collections import defaultdict
 from typing import List
 class Solution:
     def findTarget(self, nums: List[int], target: int) -> int:
@@ -34,3 +35,18 @@ class Solution:
         return dfs(0, 0)
 #time complexity: O(2^n)
 #space complexity: O(n)
+
+#dp
+from typing import List
+class Solution:
+    def findTarget(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        dp = [defaultdict(int) for _ in range(n + 1)]
+        dp[n][0] = 1
+        for i in range(n):
+            for total, count in dp[i].items():
+                dp[i + 1][total + nums[i]] += count
+                dp[i + 1][total - nums[i]] += count
+        return dp[n][target]
+#time complexity: O(n * total)
+#space complexity: O(n * total)
