@@ -45,3 +45,18 @@ class Solution:
         return dfs(0)
 #time complexity: O(n^3)
 #space complexity: O(n)
+
+#dp
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
+        for i in range(len(s) -1, -1, -1):
+            for j in wordDict:
+                if i + len(j) <= len(s) and s[i: i + len(j)] == j:
+                    dp[i] = dp[i + len(j)]
+                if dp[i]:
+                    break
+        return dp[0]
+#time complexity: O(n^2)
+#space complexity: O(n)
