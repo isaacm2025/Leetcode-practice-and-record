@@ -40,3 +40,23 @@ class Solution:
         return dp[n][target]
 #time complexity: O(n * target)
 #space complexity: O(n * target)
+
+#hashset
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        if sum(nums) % 2:
+            return False
+        dp = set()
+        dp.add(0)
+        target = sum(nums) // 2
+        for i in range(len(nums) -1, -1, -1):
+            nextDp = set()
+            for j in dp:
+                if j + nums[i] == target:
+                    return True
+                nextDp.add(j)
+                nextDp.add(j + nums[i])
+            dp = nextDp
+        return False
+#time complexity: O(n * target)
+#space complexity: O(target)
