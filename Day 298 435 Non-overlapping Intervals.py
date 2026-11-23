@@ -36,3 +36,19 @@ class Solution:
         return n - maxNonOverlap
 #time complexity: O(n^2)
 #space complexity: O(n)
+
+#greedy
+class Solution:
+    def erase(self, intervals: List[List[int]]) -> int:
+        intervals.sort()
+        res = 0
+        prevEnd = intervals[0][1]
+        for i, j in intervals[1:]:
+            if i >= prevEnd:
+                prevEnd = j
+            else:
+                res += 1
+                prevEnd = min(prevEnd, j)
+        return res
+#time complexity: O(nlogn)
+#space complexity: O(1)
